@@ -9,7 +9,7 @@ export default function layout (nodeIds, vertices) {
       positions.push({
         id,
         x,
-        y: y - step.length / 2,
+        y: y - step.length / 2
       });
       y++;
     }
@@ -17,7 +17,6 @@ export default function layout (nodeIds, vertices) {
   }
   return positions;
 }
-
 
 function orderForward (nodeIds, vertices) {
   var seen = {};

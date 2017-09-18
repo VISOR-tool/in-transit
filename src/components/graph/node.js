@@ -7,7 +7,7 @@ export default class Node extends Component {
 
   render () {
     const { shape, label, x, y, size, color } = this.props;
-    const labelRotation = this.props.labelRotation || 90;
+    const labelRotation = typeof this.props.labelRotation === 'number' ? this.props.labelRotation : 90;
     const { mapX, mapY, zoom } = this.context;
 
     var attrs = {
@@ -34,14 +34,14 @@ export default class Node extends Component {
         {shapeComponent}
 
         <g transform={'translate(' + mapX(x) + ',' + mapY(y) + ')'}>
-        {(labelRotation <= 180) ?
-         <text x={zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(zoom * size / 2)}>
-            {label}
-         </text> :
-         <text x={- zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 270) + ')'} text-anchor='end' font-size={Math.round(zoom * size / 2)}>
-            {label}
+          {(labelRotation <= 180)
+         ? <text x={zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(zoom * size / 2)}>
+           {label}
+         </text>
+         : <text x={-zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 270) + ')'} text-anchor='end' font-size={Math.round(zoom * size / 2)}>
+           {label}
          </text>}
-         
+
         </g>
       </g>
     );

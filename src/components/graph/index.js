@@ -93,19 +93,19 @@ export default class Graph extends Component {
       nodeById[node.id] = node;
     }
 
-    const mapX = x => x * 80
-    const mapY = y => y * 80
+    const mapX = x => x * 80;
+    const mapY = y => y * 80;
     var links = lanes.map(lane => ({
       path: lane.nodes.map(id => {
         const node = nodeById[id];
         return {
           x: mapX(node.x),
-          y: mapY(node.y),
+          y: mapY(node.y)
         };
       }),
       ...lane
     }));
-    
+
     return (
       <svg xmlns={NS_SVG} version='1.1'
         viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice'
@@ -116,8 +116,8 @@ export default class Graph extends Component {
         onMousewheel={this.onMousewheel}
         >
 
-      {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={24} shape='circle' label=''/>)}
-      {links.map(link => <Path path={link.path} size={6} color={link.color}/>)}
+        {links.map(link => <Path path={link.path} size={6} color={link.color} />)}
+        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={24} shape='circle' label={node.title || ''} labelRotation={0} />)}
 
       </svg>
     );

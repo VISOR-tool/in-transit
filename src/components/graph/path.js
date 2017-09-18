@@ -19,7 +19,7 @@ export default class Path extends Component {
 
     return (
       <path d={d.join(' ')} fill='none'
-      stroke={color} stroke-width={zoom * size}/>
+        stroke={color} stroke-width={zoom * size} />
     );
   }
 }

@@ -14,12 +14,12 @@ class PapersGraph extends Component {
 
     this.setState({
       nodes: [],
-      lanes: [],
+      lanes: []
     });
   }
 
-  componentDidMount() {
-    this.vertices = new Vertices;
+  componentDidMount () {
+    this.vertices = new Vertices();
     this._obtain(this.props.papers);
   }
 
@@ -30,7 +30,38 @@ class PapersGraph extends Component {
   _obtain (papers) {
     return Promise.all(papers.map(
       id => this._fetchObject('paper', id)
-    )).then(papers => {
+    )).then(papers => Promise.all(papers.map(
+      paper => Promise.all((paper.consultation || []).map(
+        consultation => {
+          const organization = consultation.organization && consultation.organization.length == 1 && consultation.organization[0];
+          if (consultation.meeting) {
+            return this._fetchObject('meeting', consultation.meeting)
+              .then(meeting => ({
+                id: `meeting-${consultation.meeting}`,
+                title: meeting.name
+              }));
+          } else if (organization && organization.id) {
+            return this._fetchObject('organization', organization.id)
+              .then(organization => ({
+                id: `org-id-${organization.id}`,
+                title: organization.name
+              }));
+          } else if (organization && organization.name) {
+            return {
+              id: `org-name-${organization.name}`,
+              title: organization.name
+            };
+          } else {
+            console.log('stub consultation', consultation);
+            return null;
+          }
+        }))
+        .then(consultations => ({
+          title: paper.name,
+          consultations: consultations.filter(consultation => !!consultation)
+        }))
+    ))).then(papers => {
+      console.log('papers', papers);
       var meetingIds = {};
       var nodesById = {};
       var lanes = [];
@@ -39,25 +70,10 @@ class PapersGraph extends Component {
         var lastId;
         var laneNodes = [];
 
-        for (const consultation of (paper.consultation || [])) {
-          // console.log('consultation', consultation);
-          var id, title;
-          if (consultation.meeting) {
-            id = `meeting-${consultation.meeting}`;
-            console.log('meeting id', id, 'from', consultation);
-            meetingIds[consultation.meeting] = this._fetchObject('meeting', consultation.meeting);
-          } else if (consultation.organization && consultation.organization.id) {
-            id = `org-id-${consultation.organization.id}`;
-            console.log('organization id', id, 'from', consultation.organization);
-          } else if (consultation.organization && consultation.organization.name) {
-            title = consultation.organization.name;
-            id = `org-name-${consultation.organization.name}`;
-            console.log('organization id', id, 'from', consultation.organization);
-          } else {
-            continue;
-          }
+        for (const consultation of (paper.consultations || [])) {
+          const { id, title } = consultation;
           nodesById[id] = {
-            name,
+            title
           };
           laneNodes.push(id);
 
@@ -68,11 +84,10 @@ class PapersGraph extends Component {
         }
 
         if (laneNodes.length > 0) {
-          console.log(laneNodes.length + ' lane nodes');
           lanes.push({
-            title: paper.name,
+            title: paper.title,
             nodes: laneNodes,
-            color: COLORS[i % COLORS.length],
+            color: COLORS[i % COLORS.length]
           });
         }
         i++;
@@ -80,7 +95,7 @@ class PapersGraph extends Component {
 
       const nodes = layout(Object.keys(nodesById), this.vertices).map(node => ({
         ...node,
-        ...nodesById[node.id],
+        ...nodesById[node.id]
       }));
       this.setState({ nodes, lanes });
     });
@@ -92,7 +107,7 @@ class PapersGraph extends Component {
     }
     const indexCache = objectCache[index];
 
-    if (indexCache.hasOwnProperty(id)) return;
+    if (indexCache.hasOwnProperty(id)) return indexCache[id];
     var promise = fetch(`https://ratsinfo.offenesdresden.de/api/oparl/${index}/${id}`)
       .then(res => res.json())
       .then(json => {
@@ -105,7 +120,7 @@ class PapersGraph extends Component {
 
   render () {
     return (
-      <Graph nodes={this.state.nodes} lanes={this.state.lanes}/>
+      <Graph nodes={this.state.nodes} lanes={this.state.lanes} />
     );
   }
 }
@@ -115,7 +130,7 @@ export default class Home extends Component {
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13658, 13511, 13502]}/>
+        <PapersGraph papers={[13658, 13511, 13502]} />
       </div>
     );
   }
