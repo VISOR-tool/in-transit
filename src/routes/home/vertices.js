@@ -17,11 +17,11 @@ export default class Vertices {
   }
 
   from (from) {
-    return Object.keys(this.linksFrom[from] || {});
+    return Object.keys(this.linksFrom[from] || {}).sort();
   }
 
   to (to) {
-    return Object.keys(this.linksTo[to] || {});
+    return Object.keys(this.linksTo[to] || {}).sort();
   }
 
   startNodes () {
@@ -50,6 +50,7 @@ export default class Vertices {
     if (froms.length > 0) {
       var newSeen = { ...seen };
       newSeen[to] = true;
+      // return 1 + avg(froms.map(from => this.distanceToStart(from, newSeen)));
       return 1 + Math.min.apply(Math, froms.map(from => this.distanceToStart(from, newSeen)));
     } else {
       return 0;
@@ -62,9 +63,18 @@ export default class Vertices {
     if (tos.length > 0) {
       var newSeen = { ...seen };
       newSeen[from] = true;
-      return 1 + Math.min.apply(Math, tos.map(to => this.distanceToEnd(to, newSeen)));
+      // return 1 + avg(tos.map(to => this.distanceToEnd(to, newSeen)));
+      return 1 + Math.max.apply(Math, tos.map(to => this.distanceToEnd(to, newSeen)));
     } else {
       return 0;
     }
+  }
+}
+
+function avg(xs) {
+  if (xs.length < 1) {
+    return 0;
+  } else {
+    return xs.reduce((sum, x) => sum + x) / xs.length;
   }
 }

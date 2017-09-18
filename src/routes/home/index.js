@@ -44,12 +44,14 @@ class PapersGraph extends Component {
           } else if (organization && organization.id) {
             return this._fetchObject('organization', organization.id)
               .then(organization => ({
-                id: `org-id-${organization.id}`,
+                id: `paper-${paper.id}-org-id-${organization.id}`,
+                // id: `org-id-${organization.id}`,
                 title: organization.name
               }));
           } else if (organization && organization.name) {
             return {
-              id: `org-name-${organization.name}`,
+              id: `paper-${paper.id}-org-name-${organization.name}`,
+              // id: `org-name-${organization.name}`,
               title: organization.name
             };
           } else {
@@ -58,11 +60,11 @@ class PapersGraph extends Component {
           }
         }))
         .then(consultations => ({
+          id: paper.id,
           title: paper.name,
           consultations: consultations.filter(consultation => !!consultation)
         }))
     ))).then(papers => {
-      console.log('papers', papers);
       var meetingIds = {};
       var nodesById = {};
       var lanes = [];
@@ -86,6 +88,7 @@ class PapersGraph extends Component {
 
         if (laneNodes.length > 0) {
           lanes.push({
+            id: paper.id,
             title: paper.title,
             nodes: laneNodes,
             color: COLORS[i % COLORS.length]
@@ -130,6 +133,7 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
+        // <PapersGraph papers={[13055, 13374, 11573]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>

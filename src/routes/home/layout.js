@@ -2,6 +2,7 @@ import { flatten, uniqStrings } from '../../lib/util';
 
 export default function layout (nodeIds, vertices) {
   const steps = order(nodeIds, vertices);
+  console.log('steps', steps);
 
   var positions = [];
   var x = 0;
@@ -23,7 +24,9 @@ export default function layout (nodeIds, vertices) {
 function order (nodeIds, vertices) {
   var steps = [];
   for (const nodeId of nodeIds) {
-    const i = 100 + 10 * vertices.distanceToStart(nodeId) - vertices.distanceToEnd(nodeId);
+    // const i = Math.round(10 * (100 + 2 * vertices.distanceToStart(nodeId) - vertices.distanceToEnd(nodeId)));
+    const i = 1000 - vertices.distanceToEnd(nodeId);
+    console.log('node', nodeId, 'd', vertices.distanceToStart(nodeId), vertices.distanceToEnd(nodeId), 'index', i);
     if (!steps[i]) steps[i] = [];
     steps[i].push(nodeId);
   }
