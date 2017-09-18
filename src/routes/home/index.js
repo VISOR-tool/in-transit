@@ -3,6 +3,7 @@ import style from './style';
 import Graph from '../../components/graph';
 import Vertices from './vertices';
 import layout from './layout';
+import { uniqStrings } from '../../lib/util';
 
 const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
 
@@ -93,10 +94,12 @@ class PapersGraph extends Component {
         i++;
       }
 
-      const nodes = layout(Object.keys(nodesById), this.vertices).map(node => ({
+      const nodeIds = uniqStrings(Object.keys(nodesById));
+      const nodes = layout(nodeIds, this.vertices).map(node => ({
         ...node,
         ...nodesById[node.id]
       }));
+      console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
       this.setState({ nodes, lanes });
     });
   }

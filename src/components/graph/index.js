@@ -117,7 +117,7 @@ export default class Graph extends Component {
         >
 
         {links.map(link => <Path path={link.path} size={6} color={link.color} />)}
-        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={24} shape='circle' label={node.title || ''} labelRotation={0} />)}
+        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={24} shape='circle' label={node.title || ''} labelRotation={60} />)}
 
       </svg>
     );
