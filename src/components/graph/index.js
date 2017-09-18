@@ -134,23 +134,23 @@ export default class Graph extends Component {
         const y2 = outIndex < 0 ? null : LANE_SPACING / 2 + (LANE_SIZE + LANE_SPACING) * (outIndex - (outs.length - 1) / 2);
         console.log('ins:', inIndex, ins.length, 'outs:', outIndex, outs.length, 'y:', y1, y2);
 
-        if (y1 === y2 || y2  === null) {
+        if (y1 === y2 || y2 === null) {
           return [{
             x: mapX(node.x),
-            y: mapY(node.y) + y1,
+            y: mapY(node.y) + y1
           }];
         } else if (typeof y1 === null) {
           return [{
             x: mapX(node.x),
-            y: mapY(node.y) + y2,
+            y: mapY(node.y) + y2
           }];
         } else {
           return [{
             x: mapX(node.x),
-            y: mapY(node.y) + y1,
+            y: mapY(node.y) + y1
           }, {
             x: mapX(node.x),
-            y: mapY(node.y) + y2,
+            y: mapY(node.y) + y2
           }];
         }
       })),
@@ -169,7 +169,7 @@ export default class Graph extends Component {
         >
 
         {links.map(link => <Path path={link.path} size={LANE_SIZE} color={link.color} />)}
-        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={24} shape='circle' label={node.title || ''} labelRotation={60} />)}
+        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={node.size} shape={node.shape} label={node.title || ''} labelRotation={60} />)}
 
       </svg>
     );

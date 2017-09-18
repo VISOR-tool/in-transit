@@ -44,34 +44,40 @@ export default class Vertices {
     return result;
   }
 
-  distanceToStart (to, seen={}) {
-    const froms = this.to(to)
-          .filter(from => !seen[from]);
-    if (froms.length > 0) {
-      var newSeen = { ...seen };
-      newSeen[to] = true;
-      // return 1 + avg(froms.map(from => this.distanceToStart(from, newSeen)));
-      return 1 + Math.min.apply(Math, froms.map(from => this.distanceToStart(from, newSeen)));
-    } else {
+  distanceToStart (to, seen = {}) {
+    var froms = this.to(to);
+    if (froms.length === 0) {
       return 0;
+    }
+    var newSeen = { ...seen };
+    newSeen[to] = true;
+    froms = froms.filter(from => !newSeen[from]);
+    if (froms.length > 0) {
+      // return 1 + avg(froms.map(from => this.distanceToStart(from, newSeen)));
+      return 1 + Math.max.apply(Math, froms.map(from => this.distanceToStart(from, newSeen)));
+    } else {
+      return 1;
     }
   }
 
-  distanceToEnd (from, seen={}) {
-    const tos = this.from(from)
-          .filter(to => !seen[to]);
-    if (tos.length > 0) {
-      var newSeen = { ...seen };
-      newSeen[from] = true;
-      // return 1 + avg(tos.map(to => this.distanceToEnd(to, newSeen)));
-      return 1 + Math.max.apply(Math, tos.map(to => this.distanceToEnd(to, newSeen)));
-    } else {
+  distanceToEnd (from, seen = {}) {
+    var tos = this.from(from);
+    if (tos.length === 0) {
       return 0;
+    }
+    var newSeen = { ...seen };
+    newSeen[from] = true;
+    tos = tos.filter(to => !newSeen[to]);
+    if (tos.length > 0) {
+      // return 1 + avg(tos.map(to => this.distanceToEnd(to, newSeen)));
+      return 1 + Math.min.apply(Math, tos.map(to => this.distanceToEnd(to, newSeen)));
+    } else {
+      return 1;
     }
   }
 }
 
-function avg(xs) {
+function avg (xs) {
   if (xs.length < 1) {
     return 0;
   } else {

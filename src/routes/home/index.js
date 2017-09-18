@@ -8,6 +8,22 @@ import { uniqStrings } from '../../lib/util';
 const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
 
 var objectCache = {};
+function fetchObject (index, id) {
+  if (!objectCache.hasOwnProperty(index)) {
+    objectCache[index] = {};
+  }
+  const indexCache = objectCache[index];
+
+  if (indexCache.hasOwnProperty(id)) return indexCache[id];
+  var promise = fetch(`https://ratsinfo.offenesdresden.de/api/oparl/${index}/${id}`)
+                      .then(res => res.json())
+                      .then(json => {
+                        indexCache[id] = json;
+                        return json;
+                      });
+  indexCache[id] = promise;
+  return promise;
+}
 
 class PapersGraph extends Component {
   constructor () {
@@ -30,39 +46,54 @@ class PapersGraph extends Component {
 
   _obtain (papers) {
     return Promise.all(papers.map(
-      id => this._fetchObject('paper', id)
+      id => fetchObject('paper', id)
     )).then(papers => Promise.all(papers.map(
       paper => Promise.all((paper.consultation || []).map(
         consultation => {
           const organization = consultation.organization && consultation.organization.length == 1 && consultation.organization[0];
           if (consultation.meeting) {
-            return this._fetchObject('meeting', consultation.meeting)
-              .then(meeting => ({
-                id: `meeting-${consultation.meeting}`,
-                title: meeting.name
-              }));
+            return fetchObject('meeting', consultation.meeting)
+              .then(meeting => {
+                const organization = meeting.organization && meeting.organization[0];
+                if (organization) {
+                  return fetchObject('organization', organization)
+                    .then(organization => ({
+                      id: `org-${organization.id}`,
+                      title: organization.name,
+                      shape: 'circle',
+                    }));
+                } else {
+                  return {
+                    id: `meeting-${consultation.meeting}`,
+                    title: meeting.name,
+                    shape: 'circle',
+                  };
+                }
+              });
           } else if (organization && organization.id) {
-            return this._fetchObject('organization', organization.id)
+            return fetchObject('organization', organization.id)
               .then(organization => ({
-                id: `paper-${paper.id}-org-id-${organization.id}`,
-                // id: `org-id-${organization.id}`,
-                title: organization.name
+                // id: `paper-${paper.id}-org-id-${organization.id}`,
+                id: `org-id-${organization.id}`,
+                title: organization.name,
+                shape: 'square',
               }));
           } else if (organization && organization.name) {
             return {
-              id: `paper-${paper.id}-org-name-${organization.name}`,
-              // id: `org-name-${organization.name}`,
-              title: organization.name
+              // id: `paper-${paper.id}-org-name-${organization.name}`,
+              id: `org-name-${organization.name}`,
+              title: organization.name,
+              shape: 'square',
             };
           } else {
             console.log('stub consultation', consultation);
             return null;
           }
         }))
-        .then(consultations => ({
-          id: paper.id,
+        .then(orgs => ({
+          id: console.log('orgs', orgs) || paper.id,
           title: paper.name,
-          consultations: consultations.filter(consultation => !!consultation)
+          orgs: orgs.filter(org => !!org)
         }))
     ))).then(papers => {
       var meetingIds = {};
@@ -73,11 +104,9 @@ class PapersGraph extends Component {
         var lastId;
         var laneNodes = [];
 
-        for (const consultation of (paper.consultations || [])) {
-          const { id, title } = consultation;
-          nodesById[id] = {
-            title
-          };
+        for (const org of paper.orgs) {
+          const { id } = org;
+          nodesById[id] = org;
           laneNodes.push(id);
 
           if (lastId) {
@@ -100,28 +129,12 @@ class PapersGraph extends Component {
       const nodeIds = uniqStrings(Object.keys(nodesById));
       const nodes = layout(nodeIds, this.vertices).map(node => ({
         ...node,
-        ...nodesById[node.id]
+        size: (node.shape === 'square' ? 20 : 24) + 2 * (this.vertices.from(node.id).length + this.vertices.from(node.id).length),
+        ...nodesById[node.id],
       }));
       console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
       this.setState({ nodes, lanes });
     });
-  }
-
-  _fetchObject (index, id) {
-    if (!objectCache.hasOwnProperty(index)) {
-      objectCache[index] = {};
-    }
-    const indexCache = objectCache[index];
-
-    if (indexCache.hasOwnProperty(id)) return indexCache[id];
-    var promise = fetch(`https://ratsinfo.offenesdresden.de/api/oparl/${index}/${id}`)
-      .then(res => res.json())
-      .then(json => {
-        indexCache[id] = json;
-        return json;
-      });
-    indexCache[id] = promise;
-    return promise;
   }
 
   render () {
