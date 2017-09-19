@@ -11,7 +11,7 @@ const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
 var objectCache = {};
 
 function fetchObject(index, id){
-
+  console.log("OPROC-"+index)
   if (!objectCache.hasOwnProperty(index)) {
     objectCache[index] = {};
   }
