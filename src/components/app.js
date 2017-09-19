@@ -4,6 +4,7 @@ import { Router } from 'preact-router';
 import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
+import Oproc from '../routes/oproc';
 // import Home from 'async!./home';
 // import Profile from 'async!./profile';
 
@@ -22,6 +23,9 @@ export default class App extends Component {
         <Header />
         <Router onChange={this.handleRoute}>
           <Home path='/' />
+        </Router>
+        <Router onChange={this.handleRoute}>
+          <Oproc path='/oproc' />
         </Router>
       </div>
     );
