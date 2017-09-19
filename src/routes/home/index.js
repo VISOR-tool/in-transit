@@ -3,6 +3,7 @@ import style from './style';
 import Graph from '../../components/graph';
 import Vertices from './vertices';
 import layout from './layout';
+import * as Optimize from './optimize';
 import { uniqStrings } from '../../lib/util';
 
 const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
@@ -107,7 +108,9 @@ class PapersGraph extends Component {
         for (const org of paper.orgs) {
           const { id } = org;
           nodesById[id] = org;
-          laneNodes.push(id);
+          if (laneNodes.indexOf(id) < 0) {
+            laneNodes.push(id);
+          }
 
           if (lastId) {
             this.vertices.set(lastId, id);
@@ -133,8 +136,38 @@ class PapersGraph extends Component {
         ...nodesById[node.id],
       }));
       console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
-      this.setState({ nodes, lanes });
+      this.setState({ nodes, lanes }, () => {
+        this.optimize();
+      });
     });
+  }
+
+  optimize () {
+    const { nodes, lanes } = this.state;
+    const oldScore = Optimize.score(nodes, lanes);
+    console.log('old score:', oldScore, 'nodes:', nodes);
+    var bestGeneration;
+    var bestScore = null;
+    for (let i = 0; i < 1000; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(20 * Math.random()));
+      const newScore = Optimize.score(newGeneration, lanes);
+      // console.log('new score:', newScore, 'gen:', newGeneration);
+      if (bestScore === null || newScore > bestScore) {
+        bestGeneration = newGeneration;
+        bestScore = newScore;
+      }
+    }
+    if (bestScore > oldScore) {
+      console.log('best score:', bestScore);
+      this.setState({
+        nodes: bestGeneration,
+      }, () => {
+        setTimeout(() => this.optimize(), 50);
+      });
+    } else {
+      console.log('skip score:', bestScore);
+      setTimeout(() => this.optimize(), 50);
+    }
   }
 
   render () {
@@ -146,11 +179,11 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13055, 13374, 11573]} />
+        // <PapersGraph papers={[13658, 13511, 13502]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13658, 13511, 13502]} />
+        <PapersGraph papers={[13055, 13374, 11573]} />
       </div>
     );
   }

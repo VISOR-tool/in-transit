@@ -27,7 +27,6 @@ function order (nodeIds, vertices) {
     // const i = Math.round(100 + 5 * vertices.distanceToStart(nodeId) - 3 * vertices.distanceToEnd(nodeId));
     const i = 1000 - vertices.distanceToEnd(nodeId);
     // const i = vertices.distanceToStart(nodeId);
-    console.log('node', nodeId, 'd', vertices.distanceToStart(nodeId), vertices.distanceToEnd(nodeId), 'index', i);
     if (!steps[i]) steps[i] = [];
     steps[i].push(nodeId);
   }

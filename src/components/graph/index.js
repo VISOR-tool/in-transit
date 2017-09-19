@@ -132,7 +132,6 @@ export default class Graph extends Component {
         const outs = nodeOuts[id];
         const outIndex = outs.indexOf(lane.id);
         const y2 = outIndex < 0 ? null : LANE_SPACING / 2 + (LANE_SIZE + LANE_SPACING) * (outIndex - (outs.length - 1) / 2);
-        console.log('ins:', inIndex, ins.length, 'outs:', outIndex, outs.length, 'y:', y1, y2);
 
         if (y1 === y2 || y2 === null) {
           return [{
