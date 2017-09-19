@@ -55,21 +55,26 @@ class PapersGraph extends Component {
           if (consultation.meeting) {
             return fetchObject('meeting', consultation.meeting)
               .then(meeting => {
-                const organization = meeting.organization && meeting.organization[0];
-                if (organization) {
-                  return fetchObject('organization', organization)
-                    .then(organization => ({
-                      id: `org-${organization.id}`,
-                      title: organization.name,
-                      shape: 'circle',
-                    }));
-                } else {
+                // const organization = meeting.organization && meeting.organization[0];
+                // if (organization) {
+                //   return fetchObject('organization', organization)
+                //     .then(organization => ({
+                //       id: `org-${organization.id}`,
+                //       title: organization.name,
+                //       shape: 'circle',
+                //     }));
+                // } else {
+                //   return {
+                //     id: `meeting-${consultation.meeting}`,
+                //     title: meeting.name,
+                //     shape: 'circle',
+                //   };
+                // }
                   return {
                     id: `meeting-${consultation.meeting}`,
                     title: meeting.name,
                     shape: 'circle',
                   };
-                }
               });
           } else if (organization && organization.id) {
             return fetchObject('organization', organization.id)
@@ -162,11 +167,11 @@ class PapersGraph extends Component {
       this.setState({
         nodes: bestGeneration,
       }, () => {
-        setTimeout(() => this.optimize(), 50);
+        requestAnimationFrame(() => this.optimize());
       });
     } else {
       console.log('skip score:', bestScore);
-      setTimeout(() => this.optimize(), 50);
+      setTimeout(() => this.optimize(), 500);
     }
   }
 
@@ -179,11 +184,11 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13658, 13511, 13502]} />
+        // <PapersGraph papers={[13055, 13374, 11573]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13055, 13374, 11573]} />
+        <PapersGraph papers={[13658, 13511, 13502]} />
       </div>
     );
   }
