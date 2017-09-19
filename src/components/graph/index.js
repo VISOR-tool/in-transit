@@ -121,8 +121,8 @@ export default class Graph extends Component {
     }
     // console.log('nodeOuts', nodeOuts);
 
-    const mapX = x => x * 80;
-    const mapY = y => y * 80;
+    const mapX = x => x * 100;
+    const mapY = y => y * 100;
     var links = lanes.map(lane => ({
       path: flatten(lane.nodes.map(id => {
         const node = nodeById[id];

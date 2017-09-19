@@ -1,7 +1,7 @@
 import { flatten, uniqStrings } from '../../lib/util';
 
 const LEARN_RATE_INIT = 1;
-const LEARN_RATE_DEC = 0.001;
+const LEARN_RATE_DEC = 0.0001;
 
 export default function layout (nodeIds, vertices) {
   if (nodeIds.length < 1) {
@@ -17,6 +17,7 @@ export default function layout (nodeIds, vertices) {
   for (let rate = LEARN_RATE_INIT; rate > 0; rate -= LEARN_RATE_DEC) {
     learn(nodes, vertices, rate);
   }
+  snapToGrid(nodes);
   
   return nodes;
 }
@@ -65,5 +66,12 @@ function learn(nodes, vertices, rate) {
       node.x += 0.5 * rate * (rx - node.x);
       node.y += 0.5 * rate * (ry - node.y);
     }
+  }
+}
+
+export function snapToGrid (nodes) {
+  for (let node of nodes) {
+    node.x = Math.round(node.x);
+    node.y = Math.round(node.y);
   }
 }

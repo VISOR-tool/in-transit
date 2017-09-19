@@ -2,11 +2,11 @@ import { h, Component } from 'preact';
 import style from './style';
 import Graph from '../../components/graph';
 import Vertices from './vertices';
-import layout from './layout';
+import layout, { snapToGrid } from './layout';
 import * as Optimize from './optimize';
 import { uniqStrings } from '../../lib/util';
 
-const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
+const COLORS = ['red', 'blue', 'green', 'yellow', 'violet', 'orange', 'brown'];
 
 var objectCache = {};
 function fetchObject (index, id) {
@@ -153,8 +153,9 @@ class PapersGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 200; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(3 * Math.random()));
+    for (let i = 0; i < 20; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 /*+ Math.floor(20 * Math.random())*/);
+      snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
       if (bestScore === null || newScore > bestScore) {
@@ -185,10 +186,11 @@ class PapersGraph extends Component {
 export default class Home extends Component {
   render () {
         // <PapersGraph papers={[13658, 13511, 13502]} />
+        // <PapersGraph papers={[13055, 13374, 11573]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13055, 13374, 11573]} />
+        <PapersGraph papers={[13055, 13374, 11573, 13658, 13511, 13502]} />
       </div>
     );
   }

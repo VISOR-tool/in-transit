@@ -34,10 +34,10 @@ export function score (nodes, lanes) {
         const dy = Math.abs(y2 - y1);
         // console.log({dx,dy});
         
-        // if (x1 < x2) {
-        //   // Try to have right increase to right
-        //   sum += 10 * (x2 - x1);
-        // }
+        if (x1 < x2) {
+          // Try to have right increase to right
+          sum += 10 * (x2 - x1);
+        }
         
         if (dy < 0.01) {
           // Straight horizontal lines
@@ -65,7 +65,7 @@ export function score (nodes, lanes) {
         //   }
         } else {
           // Skewed line
-          sum += (20 + dx) * (20 + dy);
+          sum += (10 + dx) * (10 + dy);
         }
 
         for (const node of nodes) {
@@ -106,12 +106,29 @@ export function score (nodes, lanes) {
 }
 
 export function mutate (nodes, mutations) {
+  let minX = nodes[0].x;
+  let maxX = minX;
+  let minY = nodes[0].y;
+  let maxY = minY;
+  for(let i = 1; i < nodes.length; i++) {
+    const node = nodes[i]
+    if (node.x < minX) minX = node.x;
+    if (node.x > maxX) maxX = node.x;
+    if (node.y < minY) minY = node.y;
+    if (node.y > maxY) maxY = node.y;
+  }
+
+  minX = Math.min(-5, minX);
+  maxX = Math.max(5, maxX);
+  minY = Math.min(-5, minY);
+  maxY = Math.max(5, maxY);
+
   var mutated = nodes.map(node => ({ ...node }));
   for (let n = 0; n < mutations; n++) {
     const i = Math.floor(nodes.length * Math.random());
     var node = mutated[i];
-    node.x += (Math.ceil(20 * Math.random()) - 10) / 2;
-    node.y += (Math.ceil(20 * Math.random()) - 10) / 2;
+    node.x += (maxX - minX) * (2 * Math.random() - 1);
+    node.y += (maxY - minY) * (2 * Math.random() - 1);
   }
   return mutated;
 }
