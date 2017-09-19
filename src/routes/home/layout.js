@@ -1,7 +1,7 @@
 import { flatten, uniqStrings } from '../../lib/util';
 
 const LEARN_RATE_INIT = 1;
-const LEARN_RATE_DEC = 0.0001;
+const LEARN_RATE_DEC = 0.0005;
 
 export default function layout (nodeIds, vertices) {
   if (nodeIds.length < 1) {
@@ -69,9 +69,66 @@ function learn(nodes, vertices, rate) {
   }
 }
 
+export function recenter (nodes) {
+  // Find bounds
+  let minX = nodes[0].x;
+  let maxX = minX;
+  let minY = nodes[0].y;
+  let maxY = minY;
+  for(let i = 1; i < nodes.length; i++) {
+    const node = nodes[i]
+    if (node.x < minX) minX = node.x;
+    if (node.x > maxX) maxX = node.x;
+    if (node.y < minY) minY = node.y;
+    if (node.y > maxY) maxY = node.y;
+  }
+
+  // Centers
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+
+  // Reposition
+  for (const node of nodes) {
+    node.x -= cx;
+    node.y -= cy;
+  }
+}
+
 export function snapToGrid (nodes) {
   for (let node of nodes) {
     node.x = Math.round(node.x);
     node.y = Math.round(node.y);
+  }
+}
+
+export function eliminateGap (nodes, dim) {
+  let maxGap = null;
+  let gap1;
+  let gap2;
+  const xs = nodes.map(node => node[dim])
+        .sort((a, b) => a - b);
+  let prevX = null;
+  for (const x of xs) {
+    if (prevX !== null) {
+      const gap = x - prevX;
+      if (gap > 1 && (maxGap === null || gap > maxGap)) {
+        maxGap = gap;
+        gap1 = prevX;
+        gap2 = x;
+      }
+    }
+    prevX = x;
+  }
+
+  if (maxGap === null) {
+    console.log('No more gaps to remove');
+    return;
+  }
+  console.log('max gap', maxGap, 'between', gap1, gap2);
+  
+  for (const node of nodes) {
+    if (node[dim] >= gap2) {
+      node[dim] -= gap2 - gap1 + 1;
+    }
   }
 }

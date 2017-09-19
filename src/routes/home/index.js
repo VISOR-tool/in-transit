@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import style from './style';
 import Graph from '../../components/graph';
 import Vertices from './vertices';
-import layout, { snapToGrid } from './layout';
+import layout, { snapToGrid, eliminateGap, recenter } from './layout';
 import * as Optimize from './optimize';
 import { uniqStrings } from '../../lib/util';
 
@@ -153,8 +153,8 @@ class PapersGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 20; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 /*+ Math.floor(20 * Math.random())*/);
+    for (let i = 0; i < 1000; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(9 * Math.random()));
       snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
@@ -172,7 +172,13 @@ class PapersGraph extends Component {
       });
     } else {
       console.log('skip score:', bestScore);
-      setTimeout(() => this.optimize(), 500);
+      eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y');
+      recenter(nodes);
+      this.setState({
+        nodes,
+      }, () => requestAnimationFrame(
+        // () => this.optimize()
+      ));
     }
   }
 
@@ -185,12 +191,12 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13658, 13511, 13502]} />
         // <PapersGraph papers={[13055, 13374, 11573]} />
+        // <PapersGraph papers={[13055, 13374, 11573, 13658, 13511, 13502]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13055, 13374, 11573, 13658, 13511, 13502]} />
+        <PapersGraph papers={[13658, 13511, 13502]} />
       </div>
     );
   }
