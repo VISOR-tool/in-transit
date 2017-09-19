@@ -153,8 +153,8 @@ class PapersGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 1000; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(20 * Math.random()));
+    for (let i = 0; i < 200; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(3 * Math.random()));
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
       if (bestScore === null || newScore > bestScore) {
@@ -184,11 +184,11 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13055, 13374, 11573]} />
+        // <PapersGraph papers={[13658, 13511, 13502]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13658, 13511, 13502]} />
+        <PapersGraph papers={[13055, 13374, 11573]} />
       </div>
     );
   }

@@ -1,35 +1,69 @@
 import { flatten, uniqStrings } from '../../lib/util';
 
-export default function layout (nodeIds, vertices) {
-  const steps = order(nodeIds, vertices);
-  console.log('steps', steps);
+const LEARN_RATE_INIT = 1;
+const LEARN_RATE_DEC = 0.001;
 
-  var positions = [];
-  var x = 0;
-  for (const step of steps) {
-    var y = 0;
-    for (const id of step) {
-      positions.push({
-        id,
-        x,
-        y: y - step.length / 2
-      });
-      y++;
-    }
-    x++;
+export default function layout (nodeIds, vertices) {
+  if (nodeIds.length < 1) {
+    return [];
   }
-  return positions;
+
+  var nodes = nodeIds.map(nodeId => ({
+    id: nodeId,
+    x: 10 * Math.random() - 5,
+    y: 10 * Math.random() - 5,
+  }));
+
+  for (let rate = LEARN_RATE_INIT; rate > 0; rate -= LEARN_RATE_DEC) {
+    learn(nodes, vertices, rate);
+  }
+  
+  return nodes;
 }
 
-function order (nodeIds, vertices) {
-  var steps = [];
-  for (const nodeId of nodeIds) {
-    // const i = Math.round(100 + 5 * vertices.distanceToStart(nodeId) - 3 * vertices.distanceToEnd(nodeId));
-    const i = 1000 - vertices.distanceToEnd(nodeId);
-    // const i = vertices.distanceToStart(nodeId);
-    if (!steps[i]) steps[i] = [];
-    steps[i].push(nodeId);
+function learn(nodes, vertices, rate) {
+  let minX = nodes[0].x;
+  let maxX = minX;
+  let minY = nodes[0].y;
+  let maxY = minY;
+  for(let i = 1; i < nodes.length; i++) {
+    const node = nodes[i]
+    if (node.x < minX) minX = node.x;
+    if (node.x > maxX) maxX = node.x;
+    if (node.y < minY) minY = node.y;
+    if (node.y > maxY) maxY = node.y;
   }
-  return steps
-    .filter(step => !!step);
+
+  minX = Math.min(-5, minX);
+  maxX = Math.max(5, maxX);
+  minY = Math.min(-5, minY);
+  maxY = Math.max(5, maxY);
+  const rx = ((maxX - minX) * Math.random()) + minX;
+  const ry = ((maxY - minY) * Math.random()) + minY;
+  let nearest = null;
+  let minDist = null;
+  for (const node of nodes) {
+    var dist = Math.sqrt(
+      Math.pow(node.x - rx, 2) + Math.pow(node.y - ry, 2)
+    );
+    if (minDist === null || dist < minDist) {
+      minDist = dist;
+      nearest = node;
+    }
+  }
+
+  nearest.x += rate * (rx - nearest.x);
+  nearest.y += rate * (ry - nearest.y);
+
+  let neighborIds = {};
+  for (const neighborId of vertices.from(nearest.id).concat(vertices.to(nearest.id))) {
+    neighborIds[neighborId] = true;
+  }
+  console.log('nearest:', nearest.id, 'neighs:', Object.keys(neighborIds));
+  for (let node of nodes) {
+    if (neighborIds[node.id]) {
+      node.x += 0.5 * rate * (rx - node.x);
+      node.y += 0.5 * rate * (ry - node.y);
+    }
+  }
 }

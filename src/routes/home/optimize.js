@@ -43,7 +43,7 @@ export function score (nodes, lanes) {
           // Straight horizontal lines
           const dist = dx + dy;
           if (dist < 1) {
-            sum += 10;
+            sum += 100;
           } else {
             sum += dist / 10;
           }
@@ -51,7 +51,7 @@ export function score (nodes, lanes) {
           // Straight vertical lines
           const dist = dx + dy;
           if (dist < 1) {
-            sum += 20;
+            sum += 200;
           } else {
             sum += dist / 2;
           }
@@ -65,7 +65,7 @@ export function score (nodes, lanes) {
         //   }
         } else {
           // Skewed line
-          sum += (2 + dx) * (2 + dy);
+          sum += (20 + dx) * (20 + dy);
         }
 
         for (const node of nodes) {
