@@ -70,22 +70,18 @@ function learn(nodes, vertices, rate) {
 }
 
 export function recenter (nodes) {
-  // Find bounds
-  let minX = nodes[0].x;
-  let maxX = minX;
-  let minY = nodes[0].y;
-  let maxY = minY;
-  for(let i = 1; i < nodes.length; i++) {
-    const node = nodes[i]
-    if (node.x < minX) minX = node.x;
-    if (node.x > maxX) maxX = node.x;
-    if (node.y < minY) minY = node.y;
-    if (node.y > maxY) maxY = node.y;
+  if (nodes.length < 1) {
+    return;
   }
 
-  // Centers
-  const cx = (minX + maxX) / 2;
-  const cy = (minY + maxY) / 2;
+  let cx = 0;
+  let cy = 0;
+  for (const node of nodes) {
+    cx += node.x;
+    cy += node.y;
+  }
+  cx /= nodes.length;
+  cy /= nodes.length;
 
   // Reposition
   for (const node of nodes) {
