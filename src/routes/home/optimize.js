@@ -42,16 +42,16 @@ export function score (nodes, lanes) {
         if (dy < 0.01) {
           // Straight horizontal lines
           const dist = dx + dy;
-          if (dist < 1) {
-            sum += 100;
+          if (dist < 0.5) {
+            sum += 10;
           } else {
-            sum += dist / 10;
+            sum += dist / 4;
           }
         } else if (dx < 0.01) {
           // Straight vertical lines
           const dist = dx + dy;
-          if (dist < 1) {
-            sum += 200;
+          if (dist < 0.5) {
+            sum += 20;
           } else {
             sum += dist / 2;
           }

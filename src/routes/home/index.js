@@ -154,7 +154,7 @@ class PapersGraph extends Component {
     var bestGeneration;
     var bestScore = null;
     for (let i = 0; i < 1000; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(9 * Math.random()));
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(4 * Math.random()));
       snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
@@ -177,7 +177,7 @@ class PapersGraph extends Component {
       this.setState({
         nodes,
       }, () => requestAnimationFrame(
-        // () => this.optimize()
+        () => this.optimize()
       ));
     }
   }
@@ -191,12 +191,12 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13055, 13374, 11573]} />
+        // <PapersGraph papers={[13658, 13511, 13502]} />
         // <PapersGraph papers={[13055, 13374, 11573, 13658, 13511, 13502]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13658, 13511, 13502]} />
+        <PapersGraph papers={[13055, 13374, 11573]} />
       </div>
     );
   }
