@@ -154,7 +154,7 @@ class PapersGraph extends Component {
     var bestGeneration;
     var bestScore = null;
     for (let i = 0; i < 1000; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(4 * Math.random()));
+      const newGeneration = Optimize.mutate(nodes, 1 /*+ Math.floor(2 * Math.random())*/);
       snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
@@ -172,13 +172,17 @@ class PapersGraph extends Component {
       });
     } else {
       console.log('skip score:', bestScore);
-      eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y');
-      recenter(nodes);
-      this.setState({
-        nodes,
-      }, () => requestAnimationFrame(
-        () => this.optimize()
-      ));
+      if (eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y')) {
+        recenter(nodes);
+        this.setState({
+          nodes,
+        }, () => requestAnimationFrame(
+          () => this.optimize()
+        ));
+      } else {
+        // requestAnimationFrame(() => this.optimize());
+        console.log("Finished optimizing");
+      }
     }
   }
 

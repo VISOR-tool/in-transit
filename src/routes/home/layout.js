@@ -97,6 +97,7 @@ export function snapToGrid (nodes) {
   }
 }
 
+/// returns true if anything has been changed
 export function eliminateGap (nodes, dim) {
   let maxGap = null;
   let gap1;
@@ -118,7 +119,7 @@ export function eliminateGap (nodes, dim) {
 
   if (maxGap === null) {
     console.log('No more gaps to remove');
-    return;
+    return false;
   }
   console.log('max gap', maxGap, 'between', gap1, gap2);
   
@@ -127,4 +128,5 @@ export function eliminateGap (nodes, dim) {
       node[dim] -= gap2 - gap1 + 1;
     }
   }
+  return true;
 }

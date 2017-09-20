@@ -9,7 +9,7 @@ export function score (nodes, lanes) {
     nodesById[node.id] = node;
 
     // "Allocate" some space
-    const coord = `${Math.floor(node.x / 2)},${Math.floor(node.y / 2)}`;
+    const coord = `${Math.floor(node.x)},${Math.floor(node.y)}`;
     if (coordsUsed[coord]) {
       sum += 1000;
     } else {
@@ -34,9 +34,9 @@ export function score (nodes, lanes) {
         const dy = Math.abs(y2 - y1);
         // console.log({dx,dy});
         
-        if (x1 < x2) {
-          // Try to have right increase to right
-          sum += 10 * (x2 - x1);
+        if (x1 >= x2) {
+          // Penalize lack of left to right ordering
+          sum += 10 * (1 + x1 - x2);
         }
         
         if (dy < 0.01) {
@@ -53,7 +53,7 @@ export function score (nodes, lanes) {
           if (dist < 0.5) {
             sum += 20;
           } else {
-            sum += dist / 2;
+            sum += dist;
           }
         // } else if (Math.abs(dx - dy) < 0.01) {
         //   // 45° angle
@@ -75,7 +75,7 @@ export function score (nodes, lanes) {
               x1 - 0.5 > x && y1 - 0.5 > y &&
               x2 + 0.5 < x && y2 + 0.5 < y) {
             // Link occludes unrelated node
-            sum += 30;
+            sum += 100;
           }
         }
       }
@@ -93,7 +93,7 @@ export function score (nodes, lanes) {
         for (const line2 of polyline2.polyline) {
           if ((polyline1.lane !== polyline2.lane || i !== j) &&
               intersects(line1[0], line1[1], line2[0], line2[1])) {
-            sum += 10;
+            sum += 300;
           }
           j++;
         }
@@ -123,12 +123,17 @@ export function mutate (nodes, mutations) {
   minY = Math.min(-5, minY);
   maxY = Math.max(5, maxY);
 
-  var mutated = nodes.map(node => ({ ...node }));
+  var mutated = [].concat(nodes);
   for (let n = 0; n < mutations; n++) {
     const i = Math.floor(nodes.length * Math.random());
-    var node = mutated[i];
+    var node = { ...mutated[i] };
     node.x += (maxX - minX) * (2 * Math.random() - 1);
     node.y += (maxY - minY) * (2 * Math.random() - 1);
+    mutated = [].concat(
+      mutated.slice(0, i),
+      [node],
+      mutated.slice(i + 1)
+    );
   }
   return mutated;
 }
