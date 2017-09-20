@@ -7,18 +7,19 @@ import * as Optimize from './optimize';
 import { uniqStrings } from '../../lib/util';
 
 const COLORS = ['red', 'blue', 'green', 'yellow', 'brown'];
+const gen_cycles = 3; //genetic optimize cycles. default=1000;
 
 var objectCache = {};
 
 function fetchObject(index, id){
-  console.log("OPROC-"+index)
   if (!objectCache.hasOwnProperty(index)) {
     objectCache[index] = {};
   }
+  else return false;
   const indexCache = objectCache[index];
 
   if (indexCache.hasOwnProperty(id)) return indexCache[id];
-  var promise = fetch(`https://ratsinfo.offenesdresden.de/api/oparl/${index}/${id}`)
+  var promise = fetch(id)
       .then(res => res.json())
       .then(json => {
         indexCache[id] = json;
@@ -28,7 +29,7 @@ function fetchObject(index, id){
   return promise;
 }
 
-class PapersGraph extends Component {
+class OprocGraph extends Component {
   constructor () {
     super();
 
@@ -53,7 +54,8 @@ class PapersGraph extends Component {
     )).then(papers => Promise.all(papers.map(
       paper => Promise.all((paper.consultation || []).map(
         consultation => {
-          const organization = consultation.organization && consultation.organization.length == 1 && consultation.organization[0];
+          console.log('consultation !!! '+consultation);
+          //const organization = consultation.organization && consultation.organization.length == 1 && consultation.organization[0];
           if (consultation.meeting) {
             return fetchObject('meeting', consultation.meeting)
               .then(meeting => {
@@ -155,7 +157,7 @@ class PapersGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < gen_cycles; i++) {
       const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(20 * Math.random()));
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
@@ -186,13 +188,11 @@ class PapersGraph extends Component {
 
 export default class Home extends Component {
   render () {
-        // <PapersGraph papers={[13055, 13374, 11573]} />
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <PapersGraph papers={[13658, 13511, 13502]} />
+        <OprocGraph papers={['oproc.json',]} />
       </div>
     );
   }
 }
-

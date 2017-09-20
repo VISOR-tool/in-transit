@@ -1,0 +1,115 @@
+{
+    "id": "13658"
+    "name": "Anhörung nach § 21 der Geschäftsordnung des Stadtrats der Landeshauptstadt Dresden zum Thema „Errichtung eines Zentralen Omnibusbahnhofes (ZOB) in Dresden\"",
+    "shortName": "A0306/17",
+    "reference": "A0306/17",
+    "paperType": "Antrag DIE LINKE.",
+    "type": "https://oparl.org/schema/1.0/Paper",
+    "publishedDate": "2017-03-31",
+    "auxiliaryFile": [
+        "294412",
+        "302953",
+        "298969"
+    ],
+    "consultation": [
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "organization": [
+                {
+                    "name": "Ältestenrat",
+                    "type": "https://oparl.org/schema/1.0/Organization"
+                }
+            ],
+            "role": "beratend",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "organization": [
+                {
+                    "name": "Ältestenrat",
+                    "type": "https://oparl.org/schema/1.0/Organization"
+                }
+            ],
+            "role": "beratend",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "organization": [
+                {
+                    "name": "Dienstberatung des Oberbürgermeisters",
+                    "type": "https://oparl.org/schema/1.0/Organization"
+                }
+            ],
+            "role": "zur Information",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "organization": [
+                {
+                    "name": "Dienstberatung des Oberbürgermeisters",
+                    "type": "https://oparl.org/schema/1.0/Organization"
+                }
+            ],
+            "role": "zur Information",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "organization": [
+                {
+                    "name": "Dienstberatung des Oberbürgermeisters",
+                    "type": "https://oparl.org/schema/1.0/Organization"
+                }
+            ],
+            "role": "zur Information",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "meeting": "6254",
+            "role": "beratend       (federführend)",
+            "agendaItem": {
+                "public": false,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "meeting": "5760",
+            "role": "beschließend",
+            "authoritative": true,
+            "agendaItem": {
+                "public": true,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        },
+        {
+            "type": "https://oparl.org/schema/1.0/Consultation",
+            "meeting": "5761",
+            "role": "beschließend",
+            "authoritative": true,
+            "agendaItem": {
+                "public": true,
+                "type": "https://oparl.org/schema/1.0/AgendaItem"
+            }
+        }
+    ],
+}
