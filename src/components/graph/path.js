@@ -12,14 +12,20 @@ export default class Path extends Component {
     function mapPath (p) {
       return `${mapX(p.x)},${mapY(p.y)}`;
     }
-    const d = [`M${mapPath(path[0])}`];
-    for (const p of path.slice(1)) {
-      d.push(`L${mapPath(p)}`);
-    }
+    var prevP = path[0];
+    const lines = path.slice(1).map(p => {
+      const line = `M${mapPath(prevP)} L${mapPath(p)}`;
+      prevP = p;
+      return line;
+    });
 
     return (
-      <path d={d.join(' ')} fill='none'
-        stroke={color} stroke-width={zoom * size} />
+      <g>
+        {lines.map(line => (
+          <path d={line} fill='none'
+            stroke={color} stroke-width={zoom * size} />
+        ))}
+      </g>
     );
   }
 }
