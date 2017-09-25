@@ -127,8 +127,8 @@ export function mutate (nodes, mutations) {
   for (let n = 0; n < mutations; n++) {
     const i = Math.floor(nodes.length * Math.random());
     var node = { ...mutated[i] };
-    node.x += (maxX - minX) * (2 * Math.random() - 1);
-    node.y += (maxY - minY) * (2 * Math.random() - 1);
+    node.x += (maxX - minX) * (Math.random() - 0.5);
+    node.y += (maxY - minY) * (Math.random() - 0.5);
     mutated = [].concat(
       mutated.slice(0, i),
       [node],
