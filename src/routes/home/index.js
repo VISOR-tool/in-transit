@@ -70,11 +70,11 @@ class PapersGraph extends Component {
                 //     shape: 'circle',
                 //   };
                 // }
-                  return {
-                    id: `meeting-${consultation.meeting}`,
-                    title: meeting.name,
-                    shape: 'circle',
-                  };
+                return {
+                  id: `meeting-${consultation.meeting}`,
+                  title: meeting.name,
+                  shape: 'circle'
+                };
               });
           } else if (organization && organization.id) {
             return fetchObject('organization', organization.id)
@@ -82,14 +82,14 @@ class PapersGraph extends Component {
                 // id: `paper-${paper.id}-org-id-${organization.id}`,
                 id: `org-id-${organization.id}`,
                 title: organization.name,
-                shape: 'square',
+                shape: 'square'
               }));
           } else if (organization && organization.name) {
             return {
               // id: `paper-${paper.id}-org-name-${organization.name}`,
               id: `org-name-${organization.name}`,
               title: organization.name,
-              shape: 'square',
+              shape: 'square'
             };
           } else {
             console.log('stub consultation', consultation);
@@ -138,7 +138,7 @@ class PapersGraph extends Component {
       const nodes = layout(nodeIds, this.vertices).map(node => ({
         ...node,
         size: (node.shape === 'square' ? 20 : 24) + 2 * (this.vertices.from(node.id).length + this.vertices.from(node.id).length),
-        ...nodesById[node.id],
+        ...nodesById[node.id]
       }));
       console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
       this.setState({ nodes, lanes }, () => {
@@ -166,7 +166,7 @@ class PapersGraph extends Component {
     if (bestScore > oldScore) {
       console.log('best score:', bestScore);
       this.setState({
-        nodes: bestGeneration,
+        nodes: bestGeneration
       }, () => {
         requestAnimationFrame(() => this.optimize());
       });
@@ -175,7 +175,7 @@ class PapersGraph extends Component {
       if (eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y')) {
         recenter(nodes);
         this.setState({
-          nodes,
+          nodes
         }, () => requestAnimationFrame(
           () => this.optimize()
         ));

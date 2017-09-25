@@ -11,24 +11,24 @@ export default function layout (nodeIds, vertices) {
   var nodes = nodeIds.map(nodeId => ({
     id: nodeId,
     x: 10 * Math.random() - 5,
-    y: 10 * Math.random() - 5,
+    y: 10 * Math.random() - 5
   }));
 
   for (let rate = LEARN_RATE_INIT; rate > 0; rate -= LEARN_RATE_DEC) {
     learn(nodes, vertices, rate);
   }
   snapToGrid(nodes);
-  
+
   return nodes;
 }
 
-function learn(nodes, vertices, rate) {
+function learn (nodes, vertices, rate) {
   let minX = nodes[0].x;
   let maxX = minX;
   let minY = nodes[0].y;
   let maxY = minY;
-  for(let i = 1; i < nodes.length; i++) {
-    const node = nodes[i]
+  for (let i = 1; i < nodes.length; i++) {
+    const node = nodes[i];
     if (node.x < minX) minX = node.x;
     if (node.x > maxX) maxX = node.x;
     if (node.y < minY) minY = node.y;
@@ -122,7 +122,7 @@ export function eliminateGap (nodes, dim) {
     return false;
   }
   console.log('max gap', maxGap, 'between', gap1, gap2);
-  
+
   for (const node of nodes) {
     if (node[dim] >= gap2) {
       node[dim] -= gap2 - gap1 + 1;

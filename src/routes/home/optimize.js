@@ -33,12 +33,12 @@ export function score (nodes, lanes) {
         const dx = Math.abs(x2 - x1);
         const dy = Math.abs(y2 - y1);
         // console.log({dx,dy});
-        
+
         if (x1 >= x2) {
           // Penalize lack of left to right ordering
           sum += 10 * (1 + x1 - x2);
         }
-        
+
         if (dy < 0.01) {
           // Straight horizontal lines
           const dist = dx + dy;
@@ -101,7 +101,7 @@ export function score (nodes, lanes) {
       }
     }
   }
-  
+
   return 100000 / (1 + sum);
 }
 
@@ -110,8 +110,8 @@ export function mutate (nodes, mutations) {
   let maxX = minX;
   let minY = nodes[0].y;
   let maxY = minY;
-  for(let i = 1; i < nodes.length; i++) {
-    const node = nodes[i]
+  for (let i = 1; i < nodes.length; i++) {
+    const node = nodes[i];
     if (node.x < minX) minX = node.x;
     if (node.x > maxX) maxX = node.x;
     if (node.y < minY) minY = node.y;
