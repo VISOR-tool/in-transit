@@ -167,9 +167,16 @@ export default class Graph extends Component {
         onMousewheel={this.onMousewheel}
         >
 
-        {links.map(link => <Path path={link.path} size={LANE_SIZE} color={link.color} />)}
-        {nodes.map(node => <Node x={mapX(node.x)} y={mapY(node.y)} size={node.size} shape={node.shape} label={node.title || ''} labelRotation={60} />)}
-
+        {links.map(link =>
+          <Path id={link.path.toString()}
+            path={link.path} size={LANE_SIZE}
+            color={link.color}
+                   />)}
+        {nodes.map(node =>
+          <Node id={node.id}
+            x={mapX(node.x)} y={mapY(node.y)} size={node.size}
+            shape={node.shape}
+            label={node.title || ''} labelRotation={60} />)}
       </svg>
     );
   }
