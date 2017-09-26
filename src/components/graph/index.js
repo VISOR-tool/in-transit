@@ -35,10 +35,8 @@ export default class Graph extends Component {
       e.preventDefault();
 
       const { zoom } = this.state;
-      const dx = e.movementX * zoom;
-      const dy = e.movementY * zoom;
-      console.log('move', dx, dy, 'zoom', zoom);
-      console.log('move', dx, dy);
+      const dx = e.movementX * this.props.width / this.base.clientWidth;
+      const dy = e.movementY * this.props.height / this.base.clientHeight;
       this.setState({
         panX: this.state.panX + dx,
         panY: this.state.panY + dy
@@ -64,16 +62,25 @@ export default class Graph extends Component {
     if (e.deltaY !== 0) {
       e.preventDefault();
 
-      var { zoom, panX, panY } = this.state;
-      const mouseX = (e.offsetX - panX) / zoom;
-      const mouseY = (e.offsetY - panY) / zoom;
+      let { zoom, panX, panY } = this.state;
+      const oldZoom = zoom;
       if (e.deltaY < 0) {
+        // Zoom in
         zoom *= Math.pow(1.0005, -e.deltaY);
       } else {
+        // Zoom out
         zoom *= Math.pow(0.9995, e.deltaY);
       }
-      panX = e.offsetX - mouseX * zoom;
-      panY = e.offsetY - mouseY * zoom;
+      const dW = (zoom - oldZoom) * this.props.width;
+      const dH = (zoom - oldZoom) * this.props.height;
+      const mouseX = e.offsetX / this.base.clientWidth;
+      const mouseY = e.offsetY / this.base.clientHeight;
+      panX += mouseX * dW;
+      panY += mouseY * dH;
+      console.log('dW', dW, 'dH', dH);
+      // console.log('mouse:', mouseX, mouseY, 'deltaY:', e.deltaY, 'deltaZoom:', oldZoom - zoom);
+      // console.log('zoom old:', oldZoom, 'new:', zoom);
+      console.log('pan old:', this.state.panX, this.state.panY, 'new:', panX, panY);
       this.setState({
         zoom,
         panX,
@@ -157,9 +164,12 @@ export default class Graph extends Component {
     }));
     console.log('links', links);
 
+    const { dragging } = this.state;
+    const { width, height } = this.props;
     return (
       <svg xmlns={NS_SVG} version='1.1'
-        viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice'
+        class={ dragging ? 'dragging' : '' }
+        viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice'
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}

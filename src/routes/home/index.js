@@ -188,7 +188,8 @@ class PapersGraph extends Component {
 
   render () {
     return (
-      <Graph nodes={this.state.nodes} lanes={this.state.lanes} />
+        <Graph width={640} height={480}
+          nodes={this.state.nodes} lanes={this.state.lanes} />
     );
   }
 }

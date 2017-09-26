@@ -15,7 +15,10 @@ html, body {
 	box-sizing: border-box;
 }
 svg {
-    cursor: move;
+    cursor: grab;
+}
+svg.dragging {
+    cursor: grabbing;
 }
 
 #app {
