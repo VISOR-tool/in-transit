@@ -13,7 +13,9 @@ export default class Node extends Component {
     var attrs = {
       stroke: 'black',
       'stroke-width': zoom * Math.round(size / 10),
-      fill: color || 'white'
+      fill: color || 'white',
+      onmouseover: ev => this.setState({ labelVisible: true }),
+      onmouseout: ev => this.setState({ labelVisible: false }),
     };
 
     var shapeComponent;
@@ -29,10 +31,12 @@ export default class Node extends Component {
         throw new Error('No Node shape!');
     }
 
+    const { labelVisible } = this.state;
     return (
       <g>
         {shapeComponent}
 
+      {labelVisible ?
         <g transform={'translate(' + mapX(x) + ',' + mapY(y) + ')'}>
           {(labelRotation <= 180)
          ? <text x={zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(zoom * size / 2)}>
@@ -42,7 +46,7 @@ export default class Node extends Component {
            {label}
          </text>}
 
-        </g>
+       </g> : null}
       </g>
     );
   }
