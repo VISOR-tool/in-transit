@@ -109,7 +109,6 @@ class PapersGraph extends Component {
       for (const paper of papers) {
         var lastId;
         var laneNodes = [];
-
         for (const org of paper.orgs) {
           const { id } = org;
           nodesById[id] = org;
@@ -141,6 +140,7 @@ class PapersGraph extends Component {
         ...nodesById[node.id]
       }));
       console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
+      console.log('nodes:', nodes, 'lanes:', lanes);
       this.setState({ nodes, lanes }, () => {
         this.optimize();
       });
