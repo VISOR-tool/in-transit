@@ -33,16 +33,8 @@ export default class Oproc extends Component {
   // /TESTS //
 
   subprocessNames(){
-
     let names = this.oproc.process.childs.map(child => child.name);
     return names;
-
-    return [
-      { id: "test-a", shape: "circle", size: 28, title: "Housten", x:  0, y:  -0.5,},
-      { id: "test-b", shape: "square", size: 28, title: "Bejing", x:  1, y:  -1,},
-      { id: "test-c", shape: "square", size: 28, title: "Capital City", x:  2, y:  -1.5,},
-      { id: "test-d", shape: "circle", size: 28, title: "Pretoria", x:  -2, y:  2,},
-      ];
   }
 
 

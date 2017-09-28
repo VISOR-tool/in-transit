@@ -64,13 +64,17 @@ class OprocGraph extends Component {
 
   toNodes(childs){
     //let nodes = childs.map( child => ({id:child.id, to: child.to, from: child.connection.from[0], shape:"circle", size:28, title:child.name, x:1, y:1,}) );
+    let margin_abs_x = 0;
+    let margin_abs_y = 1;
     let nodes = childs.map( function(child){
         let shape = "circle";
         if(child.connection.from[0] == undefined || child.connection.to[0] == undefined)
         {
           shape = "square";
         }
-        return {id:child.id, to: child.connection.to[0], from: child.connection.from[0], shape:shape, size:28, title:child.name, x:1, y:1,};
+        margin_abs_y = margin_abs_y + 0;
+        margin_abs_x = margin_abs_x + 1;
+        return {id:child.id, to: child.connection.to[0], from: child.connection.from[0], shape:shape, size:28, title:child.name, x:margin_abs_x, y:margin_abs_y,};
         });
     return nodes;
   }
@@ -93,7 +97,7 @@ class OprocGraph extends Component {
   intoStates(nodes, lanes){
     console.log(`${nodes.length} nodeIds layouted into ${nodes.length} nodes`);
     this.setState({ nodes, lanes }, () => {
-      this.optimize();
+      //this.optimize();
     });
   }
 
@@ -118,8 +122,9 @@ class OprocGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < gen_cycles; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(20 * Math.random()));
+    for (let i = 0; i < 400; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 /* + Math.floor(4 * Math.random()) */);
+      snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
       if (bestScore === null || newScore > bestScore) {
@@ -128,17 +133,28 @@ class OprocGraph extends Component {
       }
     }
     if (bestScore > oldScore) {
-      //console.log('best score:', bestScore);
+      console.log('best score:', bestScore);
       this.setState({
-        nodes: bestGeneration,
+        nodes: bestGeneration
       }, () => {
         requestAnimationFrame(() => this.optimize());
       });
     } else {
       console.log('skip score:', bestScore);
-      setTimeout(() => this.optimize(), 500);
+      if (eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y')) {
+        recenter(nodes);
+        this.setState({
+          nodes
+        }, () => requestAnimationFrame(
+          () => this.optimize()
+        ));
+      } else {
+        // console.log("Finished optimizing");
+        requestAnimationFrame(() => this.optimize());
+      }
     }
   }
+
 
   render () {
     return (
@@ -152,7 +168,7 @@ export default class Home extends Component {
     return (
       <div class={style.home}>
         <h1>Graph Engine</h1>
-        <OprocGraph papers={['oproc.json','oproc-alt.json']} />
+        <OprocGraph papers={['oproc-tree.json','oproc.json',]} />
       </div>
     );
   }
