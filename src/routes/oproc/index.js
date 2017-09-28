@@ -76,6 +76,7 @@ class OprocGraph extends Component {
         margin_abs_x = margin_abs_x + 1;
         return {id:child.id, to: child.connection.to[0], from: child.connection.from[0], shape:shape, size:28, title:child.name, x:margin_abs_x, y:margin_abs_y,};
         });
+    console.error(nodes);
     return nodes;
   }
 
@@ -102,13 +103,12 @@ class OprocGraph extends Component {
   }
 
   _obtain (papers) {
-    let nodes = []; //{ id:"myid", shape:"circle", size:28, title:"Housten", x:1, y:1,},
+    let nodes = [];
     let lanes = [];
     let processes = [];
     let processIterator=0;
 
     //papers.map(oprocJson => fetch(oprocJson).then(res => res.json()).then(json => { resolve( json.process ) }))
-
     this.download(papers[0])
       .then(oproc => this.subProcesses(oproc))
       .then(childs => this.toNodes(childs))
