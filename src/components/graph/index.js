@@ -23,7 +23,7 @@ export default class Graph extends Component {
 
   onMouseDown = e => {
     if (e.button === 0) {
-      console.log('onMouseDown', e);
+      //console.log('onMouseDown', e);
       this.setState({
         dragging: true
       });
@@ -37,8 +37,7 @@ export default class Graph extends Component {
       const { zoom } = this.state;
       const dx = e.movementX * zoom;
       const dy = e.movementY * zoom;
-      console.log('move', dx, dy, 'zoom', zoom);
-      console.log('move', dx, dy);
+      //console.log('move', dx, dy, 'zoom', zoom);
       this.setState({
         panX: this.state.panX + dx,
         panY: this.state.panY + dy

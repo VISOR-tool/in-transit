@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
-//import Graph from '../../components/graph';
-import Oproc from '../../components/oproc';
+import Graph from '../../components/graph';
 import Vertices from './vertices';
 import layout from './layout';
 import * as Optimize from './optimize';
