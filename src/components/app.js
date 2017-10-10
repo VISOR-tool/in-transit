@@ -5,6 +5,7 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import Oproc from '../routes/oproc';
+import Timeline from '../routes/timeline';
 // import Home from 'async!./home';
 // import Profile from 'async!./profile';
 
@@ -27,6 +28,10 @@ export default class App extends Component {
         <Router onChange={this.handleRoute}>
           <Oproc path='/oproc' />
         </Router>
+        <Router onChange={this.handleRoute}>
+          <Timeline path='/timeline' />
+        </Router>
+
       </div>
     );
   }

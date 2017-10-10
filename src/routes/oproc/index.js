@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
 import Graph from '../../components/graph';
-import Oproc from '../../components/oproc';
 import Vertices from './vertices';
 import layout from './layout';
 import * as Optimize from './optimize';
@@ -64,20 +63,48 @@ class OprocGraph extends Component {
 
   toNodes(childs){
     //let nodes = childs.map( child => ({id:child.id, to: child.to, from: child.connection.from[0], shape:"circle", size:28, title:child.name, x:1, y:1,}) );
-    let margin_abs_x = 0;
-    let margin_abs_y = 1;
     let nodes = childs.map( function(child){
-        let shape = "circle";
+        let node = {id:child.id, to: child.connection.to[0], from: child.connection.from[0], shape:"square", size:2, title:child.name, x:0, y:0,};
+
+        if(child.parent != undefined) {
+          node.size = 40;
+        }
+
         if(child.connection.from[0] == undefined || child.connection.to[0] == undefined)
         {
-          shape = "square";
+          node.size = 50;
         }
-        margin_abs_y = margin_abs_y + 0;
-        margin_abs_x = margin_abs_x + 1;
-        return {id:child.id, to: child.connection.to[0], from: child.connection.from[0], shape:shape, size:28, title:child.name, x:margin_abs_x, y:margin_abs_y,};
+        return node;
         });
     console.error(nodes);
     return nodes;
+  }
+
+
+
+  arrangeVerticalChilds(nodes) {
+    let margin_x_step = 1;
+    let margin_x = 0;
+    let margin_y_step = 1;
+    let margin_y = 0;
+    let new_nodes = nodes.map( function(child){
+
+      //hier weiter machen.
+      //From und To sollte getrennt behandet werden
+
+      if(child.from == undefined || child.to == undefined)
+      {
+        margin_y += margin_y_step;
+        child.y = margin_y;
+        return child;
+      }
+      margin_x += margin_x_step;
+      margin_y += margin_y_step;
+      child.x = margin_x;
+      child.y = margin_y;
+      return child;
+      });
+    return new_nodes;
   }
 
   lanesBetween(nodes) {
@@ -106,12 +133,13 @@ class OprocGraph extends Component {
     let nodes = [];
     let lanes = [];
     let processes = [];
-    let processIterator=0;
+    let processIterator = 0;
 
     //papers.map(oprocJson => fetch(oprocJson).then(res => res.json()).then(json => { resolve( json.process ) }))
     this.download(papers[0])
       .then(oproc => this.subProcesses(oproc))
       .then(childs => this.toNodes(childs))
+      .then(nodes => this.arrangeVerticalChilds(nodes))
       .then(nodes => this.lanesBetween(nodes))
       .then(nodesAndLanes => this.intoStates(nodesAndLanes.nodes, nodesAndLanes.lanes));
   }
