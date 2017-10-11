@@ -137,7 +137,7 @@ class PapersGraph extends Component {
       const nodeIds = uniqStrings(Object.keys(nodesById));
       const nodes = layout(nodeIds, this.vertices).map(node => ({
         ...node,
-        size: (node.shape === 'square' ? 20 : 24) + 2 * (this.vertices.from(node.id).length + this.vertices.from(node.id).length),
+        size: (node.shape === 'square' ? 22 : 26) + 3 * (this.vertices.from(node.id).length + this.vertices.from(node.id).length),
         ...nodesById[node.id]
       }));
       console.log(`${nodeIds.length} nodeIds layouted into ${nodes.length} nodes`);
@@ -153,8 +153,8 @@ class PapersGraph extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 400; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 /* + Math.floor(4 * Math.random()) */);
+    for (let i = 0; i < 100; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(4 * Math.random()));
       snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);
@@ -172,7 +172,8 @@ class PapersGraph extends Component {
       });
     } else {
       console.log('skip score:', bestScore);
-      if (eliminateGap(nodes, Math.random() < 0.5 ? 'x' : 'y')) {
+      if (eliminateGap(nodes, 'x') || eliminateGap(nodes, 'y')) {
+        console.log('eliminated gap');
         recenter(nodes);
         this.setState({
           nodes
@@ -180,8 +181,8 @@ class PapersGraph extends Component {
           () => this.optimize()
         ));
       } else {
-        // console.log("Finished optimizing");
-        requestAnimationFrame(() => this.optimize());
+        console.log("Finished optimizing");
+        // requestAnimationFrame(() => this.optimize());
       }
     }
   }
