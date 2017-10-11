@@ -25,7 +25,7 @@ export default class Home extends Component {
     return (
       <div class={style.home}>
         <h1>Timeline</h1>
-        <TimelineView width="300" height="100" beginning="2016" end="2018" steps="5" />
+        <TimelineView width="600" height="200" beginning="2016" end="2018" steps="5" />
       </div>
     );
   }
