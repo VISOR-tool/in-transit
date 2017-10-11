@@ -14,6 +14,8 @@ export default class Axis_Y extends Component {
       fill: 'white'
     };
 
+    console.log('test');
+
     let axis = <rect x="0" y="0" width="20" height={height}  {...attrs} />
     const { labelVisible } = true;
     return (
