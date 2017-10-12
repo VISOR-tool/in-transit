@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import Oproc from '../oproc/oproc';
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
@@ -11,8 +12,12 @@ export default class Timeline extends Component {
     super();
 
     this.setState({
+      process: {}
     });
 
+    let oProc = new Oproc;
+    //this.state.process = oProc.reload("oproc.json");
+    this.state.process = oProc.dumbLoad();
   }
 
   render () {
@@ -24,7 +29,10 @@ export default class Timeline extends Component {
        {id: 0},
        {id: 1},
        {id: 2},
+       {id: 3},
       ];
+
+    console.log(this.state.process);
 
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
