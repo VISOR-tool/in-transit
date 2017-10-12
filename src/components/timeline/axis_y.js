@@ -6,7 +6,8 @@ export default class Axis_Y extends Component {
   // }
 
   render () {
-    const {  x, y, height } = this.props;
+    const {  x, y, height, width } = this.props;
+    const axisWidth = typeof width === 'number' ? width : 20;
 
     var attrs = {
       stroke: 'red',
@@ -14,7 +15,7 @@ export default class Axis_Y extends Component {
       fill: 'white'
     };
 
-    let axis = <rect x="0" y="0" width="20" height={height}  {...attrs} />
+    let axis = <rect id="yAXis" x={x} y={y} width={axisWidth} height={height}  {...attrs} />
     const { labelVisible } = true;
     return (
       axis

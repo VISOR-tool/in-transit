@@ -16,7 +16,7 @@ export default class Axis_X extends Component {
       fill: 'white'
     };
 
-    let axis = <rect x="0" y={y} width={width} height="20"  {...attrs} />
+    let axis = <rect id="xAXis" x="0" y={y} width={width} height="20"  {...attrs} />
     const { labelVisible } = true;
     return (
       axis
