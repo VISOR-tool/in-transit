@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
 import layout from './layout';
-import Timeline from '../../components/timeline';
+import Timeline from '../../components/timeline/timeline';
 import { uniqStrings } from '../../lib/util';
 
 
