@@ -6,7 +6,7 @@ export default class Swimlane extends Component {
   // }
 
   render () {
-    const {  x, y, width } = this.props;
+    const { id, x, y, width, height } = this.props;
 
     var attrs = {
       stroke: 'blue',
@@ -14,7 +14,7 @@ export default class Swimlane extends Component {
       fill: 'white'
     };
 
-    let lane = <rect id="swimlane_0" x={x} y="0" width={width} height="20"  {...attrs} />
+    let lane = <rect id={"swimlane"+id} x={x} y={y} width={width} height={height} {...attrs} />
 
     const { labelVisible } = true;
     return (

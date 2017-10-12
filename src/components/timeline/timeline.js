@@ -19,6 +19,12 @@ export default class Timeline extends Component {
    //console.log('render props', this.props);
    const { width, height, beginning, end, steps } = this.props;
    const yAxisWidth = 33;
+   var swimlaneHeight = 50;
+   var swimlanes = [
+       {id: 0},
+       {id: 1},
+       {id: 2},
+      ];
 
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
@@ -27,7 +33,12 @@ export default class Timeline extends Component {
         <AxisY x="0" y="0" height={height} width={yAxisWidth} />
         <AxisX x="0" y={height} width={width} beginning={beginning} end={end} />
 
-        <Swimlane x={yAxisWidth} y="0" width={width-yAxisWidth} />
+      {
+        swimlanes.map(
+        lane => (
+          <Swimlane id={lane.id} x={yAxisWidth} y={swimlaneHeight * parseInt(lane.id)} width={width-yAxisWidth} height={swimlaneHeight}/>
+        ))
+      }
 
       </svg>
     );
