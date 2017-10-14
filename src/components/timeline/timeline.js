@@ -1,5 +1,4 @@
 import { h, Component } from 'preact';
-import Oproc from '../oproc/oproc';
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
@@ -12,17 +11,19 @@ export default class Timeline extends Component {
     super();
 
     this.setState({
-      process: {}
     });
-
-    let oProc = new Oproc;
-    //this.state.process = oProc.reload("oproc.json");
-    this.state.process = oProc.dumbLoad();
   }
+
+
+  /*
+   * Auftrennung des Prozesses. Rein kommt das ganze Objekt
+   * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
+   */
+
 
   render () {
    //console.log('render props', this.props);
-   const { width, height, beginning, end, steps } = this.props;
+   const { width, height, beginning, end, steps, process } = this.props;
    const yAxisWidth = 33;
    var swimlaneHeight = 50;
    var swimlanes = [
@@ -32,7 +33,10 @@ export default class Timeline extends Component {
        {id: 3},
       ];
 
-    console.log(this.state.process);
+    var processes = [
+          { id : "proc1", title : "foobar" }
+        ];
+
 
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
@@ -44,7 +48,13 @@ export default class Timeline extends Component {
       {
         swimlanes.map(
         lane => (
-          <Swimlane id={lane.id} x={yAxisWidth} y={swimlaneHeight * parseInt(lane.id)} width={width-yAxisWidth} height={swimlaneHeight}/>
+          <Swimlane id={lane.id}
+                    x={yAxisWidth}
+                    y={swimlaneHeight * parseInt(lane.id)}
+                    width={width-yAxisWidth}
+                    height={swimlaneHeight}
+                    processes={processes}
+                    />
         ))
       }
 
