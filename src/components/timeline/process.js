@@ -6,10 +6,10 @@ export default class Process extends Component {
   // }
 
   render () {
-    const { process, processOriginX, processOriginY } = this.props;
+    const { process, processPosition } = this.props;
     const procAttrs = {
       height: 40,
-      width: 20,
+      width: 80,
       stroke: '#3784F8',
       'stroke-width': 1,
       fill: '#61D2E8'
@@ -18,13 +18,22 @@ export default class Process extends Component {
       'font-family': "Verdana",
       'font-size' : 10
     }
+    const space = 5;
 
     //let obj = <rect id={process.id} x="100" y="30" width={processObjWidth} height={processObjHeight} {...attrs} />
     const { labelVisible } = true;
     return (
       <g>
-        <rect id={process.id} x={processOriginX} y={processOriginY} {...procAttrs} />
-        <text x={processOriginX+3} y={processOriginY+10} {...textAttrs} >process.title</text>
+        <rect id={process.id}
+              x={processPosition.x}
+              y={processPosition.y}
+              {...procAttrs}
+              />
+        <text x={processPosition.x + space}
+              y={processPosition.y+procAttrs.height - space}
+              {...textAttrs}
+              >
+              process.title</text>
       </g>
     );
   }

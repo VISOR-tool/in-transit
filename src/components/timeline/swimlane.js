@@ -6,6 +6,15 @@ export default class Swimlane extends Component {
   //   super();
   // }
 
+  processPosition=function(process,offset,tlX, tlY){
+      let processMargin = 30;
+      let processWidth = 80;
+      return {
+        x: tlX + processMargin + (offset * (processWidth+processMargin)),
+        y: tlY
+        };
+  }
+
   render () {
     const { id, x, y, width, height, processes } = this.props;
 
@@ -16,13 +25,18 @@ export default class Swimlane extends Component {
     };
 
     let lane = <rect id={"swimlane"+id} x={x} y={y} width={width} height={height} {...timelineAttrs} />;
-    let obj = processes.map( process => <Process process={processes} processOriginX={x} processOriginY={y} /> );
+    let processObjs = processes.map( (process, index) =>
+            <Process
+              process={process}
+              processPosition = {this.processPosition(process, index, x, y)}
+            />
+        );
 
     const { labelVisible } = true;
     return (
       <g>
         {lane}
-        {obj}
+        {processObjs}
       </g>
     );
   }

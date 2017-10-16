@@ -34,7 +34,8 @@ export default class Timeline extends Component {
       ];
 
     var processes = [
-          { id : "proc1", title : "foobar" }
+          { id : "proc1", title : "foobar" },
+          { id : "proc2", title : "BazBar" }
         ];
 
 
