@@ -16,15 +16,31 @@ export default class Swimlane extends Component {
   }
 
   render () {
-    const { id, x, y, width, height, processes } = this.props;
+    const { id, title, x, y, width, height, processes } = this.props;
 
     var timelineAttrs = {
       stroke: 'blue',
       'stroke-width': 1,
       fill: 'white'
     };
+    const textAttrs = {
+      'font-family': "Verdana",
+      'font-size' : 10
+    }
+    let spacer = 5;
 
-    let lane = <rect id={"swimlane"+id} x={x} y={y} width={width} height={height} {...timelineAttrs} />;
+    let lane = <rect id={id}
+                    x = {x}
+                    y = {y}
+                    width = {width}
+                    height = {height}
+                    {...timelineAttrs} />;
+    let laneTitle = <text
+                    x = {x}
+                    y = {y + height - spacer}
+                    {...textAttrs}
+                    >
+                    {title}</text>;
     let processObjs = processes.map( (process, index) =>
             <Process
               process={process}
@@ -36,6 +52,7 @@ export default class Swimlane extends Component {
     return (
       <g>
         {lane}
+        {laneTitle}
         {processObjs}
       </g>
     );

@@ -21,40 +21,40 @@ export default class Timeline extends Component {
    */
 
 
+
   render () {
-   //console.log('render props', this.props);
    const { width, height, beginning, end, steps, process } = this.props;
    const yAxisWidth = 33;
-   var swimlaneHeight = 50;
-   var swimlanes = [
-       {id: 0},
-       {id: 1},
-       {id: 2},
-       {id: 3},
-      ];
+   let swimlaneHeight = 50;
+   let swimlanes = process.process.stakeholder;
+   let allProcesses = process.process.childs;
 
-    var processes = [
-          { id : "proc1", title : "foobar" },
-          { id : "proc2", title : "BazBar" }
-        ];
+   swimlanes.forEach( function(lane){ //fill swimlane with concernd processes
+      lane.processes = allProcesses.filter( function(process){
+        return process.participants.indexOf(lane.id) > -1;
+        });
+      return lane;
+      });
 
 
+    console.log( swimlanes );
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
 
         <AxisY x="0" y="0" height={height} width={yAxisWidth} />
-        <AxisX x="0" y={height} width={width} beginning={beginning} end={end} />
+        <AxisX x="0" y="0" width={width} beginning={beginning} end={end} />
 
       {
         swimlanes.map(
-        lane => (
-          <Swimlane id={lane.id}
-                    x={yAxisWidth}
-                    y={swimlaneHeight * parseInt(lane.id)}
-                    width={width-yAxisWidth}
-                    height={swimlaneHeight}
-                    processes={processes}
+        (lane,index) => (
+          <Swimlane id = {lane.id}
+                    title = {lane.name}
+                    x = {yAxisWidth}
+                    y = {20 + (swimlaneHeight * parseInt(index))}
+                    width = {width-yAxisWidth}
+                    height = {swimlaneHeight}
+                    processes = {lane.processes}
                     />
         ))
       }

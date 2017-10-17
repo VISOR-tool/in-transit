@@ -18,7 +18,7 @@ export default class Process extends Component {
       'font-family': "Verdana",
       'font-size' : 10
     }
-    const space = 5;
+    const spacer = 5;
 
     //let obj = <rect id={process.id} x="100" y="30" width={processObjWidth} height={processObjHeight} {...attrs} />
     const { labelVisible } = true;
@@ -29,11 +29,11 @@ export default class Process extends Component {
               y={processPosition.y}
               {...procAttrs}
               />
-        <text x={processPosition.x + space}
-              y={processPosition.y+procAttrs.height - space}
+        <text x={processPosition.x + spacer}
+              y={processPosition.y + procAttrs.height - spacer}
               {...textAttrs}
               >
-              process.title</text>
+              {process.name}</text>
       </g>
     );
   }
