@@ -1,17 +1,18 @@
 import { h, Component } from 'preact';
 import Process from './process';
+import Links from './links';
 
 export default class Swimlane extends Component {
   // constructor () {
   //   super();
   // }
 
+  processMargin = 30;
+  processWidth = 80;
 
   spacer = 5;
   stackingIterator = 1;
   processPosition = function(process, offset, tlX, tlY){
-      let processMargin = 30;
-      let processWidth = 80;
 
       if( process.connection.from.length > 1 ) {
         this.stackingIterator -= (process.connection.from.length - 1);
@@ -25,9 +26,10 @@ export default class Swimlane extends Component {
       }
 
       return {
-        x: tlX + processMargin + (offset * (processWidth+processMargin)),
+        x: tlX + this.processMargin + (offset * (this.processWidth+this.processMargin)),
         y: tlY,
         height: height,
+        width: this.processWidth
         };
   }
 
@@ -57,17 +59,19 @@ export default class Swimlane extends Component {
                     {title}</text>;
     let processObjs = processes.map( (process, index) =>
             <Process
-              process={process}
+              process = {process}
               processPosition = {this.processPosition(process, index, x, y)}
             />
         );
 
-    const { labelVisible } = true;
+
+
     return (
       <g>
         {lane}
         {laneTitle}
         {processObjs}
+        <Links processes={processObjs} />
       </g>
     );
   }
