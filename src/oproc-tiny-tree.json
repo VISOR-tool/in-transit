@@ -39,7 +39,7 @@
     "participants": [
       "https://process.stadt.de/stakeholder/2",
       "https://process.stadt.de/stakeholder/11",
-      "https://process.stadt.de/stakeholder/9",
+      "https://process.stadt.de/stakeholder/9"
     ],
     "transformation": {
       "type": "=",
@@ -82,7 +82,7 @@
         "participants": [
           "https://process.stadt.de/stakeholder/2",
           "https://process.stadt.de/stakeholder/4",
-          "https://process.stadt.de/stakeholder/1",
+          "https://process.stadt.de/stakeholder/1"
         ],
         "transformation": {
           "type": "=",
@@ -148,7 +148,9 @@
         "connection": {
           "from": [],
           "to": [
-            "https://process.stadt.de/process/3"
+            "https://process.stadt.de/process/3",
+            "https://process.stadt.de/process/4",
+            "https://process.stadt.de/process/5"
           ]
         },
         "parent": "https://process.stadt.de/process/1",
@@ -162,7 +164,7 @@
         "end": "2015-06-01T12:11:00+01:00",
         "participation": "open",
         "participants": [
-          "https://process.stadt.de/stakeholder/1"
+          "https://process.stadt.de/stakeholder/2"
         ],
         "transformation": {
           "type": "<",
@@ -185,14 +187,13 @@
       {
         "id": "https://process.stadt.de/process/3",
         "reference": "AZ1337/11",
-        "initiator": "https://process.stadt.de/stakeholder/2",
+        "initia tor": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
             "https://process.stadt.de/process/2"
           ],
           "to": [
-            "https://process.stadt.de/process/4",
-            "https://process.stadt.de/process/5"
+            "https://process.stadt.de/process/10"
           ]
         },
         "parent": "https://process.stadt.de/process/1",
@@ -232,9 +233,11 @@
         "initiator": "https://process.stadt.de/stakeholder/9",
         "connection": {
           "from": [
-            "https://process.stadt.de/process/3"
+            "https://process.stadt.de/process/2"
           ],
-          "to": []
+          "to": [
+            "https://process.stadt.de/process/10"
+          ]
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
@@ -275,9 +278,11 @@
         "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
-            "https://process.stadt.de/process/3"
+            "https://process.stadt.de/process/2"
           ],
-          "to": []
+          "to": [
+            "https://process.stadt.de/process/10"
+          ]
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
@@ -473,6 +478,50 @@
             "modified": "2012-11-11T11:11:00+01:00"
           }
         ]
+      },
+      {
+        "id": "https://process.stadt.de/process/10",
+        "reference": "AZ1337/11",
+        "initiator": "https://process.stadt.de/stakeholder/1",
+        "connection": {
+          "from": [
+            "https://process.stadt.de/process/3",
+            "https://process.stadt.de/process/4",
+            "https://process.stadt.de/process/5"
+          ],
+          "to": []
+        },
+        "parent": "https://process.stadt.de/process/1",
+        "childs": [],
+        "name": "Ende der Trichomie-Prozesskette P3-P4-P5",
+        "description": "Hat drei Vorgänger, keine Nachfolger. Eltern ist der erste Prozess in der Kette (P1) und hat keine Kinder.",
+        "location": [
+          "https://process.stadt.de/location/1"
+        ],
+        "start": "2015-02-02T11:11:00+01:00",
+        "end": "2015-02-05T12:11:00+01:00",
+        "participation": "open",
+        "participants": [
+          "https://process.stadt.de/stakeholder/2",
+          "https://process.stadt.de/stakeholder/3"
+        ],
+        "transformation": {
+          "type": "=",
+          "info": "Ende Gelände. Resultate erzeugen.",
+          "decision": "false"
+        },
+        "results": [
+          {
+            "id": "https://process.stadt.de/results/11",
+            "name": "Antrag",
+            "description": "Antrag für NSP Mittel",
+            "copyright": "",
+            "text": "",
+            "files": [],
+            "created": "2011-11-11T11:11:00+01:00",
+            "modified": "2012-11-11T11:11:00+01:00"
+          }
+        ]
       }
     ],
     "stakeholder": [
@@ -547,121 +596,9 @@
         "participated": []
       },
       {
-        "id": "https://process.stadt.de/stakeholder/6",
-        "name": "Bewerber Beteiligungsverfahren",
-        "type": "group closed",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
         "id": "https://process.stadt.de/stakeholder/7",
         "name": "Verein",
         "type": "group opened",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/8",
-        "name": "Interessensverband",
-        "type": "group opened",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/9",
-        "name": "Bürger_Innen",
-        "type": "group openend",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/10",
-        "name": "Politische Vertreter",
-        "type": "group closed",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/11",
-        "name": "Bürgeramt Chorweiler",
-        "type": "group closed",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/12",
-        "name": "Interdisziplinäres Planungsamt",
-        "type": "group closed",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/13",
-        "name": "City-Center-Chorweiler",
-        "type": "group closed",
-        "contact": {
-          "contactPerson ": "TODO",
-          "postAddress": "TODO",
-          "phone": "TODO",
-          "telefax": "TODO",
-          "email ": "TODO",
-          "website ": "TODO"
-        },
-        "participated": []
-      },
-      {
-        "id": "https://process.stadt.de/stakeholder/14",
-        "name": "GAG Immobilien AG",
-        "type": "group closed",
         "contact": {
           "contactPerson ": "TODO",
           "postAddress": "TODO",
