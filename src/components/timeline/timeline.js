@@ -14,18 +14,15 @@ export default class Timeline extends Component {
     });
   }
 
-
   /*
    * Auftrennung des Prozesses. Rein kommt das ganze Objekt
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
    */
 
-
-
   render () {
    const { width, height, beginning, end, steps, process } = this.props;
    const yAxisWidth = 33;
-   let swimlaneHeight = 50;
+   let swimlaneheight = 50;
    let swimlanes = process.process.stakeholder;
    let allProcesses = process.process.childs;
 
@@ -36,8 +33,6 @@ export default class Timeline extends Component {
       return lane;
       });
 
-
-    console.log( swimlanes );
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
@@ -51,9 +46,9 @@ export default class Timeline extends Component {
           <Swimlane id = {lane.id}
                     title = {lane.name}
                     x = {yAxisWidth}
-                    y = {20 + (swimlaneHeight * parseInt(index))}
+                    y = {20 + (swimlaneheight * parseInt(index))}
                     width = {width-yAxisWidth}
-                    height = {swimlaneHeight}
+                    height = {swimlaneheight}
                     processes = {lane.processes}
                     />
         ))

@@ -11,16 +11,20 @@ class TimelineView extends Component {
     super();
 
     this.setState({
-    process: {}
+      oproc: {}
+    });
+
+    let oProc = new Oproc;
+    oProc.reload("oproc-tiny-tree.json")
+        .then( oproc => {
+        //this.process = oProc.dumbLoad();
+        this.setState({oproc: oproc});
     });
   }
 
   render() {
-    let oProc = new Oproc;
-    //this.state.process = oProc.reload("oproc.json");
-    this.process = oProc.dumbLoad();
 
-
+    if( this.state.oproc.process == undefined ) return "daten werden geladen";
     return (
       <Timeline
         width={this.props.width}
@@ -28,15 +32,15 @@ class TimelineView extends Component {
         beginning={this.props.beginning}
         end={this.props.end}
         steps={this.props.steps}
-        process={this.process}
+        process={this.state.oproc}
         />
     );
   }
 }
 
-
 export default class Home extends Component {
   render () {
+
     return (
       <div class={style.home}>
         <h1>Timeline</h1>

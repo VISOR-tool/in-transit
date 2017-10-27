@@ -6,12 +6,28 @@ export default class Swimlane extends Component {
   //   super();
   // }
 
-  processPosition=function(process,offset,tlX, tlY){
+
+  spacer = 5;
+  stackingIterator = 1;
+  processPosition = function(process, offset, tlX, tlY){
       let processMargin = 30;
       let processWidth = 80;
+
+      if( process.connection.from.length > 1 ) {
+        this.stackingIterator -= (process.connection.from.length - 1);
+      }
+
+      if(this.stackingIterator < 1) this.stackingIterator = 1;
+      let height = (this.props.height - this.spacer) / this.stackingIterator;
+
+      if( process.connection.to.length > 1 ) {
+        this.stackingIterator += (process.connection.to.length - 1);
+      }
+
       return {
         x: tlX + processMargin + (offset * (processWidth+processMargin)),
-        y: tlY
+        y: tlY,
+        height: height,
         };
   }
 
@@ -27,8 +43,6 @@ export default class Swimlane extends Component {
       'font-family': "Verdana",
       'font-size' : 10
     }
-    let spacer = 5;
-
     let lane = <rect id={id}
                     x = {x}
                     y = {y}
@@ -37,7 +51,7 @@ export default class Swimlane extends Component {
                     {...timelineAttrs} />;
     let laneTitle = <text
                     x = {x}
-                    y = {y + height - spacer}
+                    y = {y + height - this.spacer}
                     {...textAttrs}
                     >
                     {title}</text>;
