@@ -15,6 +15,7 @@ class TimelineView extends Component {
     });
 
     let oProc = new Oproc;
+    //oProc.reload("oproc.json")
     oProc.reload("oproc-tiny-tree.json")
         .then( oproc => {
         //this.process = oProc.dumbLoad();

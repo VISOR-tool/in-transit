@@ -9,9 +9,7 @@ const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 export default class Timeline extends Component {
   constructor () {
     super();
-
-    this.setState({
-    });
+    this.setState({  });
   }
 
   /*

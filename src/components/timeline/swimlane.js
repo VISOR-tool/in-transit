@@ -3,17 +3,17 @@ import Process from './process';
 import Links from './links';
 
 export default class Swimlane extends Component {
-  // constructor () {
-  //   super();
-  // }
-
+  constructor () {
+     super();
+     this.state.tlMinimum = Date.parse("2014-09-01");
+     this.state.tlMaximum = Date.parse("2016-12-31");
+  }
   processMargin = 30;
   processWidth = 80;
 
   spacer = 5;
   stackingIterator = 1;
-  processPosition = function(process, offset, tlX, tlY){
-
+  processPosition = function(process, tlX, tlY){
       if( process.connection.from.length > 1 ) {
         this.stackingIterator -= (process.connection.from.length - 1);
       }
@@ -25,17 +25,22 @@ export default class Swimlane extends Component {
         this.stackingIterator += (process.connection.to.length - 1);
       }
 
+      let xAxisPx = this.props.width/(this.state.tlMaximum-this.state.tlMinimum)
+                    *(Date.parse(process.start)-this.state.tlMinimum);
       return {
-        x: tlX + this.processMargin + (offset * (this.processWidth+this.processMargin)),
+        x: xAxisPx,
         y: tlY,
         height: height,
         width: this.processWidth
         };
   }
 
+  processesVerticalLayout = function( processes ) {
+  }
+
   render () {
     const { id, title, x, y, width, height, processes } = this.props;
-
+    var processesVerticalLayout = this.processesVerticalLayout( processes );
     var timelineAttrs = {
       stroke: 'blue',
       'stroke-width': 1,
@@ -60,9 +65,10 @@ export default class Swimlane extends Component {
     let processObjs = processes.map( (process, index) =>
             <Process
               process = {process}
-              processPosition = {this.processPosition(process, index, x, y)}
+              processPosition = {this.processPosition(process, x, y)}
             />
         );
+    //let startIndicator =  <line x1= y1= x2= y2=  {...attrs} />
 
 
 
