@@ -29,8 +29,8 @@ class TimelineView extends Component {
       //und dessen Objekte bestimmt
 
       <Timeline
-        width={this.props.width}
-        height={this.props.height}
+        width={parseInt(this.props.width)}
+        height={parseInt(this.props.height)}
         beginning={this.props.beginning}
         end={this.props.end}
         steps={this.props.steps}

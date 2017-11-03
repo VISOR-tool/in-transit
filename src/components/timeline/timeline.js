@@ -35,7 +35,7 @@ export default class Timeline extends Component {
         <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
 
         <AxisY x="0" y="0" height={height} width={yAxisWidth} />
-        <AxisX x="0" y="0" width={width} beginning={beginning} end={end} />
+        <AxisX x={yAxisWidth} y="0" width={parseInt(width-yAxisWidth)} beginning={beginning} end={end} />
 
       {
         swimlanes.map(

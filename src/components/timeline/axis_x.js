@@ -24,7 +24,14 @@ export default class Axis_X extends Component {
       fill: 'white'
     };
 
-    let axis = <rect id="xAXis" x="0" y={y} width={width} height={axisHeight}  {...attrs} />
+    let axis = <rect
+                id="xAXis"
+                x={x}
+                y={y}
+                width={width}
+                height={axisHeight}
+                {...attrs}
+              />
     return (
       <g>
       {axis}
@@ -37,7 +44,7 @@ export default class Axis_X extends Component {
         {beginningDate.getFullYear()+'.'+beginningDate.getMonth()}
       </text>
       <text
-        x = {x + width-48-space}
+        x = {x + width-53-space}
         y = {y + axisHeight-space}
         {...attrsText}
         >
