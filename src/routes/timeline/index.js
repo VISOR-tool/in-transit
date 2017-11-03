@@ -44,9 +44,9 @@ export default class Home extends Component {
   constructor () {
     super();
     this.state = {
-      zoom: 11,
+      zoom: 99,
       zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
-      zoomMax: 2 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
+      zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
       zoomSectionStart: Date.parse(2014),
       };
     this.handleZoom = this.handleZoom.bind(this);
@@ -64,8 +64,20 @@ export default class Home extends Component {
     return (
       <div class={style.home}>
         <h1>Timeline</h1>
-        Zoom: <input type="range" id="zoom" value={this.state.zoom} onChange={this.handleZoom} /> (1Mon/2Years)
-        <TimelineView width="600" height="1000" beginning={this.state.zoomSectionStart}  end={this.state.zoomEnd} steps="5" />
+        Zoom:
+        <input
+          type="range"
+          id="zoom"
+          value={this.state.zoom}
+          onChange={this.handleZoom}
+        />
+        (1Mon/2Years)
+        <TimelineView
+          width="600"
+          height="1000"
+          beginning={this.state.zoomSectionStart}
+          end={zoomEnd.valueOf()}
+         />
       </div>
     );
   }

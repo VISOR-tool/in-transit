@@ -30,8 +30,8 @@ export default class Process extends Component {
               y={processPosition.y + spacer+ spacer}
               {...textAttrs}
               >
-              {process.name}</text>
               { /*process.id.substr(25)}</text> */ }
+              {process.name}</text>
       </g>
     );
   }
