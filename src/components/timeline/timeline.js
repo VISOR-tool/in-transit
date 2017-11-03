@@ -25,6 +25,9 @@ export default class Timeline extends Component {
 
    swimlanes.forEach( function(lane){ //fill swimlane with concernd processes
       lane.processes = allProcesses.filter( function(process){
+        //skip processes before zoom time span
+        if(Date.parse(process.start) <= beginning) return false;
+        //skip processes whithout this participants
         return process.participants.indexOf(lane.id) > -1;
         });
       return lane;
@@ -35,7 +38,7 @@ export default class Timeline extends Component {
         <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
 
         <AxisY x="0" y="0" height={height} width={yAxisWidth} />
-        <AxisX x={yAxisWidth} y="0" width={parseInt(width-yAxisWidth)} beginning={beginning} end={end} />
+        <AxisX x={yAxisWidth} y="0" width={width-yAxisWidth} beginning={beginning} end={end} />
 
       {
         swimlanes.map(
@@ -46,6 +49,8 @@ export default class Timeline extends Component {
                     y = {20 + (swimlaneheight * parseInt(index))}
                     width = {width-yAxisWidth}
                     height = {swimlaneheight}
+                    beginning = {beginning}
+                    end = {end}
                     processes = {lane.processes}
                     />
         ))

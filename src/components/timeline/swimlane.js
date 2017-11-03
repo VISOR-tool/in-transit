@@ -5,8 +5,6 @@ import Links from './links';
 export default class Swimlane extends Component {
   constructor () {
     super();
-    this.state.tlMinimum = Date.parse("2012-03-01");
-    this.state.tlMaximum = Date.parse("2016-01-31");
   }
 
   processMargin = 30;
@@ -15,6 +13,8 @@ export default class Swimlane extends Component {
   stackingIterator = false;
 
   processPosition = function(process, tlX, tlY){
+    let x = this.props.beginning;
+
     if( process.connection.from.length > 1 ) {
       this.stackingIterator -= (process.connection.from.length - 1);
     }
@@ -26,10 +26,9 @@ export default class Swimlane extends Component {
       this.stackingIterator += (process.connection.to.length - 1);
     }
 
-    let startPx = this.props.width/(this.state.tlMaximum-this.state.tlMinimum)
-                       *(Date.parse(process.start)-this.state.tlMinimum);
+    let startPx = this.props.width/(this.props.end-this.props.beginning)
+                       *(Date.parse(process.start)-this.props.beginning);
 
-    //this.processWidth
     return {
       x: startPx,
       y: tlY,
@@ -42,7 +41,7 @@ export default class Swimlane extends Component {
   }
 
   render () {
-    const { id, title, x, y, width, height, processes } = this.props;
+    const { id, title, x, y, width, height, processes, beginning, end } = this.props;
     var processesVerticalLayout = this.processesVerticalLayout( processes );
     this.stackingIterator = 1;
     var timelineAttrs = {
