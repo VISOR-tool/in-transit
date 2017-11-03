@@ -24,18 +24,16 @@ export default class Axis_X extends Component {
       fill: 'white'
     };
 
-    let axis = <rect
-                id="xAXis"
-                x={x}
-                y={y}
-                width={width}
-                height={axisHeight}
-                {...attrs}
-              />
     return (
       <g>
-      {axis}
-
+      <rect
+        id="xAXis"
+        x={x}
+        y={y}
+        width={width}
+        height={axisHeight}
+        {...attrs}
+      />
       <text
         x = {x + space}
         y = {y + axisHeight-space}
