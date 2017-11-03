@@ -27,7 +27,8 @@ export default class Swimlane extends Component {
     }
 
     let startPx = this.props.width/(this.props.end-this.props.beginning)
-                       *(Date.parse(process.start)-this.props.beginning);
+                  *(Date.parse(process.start)-this.props.beginning)
+                  +tlX;
 
     return {
       x: startPx,

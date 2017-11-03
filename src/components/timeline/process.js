@@ -25,13 +25,12 @@ export default class Process extends Component {
               y={processPosition.y}
               height={processPosition.height}
               {...procAttrs}
-              />
+        />
         <text x={processPosition.x + spacer}
               y={processPosition.y + spacer+ spacer}
               {...textAttrs}
-              >
-              { /*process.id.substr(25)}</text> */ }
-              {process.name}</text>
+              >{process.name}
+        </text>
       </g>
     );
   }
