@@ -16,7 +16,6 @@ export default class Timeline extends Component {
    * Auftrennung des Prozesses. Rein kommt das ganze Objekt
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
    */
-
   render () {
    const { width, height, beginning, end, steps, process } = this.props;
    const yAxisWidth = 33;

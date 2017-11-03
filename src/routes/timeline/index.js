@@ -9,24 +9,25 @@ import { uniqStrings } from '../../lib/util';
 class TimelineView extends Component {
   constructor () {
     super();
-
     this.setState({
-      oproc: {}
+      oproc: {},
     });
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
-    oProc.reload("oproc-tiny-tree.json")
+    //oProc.reload("oproc-tiny-tree.json")
+    oProc.reload("oproc-elias.json")
         .then( oproc => {
-        //this.process = oProc.dumbLoad();
         this.setState({oproc: oproc});
     });
   }
 
   render() {
-
-    if( this.state.oproc.process == undefined ) return "daten werden geladen";
+    if( this.state.oproc.process == undefined ) return "daten können nicht geladen werden ";
     return (
+      //Zoomfaktor bestimmen, der das lineal, den timeline Auschnitt
+      //und dessen Objekte bestimmt
+
       <Timeline
         width={this.props.width}
         height={this.props.height}
@@ -40,12 +41,31 @@ class TimelineView extends Component {
 }
 
 export default class Home extends Component {
+  constructor () {
+    super();
+    this.state = {
+      zoom: 11,
+      zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
+      zoomMax: 2 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
+      zoomSectionStart: Date.parse(2014),
+      };
+    this.handleZoom = this.handleZoom.bind(this);
+  }
+
+  handleZoom = function(event){
+    event.preventDefault();
+    this.setState({ zoom: event.target.value });
+    this.render();
+  };
+
   render () {
+    let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
 
     return (
       <div class={style.home}>
         <h1>Timeline</h1>
-        <TimelineView width="600" height="1000" beginning="2016" end="2018" steps="5" />
+        Zoom: <input type="range" id="zoom" value={this.state.zoom} onChange={this.handleZoom} /> (1Mon/2Years)
+        <TimelineView width="600" height="1000" beginning={this.state.zoomSectionStart}  end={this.state.zoomEnd} steps="5" />
       </div>
     );
   }

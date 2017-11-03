@@ -4,35 +4,38 @@ import Links from './links';
 
 export default class Swimlane extends Component {
   constructor () {
-     super();
-     this.state.tlMinimum = Date.parse("2014-09-01");
-     this.state.tlMaximum = Date.parse("2016-12-31");
+    super();
+    this.state.tlMinimum = Date.parse("2012-03-01");
+    this.state.tlMaximum = Date.parse("2016-01-31");
   }
+
   processMargin = 30;
   processWidth = 80;
-
   spacer = 5;
-  stackingIterator = 1;
+  stackingIterator = false;
+
   processPosition = function(process, tlX, tlY){
-      if( process.connection.from.length > 1 ) {
-        this.stackingIterator -= (process.connection.from.length - 1);
-      }
+    if( process.connection.from.length > 1 ) {
+      this.stackingIterator -= (process.connection.from.length - 1);
+    }
 
-      if(this.stackingIterator < 1) this.stackingIterator = 1;
-      let height = (this.props.height - this.spacer) / this.stackingIterator;
+    if(this.stackingIterator < 1) this.stackingIterator = 1;
+    let height = (this.props.height - this.spacer) / this.stackingIterator;
 
-      if( process.connection.to.length > 1 ) {
-        this.stackingIterator += (process.connection.to.length - 1);
-      }
+    if( process.connection.to.length > 1 ) {
+      this.stackingIterator += (process.connection.to.length - 1);
+    }
 
-      let xAxisPx = this.props.width/(this.state.tlMaximum-this.state.tlMinimum)
-                    *(Date.parse(process.start)-this.state.tlMinimum);
-      return {
-        x: xAxisPx,
-        y: tlY,
-        height: height,
-        width: this.processWidth
-        };
+    let startPx = this.props.width/(this.state.tlMaximum-this.state.tlMinimum)
+                       *(Date.parse(process.start)-this.state.tlMinimum);
+
+    //this.processWidth
+    return {
+      x: startPx,
+      y: tlY,
+      height: height,
+      width: this.processWidth,
+      };
   }
 
   processesVerticalLayout = function( processes ) {
@@ -41,6 +44,7 @@ export default class Swimlane extends Component {
   render () {
     const { id, title, x, y, width, height, processes } = this.props;
     var processesVerticalLayout = this.processesVerticalLayout( processes );
+    this.stackingIterator = 1;
     var timelineAttrs = {
       stroke: 'blue',
       'stroke-width': 1,
@@ -69,8 +73,6 @@ export default class Swimlane extends Component {
             />
         );
     //let startIndicator =  <line x1= y1= x2= y2=  {...attrs} />
-
-
 
     return (
       <g>
