@@ -15,8 +15,8 @@ class TimelineView extends Component {
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
-    //oProc.reload("oproc-elias.json")
-    oProc.reload("oproc-tiny-tree.json")
+    //oProc.reload("oproc-tiny-tree.json")
+    oProc.reload("oproc-elias.json")
         .then( oproc => {
         this.setState({oproc: oproc});
     });
@@ -50,6 +50,7 @@ export default class Home extends Component {
       zoomSectionStart: Date.parse(2015),
       };
     this.handleZoom = this.handleZoom.bind(this);
+    this.handleSetStart = this.handleSetStart.bind(this);
   }
 
   handleZoom = function(event){
@@ -58,12 +59,25 @@ export default class Home extends Component {
     this.render();
   };
 
+  handleSetStart = function(event){
+    event.preventDefault();
+    this.setState({ zoomSectionStart: Date.parse(event.target.value) });
+  }
+
   render () {
     let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
-
+    let oldStartDate = new Date(this.state.zoomSectionStart);
     return (
       <div class={style.home}>
         <h1>Timeline</h1>
+        start:
+        <input
+          id="zoomSectionStart"
+          type="text"
+          size="8"
+          value={oldStartDate.getFullYear() +'.'+ oldStartDate.getMonth()}
+          onChange={this.handleSetStart}
+        />
         Zoom:
         <input
           type="range"
