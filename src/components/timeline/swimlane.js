@@ -10,29 +10,34 @@ export default class Swimlane extends Component {
   processMargin = 30;
   processWidth = 80;
   spacer = 5;
-  stackingIterator = false;
+  stacking = { base:false, count: 0 };
 
   processPosition = function(process, tlX, tlY){
-    let x = this.props.beginning;
-
     if( process.connection.from.length > 1 ) {
-      this.stackingIterator -= (process.connection.from.length - 1);
+      this.stacking.base =
+        this.stacking.base - process.connection.from.length - 1;
     }
 
-    if(this.stackingIterator < 1) this.stackingIterator = 1;
-    let height = (this.props.height - this.spacer) / this.stackingIterator;
+    if(this.stacking.base < 1) {
+        this.stacking.base = 1;
+        this.stacking.count = 0;
+    }
+    if(this.stacking.base > 1) this.stacking.count++;
+    if(this.stacking.base == 1) this.stacking.count=0;
 
+    let height = (this.props.height - this.spacer) / this.stacking.base;
     if( process.connection.to.length > 1 ) {
-      this.stackingIterator += (process.connection.to.length - 1);
+      this.stacking.base += (process.connection.to.length - 1);
     }
 
     let startPx = this.props.width/(this.props.end-this.props.beginning)
                   *(Date.parse(process.start)-this.props.beginning)
                   +tlX;
-
+    let stacking = 0
+    if(this.stacking.count > 1) stacking = this.stacking.count - 1;
     return {
       x: startPx,
-      y: tlY,
+      y: tlY + (stacking * height),
       height: height,
       width: this.processWidth,
       };
@@ -44,7 +49,7 @@ export default class Swimlane extends Component {
   render () {
     const { id, title, x, y, width, height, processes, beginning, end } = this.props;
     var processesVerticalLayout = this.processesVerticalLayout( processes );
-    this.stackingIterator = 1;
+    this.stacking.base = 1;
     var timelineAttrs = {
       stroke: 'blue',
       'stroke-width': 1,

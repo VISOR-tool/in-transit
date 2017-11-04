@@ -27,6 +27,8 @@ export default class Timeline extends Component {
       lane.processes = allProcesses.filter( function(process){
         //skip processes before zoom time span
         if(Date.parse(process.start) <= beginning) return false;
+        //skip processes after zoom time span
+        if(Date.parse(process.end) >= end) return false;
         //skip processes whithout this participants
         return process.participants.indexOf(lane.id) > -1;
         });

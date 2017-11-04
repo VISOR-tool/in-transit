@@ -15,8 +15,8 @@ class TimelineView extends Component {
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
-    //oProc.reload("oproc-tiny-tree.json")
-    oProc.reload("oproc-elias.json")
+    //oProc.reload("oproc-elias.json")
+    oProc.reload("oproc-tiny-tree.json")
         .then( oproc => {
         this.setState({oproc: oproc});
     });
@@ -47,7 +47,7 @@ export default class Home extends Component {
       zoom: 99,
       zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
-      zoomSectionStart: Date.parse(2014),
+      zoomSectionStart: Date.parse(2015),
       };
     this.handleZoom = this.handleZoom.bind(this);
   }
