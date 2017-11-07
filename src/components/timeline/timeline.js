@@ -17,7 +17,7 @@ export default class Timeline extends Component {
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
    */
   render () {
-   const { width, height, beginning, end, steps, process } = this.props;
+   const { width, height, beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
    let swimlaneheight = 50;
    let swimlanes = process.process.stakeholder;
@@ -34,9 +34,9 @@ export default class Timeline extends Component {
         });
       return lane;
       });
-
+    let viewBox = "0 0 "+window.innerWidth+" 1024";
     return (
-      <svg xmlns={NS_SVG} version='1.1' viewBox='0 0 640 480' preserveAspectRatio='xMidYMid slice' >
+      <svg xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
 
         <AxisY x="0" y="0" height={height} width={yAxisWidth} />

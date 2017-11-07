@@ -11,6 +11,7 @@ class TimelineView extends Component {
     super();
     this.setState({
       oproc: {},
+      filter: {},
     });
 
     let oProc = new Oproc;
@@ -67,6 +68,7 @@ export default class Home extends Component {
   render () {
     let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
     let oldStartDate = new Date(this.state.zoomSectionStart);
+
     return (
       <div class={style.home}>
         <h1>Timeline</h1>
