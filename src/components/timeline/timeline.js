@@ -29,8 +29,11 @@ export default class Timeline extends Component {
         if(Date.parse(process.start) <= beginning) return false;
         //skip processes after zoom time span
         if(Date.parse(process.end) >= end) return false;
+
+        //Swimmlane & Prozesse = Partizipants
         //skip processes whithout this participants
-        return process.participants.indexOf(lane.id) > -1;
+        //return process.participants.indexOf(lane.id) > -1;
+        return process.initiator == lane.id;
         });
       return lane;
       });
