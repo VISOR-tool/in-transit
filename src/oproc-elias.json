@@ -70,7 +70,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Grundsatzbeschluss",
-        "description": "Grundsatzbeschluss zur Wohnbebauung der Fl??che",
+        "description": "Grundsatzbeschluss zur Wohnbebauung der Fläche",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -91,7 +91,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -114,8 +114,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Beschluss zgrundhafter Ausbau der Erschliessungsstra??e, und Vergabe der Planungsleistungen",
-        "description": "Beschluss zgrundhafter Ausbau der Erschliessungsstra??e, und Vergabe der Planungsleistungen",
+        "name": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
+        "description": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -136,7 +136,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -159,8 +159,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "??ffentliche Ausschreibung der Baugewerke der ??bergeordneten Erschliessungsstra??e",
-        "description": "??ffentliche Ausschreibung der Baugewerke der ??bergeordneten Erschliessungsstra??e",
+        "name": "Öffentliche Ausschreibung der Baugewerke der übergeordneten Erschliessungsstraße",
+        "description": "Öffentliche Ausschreibung der Baugewerke der übergeordneten Erschliessungsstraße",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -180,7 +180,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -203,8 +203,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Vergabe der Baugewerke f??r die Erschliessungsstra??e",
-        "description": "Vergabe der Baugewerke f??r die Erschliessungsstra??e",
+        "name": "Vergabe der Baugewerke für die Erschliessungsstraße",
+        "description": "Vergabe der Baugewerke für die Erschliessungsstraße",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -224,7 +224,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -247,8 +247,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Bau der ??bergeordneten Erschliessungsstra??e",
-        "description": "Bau der ??bergeordneten Erschliessungsstra??e",
+        "name": "Bau der übergeordneten Erschliessungsstraße",
+        "description": "Bau der übergeordneten Erschliessungsstraße",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -269,7 +269,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -293,7 +293,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Erschliessungsplanung",
-        "description": "Erschliessungsplanung,  Beginn der Erarbeitung der Erschliessungsplanung des Gebietes mit Stra??en und Medien",
+        "description": "Erschliessungsplanung,  Beginn der Erarbeitung der Erschliessungsplanung des Gebietes mit straßen und Medien",
         "location": [
           "https://process.stadt.de/location/4"
         ],
@@ -314,7 +314,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -338,7 +338,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Baubeginn",
-        "description": "Baubeginn - Ausbau der Internen Erschliessungsstra??en",
+        "description": "Baubeginn - Ausbau der Internen Erschliessungsstraßen",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -360,7 +360,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -405,7 +405,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -426,8 +426,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Veranstaltung zur Vorstellung der Entw??rfe",
-        "description": "Veranstaltung zur Vorstellung der Entw??rfe",
+        "name": "Veranstaltung zur Vorstellung der Entwürfe",
+        "description": "Veranstaltung zur Vorstellung der Entwürfe",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -448,7 +448,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -491,7 +491,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -512,8 +512,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Verkauf des Grundst??ckes an den Investor",
-        "description": "Verkauf des Grundst??ckes an den Investor. Das Grundst??ck geh??rt der Stadt, um den Verkauf an den Investor zu vollziehen muss der Stadtrat zustimmen",
+        "name": "Verkauf des Grundstückes an den Investor",
+        "description": "Verkauf des Grundstückes an den Investor. Das Grundstück gehört der Stadt, um den Verkauf an den Investor zu vollziehen muss der Stadtrat zustimmen",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -533,7 +533,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -576,7 +576,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -599,8 +599,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "R??ckfragenkolloquium",
-        "description": "R??ckfragenkolloquium",
+        "name": "Rückfragenkolloquium",
+        "description": "Rückfragenkolloquium",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -622,7 +622,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -668,7 +668,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -714,7 +714,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -736,7 +736,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Pressemitteilung",
-        "description": "Pressemitteilung ??ber das Wettbewerbsergebnis",
+        "description": "Pressemitteilung über das Wettbewerbsergebnis",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -755,7 +755,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -780,7 +780,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Aufstellungsbeschluss",
-        "description": "Aufstellungsbeschluss durch den Stadtentwicklungsausschuss mit Abgrenzung des Geltungsbereiches der Fl??che",
+        "description": "Aufstellungsbeschluss durch den Stadtentwicklungsausschuss mit Abgrenzung des Geltungsbereiches der Fläche",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -800,7 +800,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -823,8 +823,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "St??dtebaulicher Vertrag",
-        "description": "St??dtebaulicher Vertrag - Zwischen dem Investor und der Stadt wird ein st??dtebaulicher Vertag geschlossen, welcher die Erschliessung und die Vermarktung der Grundst??cke regelt",
+        "name": "städtebaulicher Vertrag",
+        "description": "städtebaulicher Vertrag - Zwischen dem Investor und der Stadt wird ein städtebaulicher Vertag geschlossen, welcher die Erschliessung und die Vermarktung der Grundstücke regelt",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -844,7 +844,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -869,7 +869,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Aufstellungsbeschluss",
-        "description": "Aufstellungsbeschluss durch den Stadtrat mit Abgrenzung des Geltungsbereiches der Fl??che",
+        "description": "Aufstellungsbeschluss durch den Stadtrat mit Abgrenzung des Geltungsbereiches der Fläche",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -889,7 +889,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -910,8 +910,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Ver??ffentlichung im Stadtanzeiger - fr??hzeitige Beteiligung der ??ffentlichkeit",
-        "description": "Ver??ffentlichung im Stadtanzeiger - fr??hzeitige Beteiligung der ??ffentlichkeit nach ??13a Abs. 3 Nr. 2 BauGB",
+        "name": "VerÖffentlichung im Stadtanzeiger - frühzeitige Beteiligung der Öffentlichkeit",
+        "description": "VerÖffentlichung im Stadtanzeiger - frühzeitige Beteiligung der Öffentlichkeit nach §13a Abs. 3 Nr. 2 BauGB",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -930,7 +930,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -974,7 +974,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1015,7 +1015,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1038,8 +1038,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Fr??hzeitige T??B Abfrage - fr??hzeitige Beh??rdenbeteiligung",
-        "description": "Fr??hzeitige T??B Abfrage - fr??hzeitige Beh??rdenbeteiligung  - Abfrage der Tr??ger ??ffentlicher Belange, Fach??mter und Nachbargemeinden. ",
+        "name": "frühzeitige TÖB Abfrage - frühzeitige Behördenbeteiligung",
+        "description": "frühzeitige TÖB Abfrage - frühzeitige Behördenbeteiligung  - Abfrage der Träger Öffentlicher Belange, Fachämter und Nachbargemeinden. ",
         "location": [
           "https://process.stadt.de/location/3"
         ],
@@ -1056,7 +1056,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1079,8 +1079,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Kartierung des Gebietes f??r den Artenschutz Aufnahme aller Habitate ",
-        "description": "Kartierung des Gebietes f??r den Artenschutz Aufnahme aller Habitate ",
+        "name": "Kartierung des Gebietes für den Artenschutz Aufnahme aller Habitate ",
+        "description": "Kartierung des Gebietes für den Artenschutz Aufnahme aller Habitate ",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1100,7 +1100,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1141,7 +1141,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1182,7 +1182,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1226,7 +1226,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1270,7 +1270,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1291,8 +1291,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Ver??ffentlichung im Stadtanzeiger",
-        "description": "Ver??ffentlichung im Stadtanzeiger - Bekanntmachung der Auslage  im Stadtanzeiger ",
+        "name": "VerÖffentlichung im Stadtanzeiger",
+        "description": "VerÖffentlichung im Stadtanzeiger - Bekanntmachung der Auslage  im Stadtanzeiger ",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1311,7 +1311,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1334,8 +1334,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "T??B Beteiligung - Beh??rdenbeteiligung",
-        "description": "T??B Beteiligung - Beh??rdenbeteiligung - Beteiligung der Tr??ger ??ffentlicher Belange, Fach??mter und Nachbargemeinden. Alle relaevanten T??Bs etc. werden angeschrieben und haben die M??glichkeit innerhalb der einzuhaltenden Frist eine Stellungnahme zum Entwurf abzugeben.",
+        "name": "TÖB Beteiligung - Behördenbeteiligung",
+        "description": "TÖB Beteiligung - Behördenbeteiligung - Beteiligung der Träger Öffentlicher Belange, Fachämter und Nachbargemeinden. Alle relaevanten TÖBs etc. werden angeschrieben und haben die Möglichkeit innerhalb der einzuhaltenden Frist eine Stellungnahme zum Entwurf abzugeben.",
         "location": [
           "https://process.stadt.de/location/3"
         ],
@@ -1354,7 +1354,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1377,8 +1377,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "1. ??ffentliche Auslage des Entwurfes",
-        "description": "1. ??ffentliche Auslage des Entwurfes - Die B??rger haben die M??glichkeit der Einsicht in den Entwurf f??r die Dauer von 4 Wochen und k??nnen innerhalb der einzuhaltenden Frist eine Stellungnahme zum Entwurf abgeben",
+        "name": "1. Öffentliche Auslage des Entwurfes",
+        "description": "1. Öffentliche Auslage des Entwurfes - Die Bürger haben die Möglichkeit der Einsicht in den Entwurf für die Dauer von 4 Wochen und können innerhalb der einzuhaltenden Frist eine Stellungnahme zum Entwurf abgeben",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1398,7 +1398,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1423,8 +1423,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Abw??gung der Stellungnahmen ",
-        "description": "Abw??gung der Stellungnahmen der B??rger und der Beh??rden\nDas Stadtplanungsamt pr??ft in Zusammenarbeit mit dem Planer alle Stellungnahmen auf Relevanz und erarbeitet dazu ein Abw??gungsprotokoll.",
+        "name": "Abwägung der Stellungnahmen ",
+        "description": "Abwägung der Stellungnahmen der Bürger und der Behörden\nDas Stadtplanungsamt prüft in Zusammenarbeit mit dem Planer alle Stellungnahmen auf Relevanz und erarbeitet dazu ein Abwägungsprotokoll.",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1444,7 +1444,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1469,8 +1469,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "??berarbeitung der Entwurfsplanung",
-        "description": "??berarbeitung der Entwurfsplanung. Die Entwurfsplanung wird entsprechend dem Ergebnis des Abw??gungsprotokoll angepasst",
+        "name": "überarbeitung der Entwurfsplanung",
+        "description": "überarbeitung der Entwurfsplanung. Die Entwurfsplanung wird entsprechend dem Ergebnis des Abwägungsprotokoll angepasst",
         "location": [
           "https://process.stadt.de/location/3"
         ],
@@ -1490,7 +1490,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1513,8 +1513,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Beaufragung Fachb??ro",
-        "description": "Beaufragung Fachb??ro",
+        "name": "Beaufragung Fachbüro",
+        "description": "Beaufragung Fachbüro",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1535,7 +1535,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1558,8 +1558,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Erneute Kartierung des Gebietes f??r den Artenschutz Aufnahme aller Habitate ",
-        "description": "Erneute Kartierung des Gebietes f??r den Artenschutz Aufnahme aller Habitate ",
+        "name": "Erneute Kartierung des Gebietes für den Artenschutz Aufnahme aller Habitate ",
+        "description": "Erneute Kartierung des Gebietes für den Artenschutz Aufnahme aller Habitate ",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1579,7 +1579,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1625,7 +1625,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1649,8 +1649,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "T??B Beteiligung zum ge??nderten Entwurf",
-        "description": "T??B Beteiligung zum ge??nderten Entwurf - Beteiligung der relevanten Tr??ger ??ffentlicher Belange, nur die nach der ??nderung relevanten T??B werden angeschrieben und haben die M??glichkeit innerhalb der einzuhaltenden Frist einen Stellungnahme zum Entwurf abzugeben",
+        "name": "TÖB Beteiligung zum geänderten Entwurf",
+        "description": "TÖB Beteiligung zum geänderten Entwurf - Beteiligung der relevanten Träger Öffentlicher Belange, nur die nach der Änderung relevanten TÖB werden angeschrieben und haben die Möglichkeit innerhalb der einzuhaltenden Frist einen Stellungnahme zum Entwurf abzugeben",
         "location": [
           "https://process.stadt.de/location/3"
         ],
@@ -1669,7 +1669,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1691,8 +1691,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Ver??ffentlichung im Stadtanzeiger",
-        "description": "Ver??ffentlichung im Stadtanzeiger - Bekanntmachung der Auslage  im Stadtanzeiger ",
+        "name": "VerÖffentlichung im Stadtanzeiger",
+        "description": "VerÖffentlichung im Stadtanzeiger - Bekanntmachung der Auslage  im Stadtanzeiger ",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1711,7 +1711,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1735,8 +1735,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "2. ??ffentliche Auslage des ge??nderten Entwurf",
-        "description": "2. ??ffentliche Auslage des ge??nderten Entwurf - Die B??rger haben die M??glichkeit der Einsicht in den Entwurf f??r die Dauer von 4 Wochen und k??nnen innerhalb der einzuhaltenden Frist eine Stellungnahme zum ge??nderten Entwurf abgeben",
+        "name": "2. Öffentliche Auslage des geänderten Entwurf",
+        "description": "2. Öffentliche Auslage des geänderten Entwurf - Die Bürger haben die Möglichkeit der Einsicht in den Entwurf für die Dauer von 4 Wochen und können innerhalb der einzuhaltenden Frist eine Stellungnahme zum geänderten Entwurf abgeben",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1756,7 +1756,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1780,8 +1780,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Abw??gung der Stellungnahmen zum ge??nderten Entwurf",
-        "description": "Abw??gung der Stellungnahmen zum ge??nderten Entwurf der B??rger und der T??B.\nDas Stadtplanungsamt pr??ft in zusammenarbeit mit dem Planer alle Stellungnahmen zum ge??nderten Entwurf auf Relevanz und erarbeitet dazu ein Abw??gungsprotokoll.",
+        "name": "Abwägung der Stellungnahmen zum geänderten Entwurf",
+        "description": "Abwägung der Stellungnahmen zum geänderten Entwurf der Bürger und der TÖB.\nDas Stadtplanungsamt prüft in zusammenarbeit mit dem Planer alle Stellungnahmen zum geänderten Entwurf auf Relevanz und erarbeitet dazu ein Abwägungsprotokoll.",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1801,7 +1801,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1825,7 +1825,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Satzungsbeschluss",
-        "description": "Abw??gungs- und Satzungsbeschluss. Der Stadtentwicklungsausschuss beschliesst die Abw??gung und den ge??nderten Entwurf",
+        "description": "Abwägungs- und Satzungsbeschluss. Der Stadtentwicklungsausschuss beschliesst die Abwägung und den geänderten Entwurf",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1845,7 +1845,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1870,7 +1870,7 @@
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Satzungsbeschluss",
-        "description": "Abw??gungs- und Satzungsbeschluss. Der Stadtrat beschliesst die Abw??gung und den ge??nderten Entwurf",
+        "description": "Abwägungs- und Satzungsbeschluss. Der Stadtrat beschliesst die Abwägung und den geänderten Entwurf",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1890,7 +1890,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1911,8 +1911,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Ver??ffentlichung im Stadtanzeiger",
-        "description": "Ver??ffentlichung im Stadtanzeiger - Bekanntmachung des Satzungsbeschlusses, Inkrafttreten der Satzung des Bebauungsplanes, Eintreten der Rechtskraft.",
+        "name": "VerÖffentlichung im Stadtanzeiger",
+        "description": "VerÖffentlichung im Stadtanzeiger - Bekanntmachung des Satzungsbeschlusses, Inkrafttreten der Satzung des Bebauungsplanes, Eintreten der Rechtskraft.",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -1931,7 +1931,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -1976,7 +1976,7 @@
           {
             "id": "https://process.stadt.de/results/11",
             "name": "Antrag",
-            "description": "Antrag f??r NSP Mittel",
+            "description": "Antrag für NSP Mittel",
             "copyright (optional)": "",
             "text (optional)": "",
             "files (optional)": [],
@@ -2223,7 +2223,7 @@
         "id": "https://process.stadt.de/location/3",
         "address": "",
         "zip": "",
-        "city": "Planerb??ro",
+        "city": "Planerbüro",
         "room (optional)": "",
         "geoCoords (optional)": {
           "lat": "",
@@ -2234,7 +2234,7 @@
         "id": "https://process.stadt.de/location/3",
         "address": "",
         "zip": "",
-        "city": "Fachplanerb??ro",
+        "city": "Fachplanerbüro",
         "room (optional)": "",
         "geoCoords (optional)": {
           "lat": "",

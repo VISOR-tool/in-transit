@@ -35,6 +35,7 @@ export default class Swimlane extends Component {
                   +tlX;
     let stacking = 0
     if(this.stacking.count > 1) stacking = this.stacking.count - 1;
+
     return {
       x: startPx,
       y: tlY + (stacking * height),

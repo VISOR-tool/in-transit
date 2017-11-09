@@ -17,7 +17,7 @@ export default class Timeline extends Component {
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
    */
   render () {
-   const { width, height, beginning, end, steps, process, filter } = this.props;
+   const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
    let swimlaneheight = 50;
    let swimlanes = process.process.stakeholder;
@@ -34,13 +34,15 @@ export default class Timeline extends Component {
         });
       return lane;
       });
-    let viewBox = "0 0 "+window.innerWidth+" 1024";
+    let tlHeight = swimlanes.length * swimlaneheight + 20;
+    let tlWidth = window.innerWidth;
+    let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
-        <rect id="timeline_bg" x="0" y="0" width={width} height={height} style="fill:#95DAE7" />
+        <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
 
-        <AxisY x="0" y="0" height={height} width={yAxisWidth} />
-        <AxisX x={yAxisWidth} y="0" width={width-yAxisWidth} beginning={beginning} end={end} />
+        <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
+        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth} beginning={beginning} end={end} />
 
       {
         swimlanes.map(
@@ -49,7 +51,7 @@ export default class Timeline extends Component {
                     title = {lane.name}
                     x = {yAxisWidth}
                     y = {20 + (swimlaneheight * parseInt(index))}
-                    width = {width-yAxisWidth}
+                    width = {tlWidth-yAxisWidth}
                     height = {swimlaneheight}
                     beginning = {beginning}
                     end = {end}
