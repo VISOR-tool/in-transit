@@ -31,8 +31,10 @@ export default class Home extends Component {
         {
           wrapEmptyLanes: true,
           lanesSortOrder: "aufsteigend",
+          processVisbility: "Partizipation",
         },
       };
+    this.handleProcessVisbility = this.handleProcessVisbility.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
     this.handleZoom = this.handleZoom.bind(this);
@@ -46,6 +48,14 @@ export default class Home extends Component {
         this.setState({oproc: oproc});
     });
   };
+
+  handleProcessVisbility(event){
+    const filter = this.state.filter;
+    if(filter.processVisbility == 'Partizipation')
+         filter.processVisbility = 'Initiierung';
+    else filter.processVisbility = 'Partizipation';
+    this.setState({filter:filter});
+  }
 
   handleLanesSortOrder(event){
     var sorted = this.state.oproc;
@@ -107,6 +117,7 @@ export default class Home extends Component {
                   />
                   leere Schwimbahnen ausblenden
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
+            <br />Prozesse anzeigen nach:  <b onClick={this.handleProcessVisbility}>{this.state.filter.processVisbility}</b>
           <p>
           <b>Zoom</b>
           <br />start:
