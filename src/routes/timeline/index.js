@@ -2,6 +2,9 @@ import { h, Component } from 'preact';
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Oproc from '../../components/oproc/oproc';
+import Reflux from 'reflux';
+import FluxStore from '../../components/timeline/flux-stores.js';
+
 
 
 class TimelineView extends Component {
@@ -27,6 +30,7 @@ export default class Home extends Component {
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
       zoomSectionStart: Date.parse(2015),
       oproc: {},
+      fluxtest: 'bimbam',
       filter:
         {
           wrapEmptyLanes: true,
@@ -47,6 +51,8 @@ export default class Home extends Component {
         .then( oproc => {
         this.setState({oproc: oproc});
     });
+
+    Reflux.connect(FluxStore, 'fluxtest');
   };
 
   handleProcessVisbility(event){
@@ -82,7 +88,6 @@ export default class Home extends Component {
     const name = target.name;
     const filter = this.state.filter;
     filter[name] = value;
-    console.log(value);
     this.setState(filter);
   };
 
