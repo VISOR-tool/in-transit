@@ -37,9 +37,11 @@ export default class Home extends Component {
           wrapEmptyLanes: "off",
           lanesSortOrder: "aufsteigend",
           procOnlyVisibleWith: "",
+          procVisibileWithout: "",
         },
       };
-    this.handleProcOnlyWith = this.handleProcOnlyWith.bind(this);
+    this.handleProcVisibileWithout = this.handleProcVisibileWithout.bind(this);
+    this.handleProcOnlyVisibleWith = this.handleProcOnlyVisibleWith.bind(this);
     this.handleProcessMapping = this.handleProcessMapping.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
@@ -54,7 +56,23 @@ export default class Home extends Component {
     Reflux.connect(FluxStore, 'fluxtest');
   };
 
-  handleProcOnlyWith(event){
+  handleProcVisibileWithout(event){
+    const filter = this.state.filter;
+    filter.procVisibileWithout = event.target.selectedOptions[0].value;
+    this.setState(filter);
+    //change the visibility proerty for unwanted processes
+    const oproc = this.state.oproc;
+    oproc.process.childs.forEach( proc => {
+      if(proc.participants.indexOf( filter.procVisibileWithout ) == -1)
+        proc.visible = true;
+      else
+        proc.visible = false;
+      return proc;
+    });
+    this.setState(oproc)
+  }
+
+  handleProcOnlyVisibleWith(event){
     const filter = this.state.filter;
     filter.procOnlyVisibleWith = event.target.selectedOptions[0].value;
     this.setState(filter);
@@ -127,7 +145,8 @@ export default class Home extends Component {
             <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
             <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
-            <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyWith}>{stakeholderOptions}</select>
+            <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
+            <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
           <p>
           <b>Zoom</b>
           <br />start:
