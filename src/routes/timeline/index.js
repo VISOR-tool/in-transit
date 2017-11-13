@@ -38,8 +38,10 @@ export default class Home extends Component {
           lanesSortOrder: "aufsteigend",
           procOnlyVisibleWith: "",
           procVisibileWithout: "",
+          processParticipation: "beliebiger",
         },
       };
+    this.handleProcessParticipation = this.handleProcessParticipation.bind(this);
     this.handleProcVisibileWithout = this.handleProcVisibileWithout.bind(this);
     this.handleProcOnlyVisibleWith = this.handleProcOnlyVisibleWith.bind(this);
     this.handleProcessMapping = this.handleProcessMapping.bind(this);
@@ -50,11 +52,30 @@ export default class Home extends Component {
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
-    oProc.reload("oproc-tiny-tree.json")
-    //oProc.reload("oproc-elias.json")
+    //oProc.reload("oproc-tiny-tree.json")
+    oProc.reload("oproc-elias.json")
         .then( oproc => this.setState({oproc: oproc}))
     Reflux.connect(FluxStore, 'fluxtest');
   };
+
+  handleProcessParticipation(event){
+    const filter = this.state.filter;
+    if( filter.processParticipation == "beliebiger" )
+      filter.processParticipation = "offener";
+    else
+      filter.processParticipation = "beliebiger";
+    //change the visibility proerty for unwanted processes
+    const oproc = this.state.oproc;
+    oproc.process.childs.forEach( proc => {
+        if(filter.processParticipation == "offener" && proc.participation == 'closed')
+          proc.visible = false;
+        else
+          proc.visible = true;
+        return proc;
+      });
+    this.setState(filter);
+    this.setState(oproc)
+  }
 
   handleProcVisibileWithout(event){
     const filter = this.state.filter;
@@ -67,7 +88,6 @@ export default class Home extends Component {
         proc.visible = true;
       else
         proc.visible = false;
-      return proc;
     });
     this.setState(oproc)
   }
@@ -141,12 +161,15 @@ export default class Home extends Component {
     return (
       <div class={style.home}>
         <div class={style.filter}>
-          <b>Swimmbahnen</b>
+          <p><b>Swimmbahnen</b>
             <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
             <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
+          </p><p><b>Prozese</b>
+            <br />nur Prozesse mit <b onclick={this.handleProcessParticipation}>{this.state.filter.processParticipation}</b> Beteiligung anzeigen
             <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
             <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
+          </p>
           <p>
           <b>Zoom</b>
           <br />start:

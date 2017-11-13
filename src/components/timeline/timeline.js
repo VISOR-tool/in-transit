@@ -66,6 +66,7 @@ export default class Timeline extends Component {
                     beginning = {beginning}
                     end = {end}
                     processes = {lane.processes}
+                    stakeholder = {process.process.stakeholder}
                     />
         ))
       }

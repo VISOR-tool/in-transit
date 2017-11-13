@@ -45,7 +45,7 @@ export default class Swimlane extends Component {
   }
 
   render () {
-    const { id, title, x, y, width, height, processes, beginning, end } = this.props;
+    const { id, title, x, y, width, height, processes, beginning, end, stakeholder } = this.props;
     this.stacking.base = 1;
     var timelineAttrs = {
       stroke: 'blue',
@@ -72,6 +72,7 @@ export default class Swimlane extends Component {
             <Process
               process = {process}
               processPosition = {this.processPosition(process, x, y)}
+              stakeholder = {stakeholder}
             />
         );
     //let startIndicator =  <line x1= y1= x2= y2=  {...attrs} />
