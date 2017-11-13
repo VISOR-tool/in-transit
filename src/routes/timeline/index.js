@@ -33,10 +33,10 @@ export default class Home extends Component {
       oproc: {},
       filter:
         {
-          processMapping: "Initiator",
+          processMapping: "Beteiligten",
           wrapEmptyLanes: "off",
           lanesSortOrder: "aufsteigend",
-          procOnlyWith: "",
+          procOnlyVisibleWith: "",
         },
       };
     this.handleProcOnlyWith = this.handleProcOnlyWith.bind(this);
@@ -50,14 +50,25 @@ export default class Home extends Component {
     //oProc.reload("oproc.json")
     oProc.reload("oproc-tiny-tree.json")
     //oProc.reload("oproc-elias.json")
-        .then( oproc => {
-        this.setState({oproc: oproc});
-    });
-
-    IN jeden Prozess einen switch einbauen "filtered", der angibt das dieser eintrag nicht angezeigt wird
-
+        .then( oproc => this.setState({oproc: oproc}))
     Reflux.connect(FluxStore, 'fluxtest');
   };
+
+  handleProcOnlyWith(event){
+    const filter = this.state.filter;
+    filter.procOnlyVisibleWith = event.target.selectedOptions[0].value;
+    this.setState(filter);
+    //change the visibility proerty for unwanted processes
+    const oproc = this.state.oproc;
+    oproc.process.childs.forEach( proc => {
+      if(proc.participants.indexOf( filter.procOnlyVisibleWith ) == -1)
+        proc.visible = false;
+      else
+        proc.visible = true;
+      return proc;
+    });
+    this.setState(oproc)
+  }
 
   handleProcessMapping(event){
     const filter = this.state.filter;
@@ -103,18 +114,6 @@ export default class Home extends Component {
     this.setState({ zoomSectionStart: Date.parse(event.target.value) });
   };
 
-  handleProcOnlyWith(event){
-    const filter = this.state.filter;
-    filter.procOnlyWith = event.target.selectedOptions[0].value;
-    this.setState(filter);
-
-    const oproc = this.state.oproc;
-    const filtered = oproc.process.childs.filter( proc => proc.participants.indexOf(filter.procOnlyWith) > -1 );
-    oproc.process.childs = filtered;
-    console.log();
-    this.setState(oproc)
-  }
-
   render () {
     if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
     let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
@@ -128,7 +127,7 @@ export default class Home extends Component {
             <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
             <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
-            <br />nur Prozesse zeigen mit <select onChange={this.handleProcOnlyWith}>{stakeholderOptions}</select>
+            <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyWith}>{stakeholderOptions}</select>
           <p>
           <b>Zoom</b>
           <br />start:

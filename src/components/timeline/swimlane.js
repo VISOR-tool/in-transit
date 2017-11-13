@@ -44,12 +44,8 @@ export default class Swimlane extends Component {
       };
   }
 
-  processesVerticalLayout = function( processes ) {
-  }
-
   render () {
     const { id, title, x, y, width, height, processes, beginning, end } = this.props;
-    var processesVerticalLayout = this.processesVerticalLayout( processes );
     this.stacking.base = 1;
     var timelineAttrs = {
       stroke: 'blue',
@@ -79,7 +75,6 @@ export default class Swimlane extends Component {
             />
         );
     //let startIndicator =  <line x1= y1= x2= y2=  {...attrs} />
-
     return (
       <g>
         {lane}

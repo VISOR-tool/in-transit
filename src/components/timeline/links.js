@@ -12,18 +12,20 @@ export default class Links extends Component {
 
     let lines = [];
     processes.map( (process,index,all) => {
-        all.map(pAll => {
-          //|| pAll.attributes.process.connection.to.indexOf(process.attributes.process.id) > -1
-          if( pAll.attributes.process.connection.from.indexOf(process.attributes.process.id) > -1)
-          {
-            lines.push({
-                  x1: process.attributes.processPosition.x + process.attributes.processPosition.width,
-                  y1: process.attributes.processPosition.y + process.attributes.processPosition.height,
-                  x2: pAll.attributes.processPosition.x ,
-                  y2: pAll.attributes.processPosition.y
-                });
-          }
-        })
+        if(process.attributes.process.visible == true){
+          all.map(pAll => {
+            if( pAll.attributes.process.visible == true &&
+                pAll.attributes.process.connection.from.indexOf(process.attributes.process.id) > -1)
+            {
+              lines.push({
+                    x1: process.attributes.processPosition.x + process.attributes.processPosition.width,
+                    y1: process.attributes.processPosition.y + process.attributes.processPosition.height,
+                    x2: pAll.attributes.processPosition.x ,
+                    y2: pAll.attributes.processPosition.y
+                  });
+            }
+          });
+        }
     });
 
     var attrs = {
@@ -35,7 +37,7 @@ export default class Links extends Component {
          <line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}  {...attrs} />
          ));
 
-    //links.map( link => ( <line x1="0" y1="0" x2="200" y2="200"  {...attrs} /> ) )
+        //links.map( link => ( <line x1="0" y1="0" x2="200" y2="200"  {...attrs} /> ) )
 
     return (
       <g>
