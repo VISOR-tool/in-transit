@@ -16,6 +16,7 @@ class TimelineView extends Component {
         end={this.props.end}
         steps={this.props.steps}
         process={this.props.data}
+        filter={this.props.filter}
         />
     );
   }
@@ -33,12 +34,12 @@ export default class Home extends Component {
       fluxtest: 'bimbam',
       filter:
         {
-          wrapEmptyLanes: true,
+          processMapping: "Initiator",
+          wrapEmptyLanes: "off",
           lanesSortOrder: "aufsteigend",
-          processVisbility: "Partizipation",
         },
       };
-    this.handleProcessVisbility = this.handleProcessVisbility.bind(this);
+    this.handleProcessMapping = this.handleProcessMapping.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
     this.handleZoom = this.handleZoom.bind(this);
@@ -55,13 +56,12 @@ export default class Home extends Component {
     Reflux.connect(FluxStore, 'fluxtest');
   };
 
-  handleProcessVisbility(event){
+  handleProcessMapping(event){
     const filter = this.state.filter;
-    if(filter.processVisbility == 'Partizipation')
-         filter.processVisbility = 'Initiierung';
-    else filter.processVisbility = 'Partizipation';
-    this.setState({filter:filter});
-  }
+    if(filter.processMapping == 'Initiator') filter.processMapping = 'Beteiligten';
+    else filter.processMapping = 'Initiator';
+    this.setState(filter);
+  };
 
   handleLanesSortOrder(event){
     var sorted = this.state.oproc;
@@ -83,11 +83,9 @@ export default class Home extends Component {
   };
 
   handleSwimlaneWrap(event){
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
     const filter = this.state.filter;
-    filter[name] = value;
+    if(filter.wrapEmptyLanes == 'on') filter.wrapEmptyLanes = 'off';
+    else filter.wrapEmptyLanes = 'on';
     this.setState(filter);
   };
 
@@ -102,10 +100,6 @@ export default class Home extends Component {
     this.setState({ zoomSectionStart: Date.parse(event.target.value) });
   };
 
-  filter(){
-    if(this.state.filter.wrapEmptyLanes) false;
-  };
-
   render () {
     if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
     let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
@@ -114,15 +108,9 @@ export default class Home extends Component {
       <div class={style.home}>
         <div class={style.filter}>
           <b>Swimmbahnen</b>
-            <br /><input
-                    type="checkbox"
-                    name="wrapEmptyLanes"
-                    checked={this.state.filter.wrapEmptyLanes}
-                    onChange={this.handleSwimlaneWrap}
-                  />
-                  leere Schwimbahnen ausblenden
+            <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
+            <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
-            <br />Prozesse anzeigen nach:  <b onClick={this.handleProcessVisbility}>{this.state.filter.processVisbility}</b>
           <p>
           <b>Zoom</b>
           <br />start:
@@ -150,6 +138,7 @@ export default class Home extends Component {
           beginning={this.state.zoomSectionStart}
           end={zoomEnd.valueOf()}
           data={this.state.oproc}
+          filter={this.state.filter}
          />
       </div>
     );

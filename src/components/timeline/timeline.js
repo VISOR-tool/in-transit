@@ -32,14 +32,21 @@ export default class Timeline extends Component {
 
         //Swimmlane & Prozesse = Partizipants
         //skip processes whithout this participants
-        //return process.participants.indexOf(lane.id) > -1;
-        return process.initiator == lane.id;
+        if(filter.processMapping == "Initiator")
+          return process.initiator == lane.id;
+        else return process.participants.indexOf(lane.id) > -1;
         });
       return lane;
       });
     let tlHeight = swimlanes.length * swimlaneheight + 20;
     let tlWidth = window.innerWidth;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
+
+    if(filter.wrapEmptyLanes == 'on')
+        swimlanes = swimlanes.filter((lane) => {
+          return lane.processes.length  > 0
+          })
+
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
