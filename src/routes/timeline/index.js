@@ -31,14 +31,15 @@ export default class Home extends Component {
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
       zoomSectionStart: Date.parse(2015),
       oproc: {},
-      fluxtest: 'bimbam',
       filter:
         {
           processMapping: "Initiator",
           wrapEmptyLanes: "off",
           lanesSortOrder: "aufsteigend",
+          procOnlyWith: "",
         },
       };
+    this.handleProcOnlyWith = this.handleProcOnlyWith.bind(this);
     this.handleProcessMapping = this.handleProcessMapping.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
@@ -47,11 +48,13 @@ export default class Home extends Component {
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
-    //oProc.reload("oproc-tiny-tree.json")
-    oProc.reload("oproc-elias.json")
+    oProc.reload("oproc-tiny-tree.json")
+    //oProc.reload("oproc-elias.json")
         .then( oproc => {
         this.setState({oproc: oproc});
     });
+
+    IN jeden Prozess einen switch einbauen "filtered", der angibt das dieser eintrag nicht angezeigt wird
 
     Reflux.connect(FluxStore, 'fluxtest');
   };
@@ -100,10 +103,24 @@ export default class Home extends Component {
     this.setState({ zoomSectionStart: Date.parse(event.target.value) });
   };
 
+  handleProcOnlyWith(event){
+    const filter = this.state.filter;
+    filter.procOnlyWith = event.target.selectedOptions[0].value;
+    this.setState(filter);
+
+    const oproc = this.state.oproc;
+    const filtered = oproc.process.childs.filter( proc => proc.participants.indexOf(filter.procOnlyWith) > -1 );
+    oproc.process.childs = filtered;
+    console.log();
+    this.setState(oproc)
+  }
+
   render () {
     if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
     let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
     let oldStartDate = new Date(this.state.zoomSectionStart);
+    let stakeholderOptions = this.state.oproc.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
+
     return (
       <div class={style.home}>
         <div class={style.filter}>
@@ -111,6 +128,7 @@ export default class Home extends Component {
             <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
             <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
+            <br />nur Prozesse zeigen mit <select onChange={this.handleProcOnlyWith}>{stakeholderOptions}</select>
           <p>
           <b>Zoom</b>
           <br />start:
