@@ -7,20 +7,6 @@ import FluxStore from '../../components/timeline/flux-stores.js';
 
 
 
-class TimelineView extends Component {
-  render() {
-    if( this.props.data.process == undefined ) return "daten können nicht geladen werden ";
-    return (
-      <Timeline
-        beginning={this.props.beginning}
-        end={this.props.end}
-        steps={this.props.steps}
-        process={this.props.data}
-        filter={this.props.filter}
-        />
-    );
-  }
-}
 
 export default class Home extends Component {
   constructor () {
@@ -30,6 +16,7 @@ export default class Home extends Component {
       zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
       zoomSectionStart: Date.parse(2015),
+      zoomDrag: {drag: false},
       oproc: {},
       filter:
         {
@@ -57,6 +44,22 @@ export default class Home extends Component {
         .then( oproc => this.setState({oproc: oproc}))
     Reflux.connect(FluxStore, 'fluxtest');
   };
+
+
+  handleDragTimeline = event => {
+    if(event.type === "mousedown") this.setState({zoomDrag: {drag:true, start: event.x} });
+    if(event.type === "mouseup")   this.setState({zoomDrag: {drag:false} });
+
+    if(this.state.zoomDrag.drag == true)
+    {
+      let distance = event.x - this.state.zoomDrag.start;
+      let time = distance * (this.state.zoom * 1000000);
+      let date = new Date(this.state.zoomSectionStart.valueOf() + time);
+      console.log( date.valueOf() );
+      this.setState({zoomSectionStart: date} );
+    }
+  }
+
 
   handleProcessParticipation(event){
     const filter = this.state.filter;
@@ -142,13 +145,11 @@ export default class Home extends Component {
   };
 
   handleZoom(event){
-    event.preventDefault();
     this.setState({ zoom: event.target.value });
     this.render();
   };
 
   handleSetStart(event){
-    event.preventDefault();
     this.setState({ zoomSectionStart: Date.parse(event.target.value) });
   };
 
@@ -162,11 +163,11 @@ export default class Home extends Component {
       <div class={style.home}>
         <div class={style.filter}>
           <p><b>Swimmbahnen</b>
-            <br />in Schwimbahnen Prozesse zeigen von: <b onclick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
-            <br />leere Schwimbahnen ausblenden: <b onclick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
+            <br />in Schwimbahnen Prozesse zeigen von: <b onClick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
+            <br />leere Schwimbahnen ausblenden: <b onClick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
             <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
           </p><p><b>Prozese</b>
-            <br />nur Prozesse mit <b onclick={this.handleProcessParticipation}>{this.state.filter.processParticipation}</b> Beteiligung anzeigen
+            <br />nur Prozesse mit <b onClick={this.handleProcessParticipation}>{this.state.filter.processParticipation}</b> Beteiligung anzeigen
             <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
             <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
           </p>
@@ -177,7 +178,7 @@ export default class Home extends Component {
             id="zoomSectionStart"
             type="text"
             size="8"
-            value={oldStartDate.getFullYear() +'.'+ oldStartDate.getMonth()}
+            value={oldStartDate.getFullYear()+'.'+oldStartDate.getMonth()+'.'+ oldStartDate.getDay()}
             onChange={this.handleSetStart}
           />
           Zoom:
@@ -191,14 +192,16 @@ export default class Home extends Component {
          </p>
         </div>
         <h4>{this.state.oproc.process.name}</h4>
-        <TimelineView
+        <Timeline
+          handleDragTimeline={this.handleDragTimeline}
           width="600"
           height="1000"
           beginning={this.state.zoomSectionStart}
           end={zoomEnd.valueOf()}
-          data={this.state.oproc}
+          process={this.state.oproc}
           filter={this.state.filter}
          />
+             return (
       </div>
     );
   }
