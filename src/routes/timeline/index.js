@@ -11,12 +11,16 @@ import FluxStore from '../../components/timeline/flux-stores.js';
 export default class Home extends Component {
   constructor () {
     super();
+    let zoomSectionStart = new Date( Date.parse(2015) );
+    let zoomSectionEnd = new Date( Date.parse(2017) );
     this.state = {
       zoom: 99,
       zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
-      zoomSectionStart: Date.parse(2015),
-      zoomDrag: {drag: false},
+      zoomSectionStart: zoomSectionStart,
+      zoomSectionEnd: zoomSectionEnd,
+      timelineDrag: {drag: false},
+      timelineZoom: {zoom: false},
       oproc: {},
       filter:
         {
@@ -46,17 +50,28 @@ export default class Home extends Component {
   };
 
 
-  handleDragTimeline = event => {
-    if(event.type === "mousedown") this.setState({zoomDrag: {drag:true, start: event.x} });
-    if(event.type === "mouseup")   this.setState({zoomDrag: {drag:false} });
+  handleZoomTimeline = event => {
+    event.preventDefault();
+    if(event.type === "mousewheel"){
+      let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
+      let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
+      let newEnd   = new Date( this.state.zoomSectionEnd.getTime() - distance);
+      this.setState( {zoomSectionStart:newStart, zoomSectionEnd:newEnd} );
+    }
+  }
 
-    if(this.state.zoomDrag.drag == true)
+  handleDragTimeline = event => {
+    event.preventDefault();
+    if(event.type === "mousedown") this.setState({timelineDrag: {drag:true, start: event.x} });
+    if(event.type === "mouseup") this.setState({timelineDrag: {drag:false} });
+
+    if(this.state.timelineDrag.drag == true)
     {
-      let distance = event.x - this.state.zoomDrag.start;
-      let time = distance * (this.state.zoom * 1000000);
-      let date = new Date(this.state.zoomSectionStart.valueOf() + time);
-      console.log( date.valueOf() );
-      this.setState({zoomSectionStart: date} );
+      let distance = event.x - this.state.timelineDrag.start;
+      let time = distance * (this.state.zoom * 100000);
+      let start = new Date(this.state.zoomSectionStart.valueOf() - time);
+      let end = new Date(this.state.zoomSectionEnd.valueOf() - time);
+      this.setState({zoomSectionStart: start, zoomSectionEnd: end} );
     }
   }
 
@@ -155,7 +170,7 @@ export default class Home extends Component {
 
   render () {
     if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
-    let zoomEnd = new Date(this.state.zoomSectionStart + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
+    let zoomEnd = new Date(this.state.zoomSectionStart.valueOf() + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
     let oldStartDate = new Date(this.state.zoomSectionStart);
     let stakeholderOptions = this.state.oproc.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
 
@@ -171,33 +186,15 @@ export default class Home extends Component {
             <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
             <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
           </p>
-          <p>
-          <b>Zoom</b>
-          <br />start:
-          <input
-            id="zoomSectionStart"
-            type="text"
-            size="8"
-            value={oldStartDate.getFullYear()+'.'+oldStartDate.getMonth()+'.'+ oldStartDate.getDay()}
-            onChange={this.handleSetStart}
-          />
-          Zoom:
-          <input
-            type="range"
-            id="zoom"
-            value={this.state.zoom}
-            onChange={this.handleZoom}
-          />
-          (1Mon/2Years)
-         </p>
         </div>
         <h4>{this.state.oproc.process.name}</h4>
         <Timeline
           handleDragTimeline={this.handleDragTimeline}
+          handleZoomTimeline={this.handleZoomTimeline}
           width="600"
           height="1000"
           beginning={this.state.zoomSectionStart}
-          end={zoomEnd.valueOf()}
+          end={this.state.zoomSectionEnd}
           process={this.state.oproc}
           filter={this.state.filter}
          />

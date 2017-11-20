@@ -48,16 +48,20 @@ export default class Timeline extends Component {
           })
 
     return (
-      <svg
-        onMouseDown={this.props.handleDragTimeline}
-        onMouseUp={this.props.handleDragTimeline}
-        onMouseMove={this.props.handleDragTimeline}
-        xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
+      <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
 
         <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
-        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth} beginning={beginning} end={end} />
+        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth}
+                beginning={beginning} end={end}
+                handleZoomTimeline ={this.props.handleZoomTimeline}
+               />
+      <g
+        onMouseDown={this.props.handleDragTimeline}
+        onMouseUp={this.props.handleDragTimeline}
+        onMouseMove={this.props.handleDragTimeline}
 
+        >
       {
         swimlanes.map(
         (lane,index) => (
@@ -74,7 +78,7 @@ export default class Timeline extends Component {
                     />
         ))
       }
-
+      </g>
       </svg>
     );
   }
