@@ -14,18 +14,16 @@ export default class Home extends Component {
     let zoomSectionStart = new Date( Date.parse(2015) );
     let zoomSectionEnd = new Date( Date.parse(2017) );
     this.state = {
-      zoom: 99,
       zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
       zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
       zoomSectionStart: zoomSectionStart,
       zoomSectionEnd: zoomSectionEnd,
       timelineDrag: {drag: false},
-      timelineZoom: {zoom: false},
       oproc: {},
       filter:
         {
           processMapping: "Beteiligten",
-          wrapEmptyLanes: "off",
+          wrapEmptyLanes: "on",
           lanesSortOrder: "aufsteigend",
           procOnlyVisibleWith: "",
           procVisibileWithout: "",
@@ -62,15 +60,24 @@ export default class Home extends Component {
 
   handleDragTimeline = event => {
     event.preventDefault();
+    if(event.type === "mousewheel"){
+      let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
+      let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
+      let newEnd   = new Date( this.state.zoomSectionEnd.getTime() + distance);
+      this.setState( {zoomSectionStart:newStart, zoomSectionEnd:newEnd} );
+    }
+
+
     if(event.type === "mousedown") this.setState({timelineDrag: {drag:true, start: event.x} });
     if(event.type === "mouseup") this.setState({timelineDrag: {drag:false} });
 
     if(this.state.timelineDrag.drag == true)
     {
-      let distance = event.x - this.state.timelineDrag.start;
-      let time = distance * (this.state.zoom * 100000);
-      let start = new Date(this.state.zoomSectionStart.valueOf() - time);
-      let end = new Date(this.state.zoomSectionEnd.valueOf() - time);
+      let distance = event.x - this.state.timelineDrag.start; ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000)
+
+
+      let start = new Date(this.state.zoomSectionStart.valueOf() - distance * 6000000);
+      let end = new Date(this.state.zoomSectionEnd.valueOf() - distance * 6000000);
       this.setState({zoomSectionStart: start, zoomSectionEnd: end} );
     }
   }
@@ -198,7 +205,6 @@ export default class Home extends Component {
           process={this.state.oproc}
           filter={this.state.filter}
          />
-             return (
       </div>
     );
   }

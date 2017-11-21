@@ -19,16 +19,16 @@ export default class Timeline extends Component {
   render () {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
-   let swimlaneheight = 50;
    let swimlanes = process.process.stakeholder;
    let allProcesses = process.process.childs;
+   let swimlaneheight = this.props.height / swimlanes.length;
 
    swimlanes.forEach( function(lane){ //fill swimlane with concernd processes
       lane.processes = allProcesses.filter( function(process){
         //skip processes before zoom time span
-        if(Date.parse(process.start) <= beginning) return false;
+        //if(Date.parse(process.start) <= beginning) return false;
         //skip processes after zoom time span
-        if(Date.parse(process.end) >= end) return false;
+        //if(Date.parse(process.end) >= end) return false;
 
         //Swimmlane & Prozesse = Partizipants
         //skip processes whithout this participants
@@ -38,7 +38,7 @@ export default class Timeline extends Component {
         });
       return lane;
       });
-    let tlHeight = swimlanes.length * swimlaneheight + 20;
+    let tlHeight = this.props.height; //swimlanes.length * swimlaneheight + 20;
     let tlWidth = window.innerWidth;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
 
@@ -50,35 +50,34 @@ export default class Timeline extends Component {
     return (
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
-
+        <g
+          onMousewheel={this.props.handleDragTimeline}
+          onMouseDown={this.props.handleDragTimeline}
+          onMouseUp={this.props.handleDragTimeline}
+          onMouseMove={this.props.handleDragTimeline}
+        >
+        {
+          swimlanes.map(
+          (lane,index) => (
+            <Swimlane id = {lane.id}
+                      title = {lane.name}
+                      x = {yAxisWidth}
+                      y = {20 + (swimlaneheight * parseInt(index))}
+                      width = {tlWidth-yAxisWidth}
+                      height = {swimlaneheight}
+                      beginning = {beginning}
+                      end = {end}
+                      processes = {lane.processes}
+                      stakeholder = {process.process.stakeholder}
+                      />
+          ))
+        }
+        </g>
         <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
         <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth}
                 beginning={beginning} end={end}
                 handleZoomTimeline ={this.props.handleZoomTimeline}
                />
-      <g
-        onMouseDown={this.props.handleDragTimeline}
-        onMouseUp={this.props.handleDragTimeline}
-        onMouseMove={this.props.handleDragTimeline}
-
-        >
-      {
-        swimlanes.map(
-        (lane,index) => (
-          <Swimlane id = {lane.id}
-                    title = {lane.name}
-                    x = {yAxisWidth}
-                    y = {20 + (swimlaneheight * parseInt(index))}
-                    width = {tlWidth-yAxisWidth}
-                    height = {swimlaneheight}
-                    beginning = {beginning}
-                    end = {end}
-                    processes = {lane.processes}
-                    stakeholder = {process.process.stakeholder}
-                    />
-        ))
-      }
-      </g>
       </svg>
     );
   }
