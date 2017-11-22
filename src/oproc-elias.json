@@ -2221,9 +2221,9 @@
       },
       {
         "id": "https://process.stadt.de/location/3",
-        "address": "",
-        "zip": "",
-        "city": "Planerbüro",
+        "address": "Planerstraße 7",
+        "zip": "123456",
+        "city": "Berlin",
         "room (optional)": "",
         "geoCoords (optional)": {
           "lat": "",
@@ -2231,10 +2231,10 @@
         }
       },
       {
-        "id": "https://process.stadt.de/location/3",
-        "address": "",
-        "zip": "",
-        "city": "Fachplanerbüro",
+        "id": "https://process.stadt.de/location/4",
+        "address": "Foobar Weg 123",
+        "zip": "75693",
+        "city": "Fumperding",
         "room (optional)": "",
         "geoCoords (optional)": {
           "lat": "",
@@ -2242,10 +2242,10 @@
         }
       },
       {
-        "id": "https://process.stadt.de/location/3",
-        "address": "",
-        "zip": "",
-        "city": "Landratsamt",
+        "id": "https://process.stadt.de/location/5",
+        "address": "Landratsamt, Sternstraße 17",
+        "zip": "53739",
+        "city": "Mittelstadt",
         "room (optional)": "",
         "geoCoords (optional)": {
           "lat": "",

@@ -29,7 +29,7 @@ export default class Links extends Component {
     });
 
     var attrs = {
-      stroke: '#80579E',
+      stroke: '#D41A20',
       'stroke-width': 1,
     };
 

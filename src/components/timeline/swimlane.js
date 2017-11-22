@@ -48,7 +48,7 @@ export default class Swimlane extends Component {
     const { id, title, x, y, width, height, processes, beginning, end, stakeholder } = this.props;
     this.stacking.base = 1;
     var timelineAttrs = {
-      stroke: 'blue',
+      stroke: '#16CEEA',
       'stroke-width': 1,
       fill: 'white'
     };

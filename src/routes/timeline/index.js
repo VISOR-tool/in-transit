@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
+import Hitlist from '../../components/timeline/hitlist';
 import Oproc from '../../components/oproc/oproc';
 import Reflux from 'reflux';
 import FluxStore from '../../components/timeline/flux-stores.js';
@@ -183,28 +184,36 @@ export default class Home extends Component {
 
     return (
       <div class={style.home}>
-        <div class={style.filter}>
-          <p><b>Swimmbahnen</b>
-            <br />in Schwimbahnen Prozesse zeigen von: <b onClick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
-            <br />leere Schwimbahnen ausblenden: <b onClick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
-            <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
-          </p><p><b>Prozese</b>
-            <br />nur Prozesse mit <b onClick={this.handleProcessParticipation}>{this.state.filter.processParticipation}</b> Beteiligung anzeigen
-            <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
-            <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
-          </p>
-        </div>
-        <h4>{this.state.oproc.process.name}</h4>
-        <Timeline
-          handleDragTimeline={this.handleDragTimeline}
-          handleZoomTimeline={this.handleZoomTimeline}
-          width="600"
-          height="1000"
-          beginning={this.state.zoomSectionStart}
-          end={this.state.zoomSectionEnd}
-          process={this.state.oproc}
-          filter={this.state.filter}
-         />
+          <div class={style.filter}>
+            <p><b>Swimmbahnen</b>
+              <br />in Schwimbahnen Prozesse zeigen von: <b onClick={this.handleProcessMapping}>{this.state.filter.processMapping}</b>
+              <br />leere Schwimbahnen ausblenden: <b onClick={this.handleSwimlaneWrap}>{this.state.filter.wrapEmptyLanes}</b>
+              <br />Aphabetisch <b onClick={this.handleLanesSortOrder}>{this.state.filter.lanesSortOrder}</b> sortieren
+            </p><p><b>Prozese</b>
+              <br />nur Prozesse mit <b onClick={this.handleProcessParticipation}>{this.state.filter.processParticipation}</b> Beteiligung anzeigen
+              <br />nur Prozesse mit Beteiligung von: <select onChange={this.handleProcOnlyVisibleWith}>{stakeholderOptions}</select>
+              <br />nur Prozesse ohne Beteiligung von: <select onChange={this.handleProcVisibileWithout}>{stakeholderOptions}</select>
+            </p>
+          </div>
+
+          <div class={style.hitlist}>
+            <Hitlist
+              process={this.state.oproc} />
+          </div>
+
+        <div class={style.timeline}>
+          <h4>{this.state.oproc.process.name}</h4>
+          <Timeline
+            handleDragTimeline={this.handleDragTimeline}
+            handleZoomTimeline={this.handleZoomTimeline}
+            width="600"
+            height="1000"
+            beginning={this.state.zoomSectionStart}
+            end={this.state.zoomSectionEnd}
+            process={this.state.oproc}
+            filter={this.state.filter}
+           />
+      </div>
       </div>
     );
   }
