@@ -18,16 +18,18 @@
   },
   "devDependencies": {
     "eslint": "^4.6.1",
-    "eslint-config-synacor": "^1.1.1",
+    "eslint-config-synacor": "^2",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.4.1",
     "semistandard": "^11.0.0"
   },
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "json-loader": "^0.5.7",
     "preact": "^8.2.5",
+    "preact-cli": "^2.1.0",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.7",
+    "reflux": "^6.4.1",
     "robust-segment-intersect": "^1.0.1"
   }
 }
