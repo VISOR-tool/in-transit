@@ -1,4 +1,6 @@
 import { h, Component } from 'preact';
+// import { connect } from 'react-redux';
+
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
@@ -229,3 +231,8 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({});
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Home);
