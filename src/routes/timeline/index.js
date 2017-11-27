@@ -50,8 +50,9 @@ export default class Home extends Component {
 
 
   handleZoomTimeline = event => {
+
     event.preventDefault();
-        if(event.type === "mousewheel"){
+        if(event.type === "wheel"){
       let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
       let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
       let newEnd   = new Date( this.state.zoomSectionEnd.getTime() - distance);
@@ -61,7 +62,7 @@ export default class Home extends Component {
 
   handleDragTimeline = event => {
     event.preventDefault();
-    if(event.type === "mousewheel"){
+    if(event.type === "mousewheel" || event.type === "wheel"){
       let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
       let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
       let newEnd   = new Date( this.state.zoomSectionEnd.getTime() + distance);
@@ -93,7 +94,6 @@ export default class Home extends Component {
         if(searchHit.cat == 'proc')
           if(proc.id == searchHit.val) {
               proc.searchHit = true;
-              console.log(proc.id, searchHit.val);
           }
         if(searchHit.cat == 'loc')
           if(proc.location == searchHit.val) proc.searchHit = true;
