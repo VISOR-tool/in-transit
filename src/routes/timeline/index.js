@@ -5,7 +5,6 @@ import Hitlist from '../../components/timeline/hitlist';
 import Oproc from '../../components/oproc/oproc';
 
 
-
 export default class Home extends Component {
   constructor () {
     super();
@@ -225,7 +224,7 @@ export default class Home extends Component {
             process={this.state.oproc}
             filter={this.state.filter}
            />
-      </div>
+        </div>
       </div>
     );
   }

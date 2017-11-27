@@ -25,11 +25,12 @@
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
     "json-loader": "^0.5.7",
-    "preact": "^8.2.5",
+    "preact": "^8.2.6",
     "preact-cli": "^2.1.0",
     "preact-compat": "^3.17.0",
+    "preact-redux": "^2.0.3",
     "preact-router": "^2.5.7",
-    "reflux": "^6.4.1",
+    "redux": "^3.7.2",
     "robust-segment-intersect": "^1.0.1"
   }
 }
