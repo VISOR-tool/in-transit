@@ -26,7 +26,7 @@ export default class Axis_X extends Component {
 
     return (
       <g
-        onMouseWheel={this.props.handleZoomTimeline}
+        onWheel={this.props.handleZoomTimeline}
       >
       <rect
         id="xAXis"

@@ -81,22 +81,27 @@ export default class Hitlist extends Component {
     //const { beginning, end, steps, process, filter } = this.props;
     let stakeholder = "";
     if(this.state.searchHits.stakeholder.length > 0){
-      stakeholder = this.state.searchHits.stakeholder.map( hit => <li>{hit.name}</li> )
+      stakeholder = this.state.searchHits.stakeholder.map(
+                    hit => <li onClick={() => this.props.handleSearchHits({cat:'sh',val:hit.id})} >
+                               {hit.name} </li> )
       stakeholder = <div> <b>Prozessbeteilige</b> {stakeholder} </div>;
     }
 
     let processes = "";
     if(this.state.searchHits.processes.length > 0){
-      processes = this.state.searchHits.processes.map( hit => <li>{hit.name}</li> )
+      processes = this.state.searchHits.processes.map(
+                  hit => <li onClick={() => this.props.handleSearchHits({cat:'proc',val:hit.id})} >
+                             {hit.name} </li> )
       processes = <div> <b>Prozesse</b> {processes} </div>;
       }
 
     let locations = "";
     if(this.state.searchHits.locations.length > 0){
-      locations = this.state.searchHits.locations.map( hit => <li>{hit.city}:<i>{hit.address} {hit.room}</i></li> )
-        locations = <div><b>Orte</b>{locations}</div>;
+      locations = this.state.searchHits.locations.map(
+                  hit => <li onClick={() => this.props.handleSearchHits({cat:'loc',val:hit.id})} >
+                             {hit.city}:<i>{hit.address} {hit.room}</i></li> )
+      locations = <div><b>Orte</b>{locations}</div>;
     }
-
 
     return  <div>
               Suche: <input type="text" onInput={this.handleSearch} />

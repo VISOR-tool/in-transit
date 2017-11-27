@@ -9,12 +9,23 @@ export default class Process extends Component {
     const { process, processPosition, stakeholder } = this.props;
     if(process.visible == true)
     {
-      const procAttrs = {
+      let procAttrs = {
         width: 80,
         stroke: '#3784F8',
         'stroke-width': 1,
         fill: '#61D2E8'
       };
+
+      if(process.searchHit){
+        procAttrs = {
+          width: 80,
+          stroke: '#3784F8',
+          'stroke-width': 1,
+          fill: '#E88261'
+        };
+      }
+
+
       const processAttrs = {
         "font-family": "Verdana",
         "font-size"  : 10,

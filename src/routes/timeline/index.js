@@ -51,7 +51,7 @@ export default class Home extends Component {
 
   handleZoomTimeline = event => {
     event.preventDefault();
-    if(event.type === "mousewheel"){
+        if(event.type === "mousewheel"){
       let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
       let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
       let newEnd   = new Date( this.state.zoomSectionEnd.getTime() - distance);
@@ -74,15 +74,33 @@ export default class Home extends Component {
 
     if(this.state.timelineDrag.drag == true)
     {
-      let distance = event.x - this.state.timelineDrag.start; ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000)
-
-
+      let distance = event.x - this.state.timelineDrag.start; ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000);
       let start = new Date(this.state.zoomSectionStart.valueOf() - distance * 6000000);
       let end = new Date(this.state.zoomSectionEnd.valueOf() - distance * 6000000);
       this.setState({zoomSectionStart: start, zoomSectionEnd: end} );
     }
   }
 
+  searchHitObjectSelection = (searchHit,event) => {
+
+    const oproc = this.state.oproc;
+    oproc.process.childs.map( proc => {
+        proc.searchHit = false;
+        if(searchHit.cat == 'sh'){
+          if(proc.initiator == searchHit.val) proc.searchHit = true;
+          proc.searchHit = proc.participants.some( shId => { return shId == searchHit.val } );
+        }
+        if(searchHit.cat == 'proc')
+          if(proc.id == searchHit.val) {
+              proc.searchHit = true;
+              console.log(proc.id, searchHit.val);
+          }
+        if(searchHit.cat == 'loc')
+          if(proc.location == searchHit.val) proc.searchHit = true;
+        return proc;
+      });
+    this.setState(oproc)
+  }
 
   handleProcessParticipation(event){
     const filter = this.state.filter;
@@ -198,7 +216,8 @@ export default class Home extends Component {
 
           <div class={style.hitlist}>
             <Hitlist
-              process={this.state.oproc} />
+              process={this.state.oproc}
+              handleSearchHits={this.searchHitObjectSelection}/>
           </div>
 
         <div class={style.timeline}>

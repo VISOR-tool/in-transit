@@ -51,7 +51,7 @@ export default class Timeline extends Component {
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
         <g
-          onMousewheel={this.props.handleDragTimeline}
+          onWheel={this.props.handleDragTimeline}
           onMouseDown={this.props.handleDragTimeline}
           onMouseUp={this.props.handleDragTimeline}
           onMouseMove={this.props.handleDragTimeline}
