@@ -3,8 +3,6 @@ import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
 import Oproc from '../../components/oproc/oproc';
-import Reflux from 'reflux';
-import FluxStore from '../../components/timeline/flux-stores.js';
 
 
 
@@ -45,7 +43,6 @@ export default class Home extends Component {
     //oProc.reload("oproc-tiny-tree.json")
     oProc.reload("oproc-elias.json")
         .then( oproc => this.setState({oproc: oproc}))
-    Reflux.connect(FluxStore, 'fluxtest');
   };
 
 
