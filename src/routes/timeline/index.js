@@ -47,7 +47,6 @@ export default class Home extends Component {
 
 
   handleZoomTimeline = event => {
-
     event.preventDefault();
         if(event.type === "wheel"){
       let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
@@ -66,10 +65,8 @@ export default class Home extends Component {
       this.setState( {zoomSectionStart:newStart, zoomSectionEnd:newEnd} );
     }
 
-
     if(event.type === "mousedown") this.setState({timelineDrag: {drag:true, start: event.x} });
     if(event.type === "mouseup") this.setState({timelineDrag: {drag:false} });
-
     if(this.state.timelineDrag.drag == true)
     {
       let distance = event.x - this.state.timelineDrag.start; ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000);
@@ -79,21 +76,20 @@ export default class Home extends Component {
     }
   }
 
-  searchHitObjectSelection = (searchHit,event) => {
-
+  objectSelectionManager = (hitProperty,event) => {
     const oproc = this.state.oproc;
     oproc.process.childs.map( proc => {
         proc.searchHit = false;
-        if(searchHit.cat == 'sh'){
-          if(proc.initiator == searchHit.val) proc.searchHit = true;
-          proc.searchHit = proc.participants.some( shId => { return shId == searchHit.val } );
+        if(hitProperty.cat == 'sh'){
+          if(proc.initiator == hitProperty.val) proc.searchHit = true;
+          proc.searchHit = proc.participants.some( shId => { return shId == hitProperty.val } );
         }
-        if(searchHit.cat == 'proc')
-          if(proc.id == searchHit.val) {
+        if(hitProperty.cat == 'proc')
+          if(proc.id == hitProperty.val) {
               proc.searchHit = true;
           }
-        if(searchHit.cat == 'loc')
-          if(proc.location == searchHit.val) proc.searchHit = true;
+        if(hitProperty.cat == 'loc')
+          if(proc.location == hitProperty.val) proc.searchHit = true;
         return proc;
       });
     this.setState(oproc)
@@ -214,7 +210,7 @@ export default class Home extends Component {
           <div class={style.hitlist}>
             <Hitlist
               process={this.state.oproc}
-              handleSearchHits={this.searchHitObjectSelection}/>
+              handleSearchHits={this.objectSelectionManager}/>
           </div>
 
         <div class={style.timeline}>
