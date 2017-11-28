@@ -6,7 +6,6 @@ import Oproc from '../../components/oproc/oproc';
 
 
 
-
 export default class Home extends Component {
   constructor () {
     super();
@@ -210,8 +209,9 @@ export default class Home extends Component {
           <div class={style.hitlist}>
             <Hitlist
               process={this.state.oproc}
-              handleSearchHits={this.objectSelectionManager}/>
+              handleOnClicks={this.objectSelectionManager}/>
           </div>
+
 
         <div class={style.timeline}>
           <h4>{this.state.oproc.process.name}</h4>
