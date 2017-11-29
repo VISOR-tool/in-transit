@@ -71,8 +71,8 @@ class Home extends Component {
           proc.visible = true;
         return proc;
       });
-    this.setState(filter);
-    this.setState(oproc)
+    this.setState(filter);  // !?!
+    this.setState(oproc)  // WAT?
   }
 
   handleProcVisibileWithout(event){
