@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 
-export default class Axis_X extends Component {
+class Axis_X extends Component {
   // constructor () {
   //   super();
   // }
@@ -26,7 +27,7 @@ export default class Axis_X extends Component {
 
     return (
       <g
-        onWheel={this.props.handleZoomTimeline}
+        onWheel={this.props.onWheel}
       >
       <rect
         id="xAXis"
@@ -54,3 +55,10 @@ export default class Axis_X extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ zoom }) => ({
+  beginning: zoom.sectionStart,
+  end: zoom.sectionEnd,
+});
+
+export default connect(mapStateToProps)(Axis_X);

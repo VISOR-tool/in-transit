@@ -1,20 +1,8 @@
 import { createStore, combineReducers } from 'redux';
 
-import { zoomInitial, zoomReducer } from './reducers/zoom';
+import { zoomReducer } from './reducers/zoom';
 
-const INITIAL = {
-  zoom: zoomInitial,
-  oproc: {},
-  filter:
-  {
-    processMapping: "Beteiligten",
-    wrapEmptyLanes: "on",
-    lanesSortOrder: "aufsteigend",
-    procOnlyVisibleWith: "",
-    procVisibileWithout: "",
-    processParticipation: "beliebiger",
-  },
-};
+const INITIAL = {};
 
 export default () => createStore(
   combineReducers({

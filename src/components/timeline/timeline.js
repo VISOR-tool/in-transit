@@ -1,15 +1,45 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
+import { zoomActions } from '../../lib/reducers/zoom';
+
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 
-export default class Timeline extends Component {
+
+class Timeline extends Component {
   constructor () {
     super();
-    this.setState({  });
+    this.setState({
+      dragging: false,
+    });
+  }
+
+  onMouseWheel = ({ beginning, end, setZoomSection }) => event => {
+    event.preventDefault();
+
+    let distance = event.deltaY * (end.getTime() - beginning.getTime()) / 1000;
+    setZoomSection(-distance, distance);
+  }
+
+  onMouseMove = ({ beginning, end, setZoomSection }, tlWidth) => event => {
+    if (!this.state.dragging) return;
+    event.preventDefault();
+
+    let distance = event.movementX / tlWidth * (beginning.getTime() - end.getTime());
+    setZoomSection(distance, distance);
+  }
+
+  onMouseDown = () => {
+    this.setState({ dragging: true });
+  }
+
+  onMouseUp = () => {
+    this.setState({ dragging: false });
   }
 
   /*
@@ -47,15 +77,16 @@ export default class Timeline extends Component {
           return lane.processes.length  > 0
           })
 
+    const onWheel = this.onMouseWheel(this.props);
     return (
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
         <g
-          onMouseWheel={this.props.handleDragTimeline}
-          onwheel={this.props.handleDragTimeline}
-          onMouseDown={this.props.handleDragTimeline}
-          onMouseUp={this.props.handleDragTimeline}
-          onMouseMove={this.props.handleDragTimeline}
+          onMouseWheel={onWheel}
+          onwheel={onWheel}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onMouseMove={this.onMouseMove(this.props, tlWidth).bind(this)}
         >
         {
           swimlanes.map(
@@ -66,8 +97,6 @@ export default class Timeline extends Component {
                       y = {20 + (swimlaneheight * parseInt(index))}
                       width = {tlWidth-yAxisWidth}
                       height = {swimlaneheight}
-                      beginning = {beginning}
-                      end = {end}
                       processes = {lane.processes}
                       stakeholder = {process.process.stakeholder}
                       />
@@ -76,10 +105,19 @@ export default class Timeline extends Component {
         </g>
         <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
         <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth}
-                beginning={beginning} end={end}
-                handleZoomTimeline ={this.props.handleZoomTimeline}
+                onWheel={onWheel}
                />
       </svg>
     );
   }
 }
+
+const mapStateToProps = ({ zoom }) => ({
+  beginning: zoom.sectionStart,
+  end: zoom.sectionEnd,
+});
+const mapDispatchToProps = dispatch => ({
+  setZoomSection: (begin, end) => dispatch(zoomActions.setZoomSection(begin, end)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

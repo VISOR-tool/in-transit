@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-// import { connect } from 'react-redux';
+import { connect } from 'preact-redux';
 
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
@@ -7,17 +7,11 @@ import Hitlist from '../../components/timeline/hitlist';
 import Oproc from '../../components/oproc/oproc';
 
 
-export default class Home extends Component {
+class Home extends Component {
   constructor () {
     super();
-    let zoomSectionStart = new Date( Date.parse(2015) );
-    let zoomSectionEnd = new Date( Date.parse(2017) );
+
     this.state = {
-      zoomMin: 30 * 3600 * 1000, //min zoom level 1 Month
-      zoomMax: 2.1 * 365 * 24 * 3600 * 1000, //max zoom level 2 Years
-      zoomSectionStart: zoomSectionStart,
-      zoomSectionEnd: zoomSectionEnd,
-      timelineDrag: {drag: false},
       oproc: {},
       filter:
         {
@@ -35,8 +29,6 @@ export default class Home extends Component {
     this.handleProcessMapping = this.handleProcessMapping.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
-    this.handleZoom = this.handleZoom.bind(this);
-    this.handleSetStart = this.handleSetStart.bind(this);
 
     let oProc = new Oproc;
     //oProc.reload("oproc.json")
@@ -44,37 +36,6 @@ export default class Home extends Component {
     oProc.reload("oproc-elias.json")
         .then( oproc => this.setState({oproc: oproc}))
   };
-
-
-  handleZoomTimeline = event => {
-    event.preventDefault();
-        if(event.type === "wheel"){
-      let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
-      let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
-      let newEnd   = new Date( this.state.zoomSectionEnd.getTime() - distance);
-      this.setState( {zoomSectionStart:newStart, zoomSectionEnd:newEnd} );
-    }
-  }
-
-  handleDragTimeline = event => {
-    event.preventDefault();
-    if(event.type === "mousewheel" || event.type === "wheel"){
-      let distance = ( event.deltaY * ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000) );
-      let newStart = new Date( this.state.zoomSectionStart.getTime() + distance);
-      let newEnd   = new Date( this.state.zoomSectionEnd.getTime() + distance);
-      this.setState( {zoomSectionStart:newStart, zoomSectionEnd:newEnd} );
-    }
-
-    if(event.type === "mousedown") this.setState({timelineDrag: {drag:true, start: event.x} });
-    if(event.type === "mouseup") this.setState({timelineDrag: {drag:false} });
-    if(this.state.timelineDrag.drag == true)
-    {
-      let distance = event.x - this.state.timelineDrag.start; ((this.state.zoomSectionEnd.getTime() - this.state.zoomSectionStart.getTime())/1000);
-      let start = new Date(this.state.zoomSectionStart.valueOf() - distance * 6000000);
-      let end = new Date(this.state.zoomSectionEnd.valueOf() - distance * 6000000);
-      this.setState({zoomSectionStart: start, zoomSectionEnd: end} );
-    }
-  }
 
   objectSelectionManager = (hitProperty,event) => {
     const oproc = this.state.oproc;
@@ -178,18 +139,8 @@ export default class Home extends Component {
     this.setState(filter);
   };
 
-  handleZoom(event){
-    this.setState({ zoom: event.target.value });
-    this.render();
-  };
-
-  handleSetStart(event){
-    this.setState({ zoomSectionStart: Date.parse(event.target.value) });
-  };
-
   render () {
     if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
-    let zoomEnd = new Date(this.state.zoomSectionStart.valueOf() + ((this.state.zoomMax - this.state.zoomMin)/100) * this.state.zoom);
     let oldStartDate = new Date(this.state.zoomSectionStart);
     let stakeholderOptions = this.state.oproc.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
 
@@ -217,12 +168,8 @@ export default class Home extends Component {
         <div class={style.timeline}>
           <h4>{this.state.oproc.process.name}</h4>
           <Timeline
-            handleDragTimeline={this.handleDragTimeline}
-            handleZoomTimeline={this.handleZoomTimeline}
             width="600"
             height="1000"
-            beginning={this.state.zoomSectionStart}
-            end={this.state.zoomSectionEnd}
             process={this.state.oproc}
             filter={this.state.filter}
            />
@@ -235,4 +182,4 @@ export default class Home extends Component {
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

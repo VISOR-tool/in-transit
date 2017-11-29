@@ -1,8 +1,10 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+
 import Process from './process';
 import Links from './links';
 
-export default class Swimlane extends Component {
+class Swimlane extends Component {
   constructor () {
     super();
   }
@@ -86,3 +88,10 @@ export default class Swimlane extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ zoom }) => ({
+  beginning: zoom.sectionStart,
+  end: zoom.sectionEnd,
+});
+
+export default connect(mapStateToProps)(Swimlane);
