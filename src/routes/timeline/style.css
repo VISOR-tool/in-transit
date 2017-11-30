@@ -9,6 +9,9 @@
   background-color: lightgray;
   border: solid 1px AliceBlue;
 }
+.filter b {
+  cursor: pointer;
+}
 
 .hitlist{
   float: left;
