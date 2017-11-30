@@ -145,7 +145,6 @@ class TimelineRoute extends Component {
     }
 
     if(data.process == undefined) return "Daten werden noch geladen";
-    let oldStartDate = new Date(this.state.zoomSectionStart);
     let stakeholderOptions = data.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
 
     return (
