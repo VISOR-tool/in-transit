@@ -19,11 +19,12 @@ class Timeline extends Component {
     });
   }
 
-  onMouseWheel = ({ beginning, end, setZoomSection }) => event => {
+  onMouseWheel = ({ beginning, end, setZoomSection }, tlWidth) => event => {
     event.preventDefault();
 
     let distance = event.deltaY * (end.getTime() - beginning.getTime()) / 1000;
-    setZoomSection(-distance, distance);
+    let a1 = event.offsetX / tlWidth;
+    setZoomSection(- a1 * distance, (1 - a1) * distance);
   }
 
   onMouseMove = ({ beginning, end, setZoomSection }, tlWidth) => event => {
@@ -77,7 +78,7 @@ class Timeline extends Component {
           return lane.processes.length  > 0
           })
 
-    const onWheel = this.onMouseWheel(this.props);
+    const onWheel = this.onMouseWheel(this.props, tlWidth);
     return (
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
