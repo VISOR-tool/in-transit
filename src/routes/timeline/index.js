@@ -7,7 +7,7 @@ import Hitlist from '../../components/timeline/hitlist';
 import Oproc from '../../components/oproc/oproc';
 
 
-class Home extends Component {
+class TimelineRoute extends Component {
   constructor () {
     super();
 
@@ -182,4 +182,4 @@ class Home extends Component {
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(TimelineRoute);
