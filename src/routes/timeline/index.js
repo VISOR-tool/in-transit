@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
-import Oproc from '../../components/oproc/oproc';
+import { dataLoad } from '../../lib/reducers/data';
 
 
 class TimelineRoute extends Component {
@@ -29,12 +29,6 @@ class TimelineRoute extends Component {
     this.handleProcessMapping = this.handleProcessMapping.bind(this);
     this.handleSwimlaneWrap = this.handleSwimlaneWrap.bind(this);
     this.handleLanesSortOrder = this.handleLanesSortOrder.bind(this);
-
-    let oProc = new Oproc;
-    //oProc.reload("oproc.json")
-    //oProc.reload("oproc-tiny-tree.json")
-    oProc.reload("oproc-elias.json")
-        .then( oproc => this.setState({oproc: oproc}))
   };
 
   objectSelectionManager = (hitProperty,event) => {
@@ -140,9 +134,20 @@ class TimelineRoute extends Component {
   };
 
   render () {
-    if(this.state.oproc.process == undefined) return "Daten werden noch geladen";
+    console.log('render', this.props);
+    const { dataUrl, loadData, data } = this.props;
+    const wantedUrl = 'oproc-elias.json';
+    if (dataUrl !== wantedUrl) {
+      setTimeout(() => {
+        if (dataUrl !== wantedUrl) {
+          loadData(wantedUrl);
+        }
+      }, 1000);
+    }
+
+    if(data.process == undefined) return "Daten werden noch geladen";
     let oldStartDate = new Date(this.state.zoomSectionStart);
-    let stakeholderOptions = this.state.oproc.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
+    let stakeholderOptions = data.process.stakeholder.map(sh => <option value={sh.id}>{sh.name}</option>);
 
     return (
       <div class={style.home}>
@@ -160,17 +165,17 @@ class TimelineRoute extends Component {
 
           <div class={style.hitlist}>
             <Hitlist
-              process={this.state.oproc}
+              process={data}
               handleOnClicks={this.objectSelectionManager}/>
           </div>
 
 
         <div class={style.timeline}>
-          <h4>{this.state.oproc.process.name}</h4>
+          <h4>{data.process.name}</h4>
           <Timeline
             width="600"
             height="1000"
-            process={this.state.oproc}
+            process={data}
             filter={this.state.filter}
            />
         </div>
@@ -179,7 +184,12 @@ class TimelineRoute extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = ({ data }) => ({
+  dataUrl: data.wantedUrl,
+  data: data.data,
+});
+const mapDispatchToProps = dispatch => ({
+  loadData: dataLoad(dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineRoute);

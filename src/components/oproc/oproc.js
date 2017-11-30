@@ -15,10 +15,6 @@
 
 import { h, Component } from 'preact';
 export default class Oproc extends Component {
-  constructor( ) {
-    super();
-  }
-
   // TESTS //
   test_loading_ok() {
     if( this.oproc.system.id  != '' && this.oproc.system.id != undefined) {
