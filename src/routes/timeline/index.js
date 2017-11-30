@@ -12,7 +12,6 @@ class TimelineRoute extends Component {
     super();
 
     this.state = {
-      oproc: {},
       filter:
         {
           processMapping: "Beteiligten",

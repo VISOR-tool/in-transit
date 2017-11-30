@@ -1,4 +1,4 @@
-import Oproc from '../../components/oproc/oproc';
+import Oproc from '../oproc';
 
 const INITIAL_STATE = {
   data: {},

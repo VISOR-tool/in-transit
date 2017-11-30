@@ -13,8 +13,7 @@
  *
  */
 
-import { h, Component } from 'preact';
-export default class Oproc extends Component {
+export default class Oproc {
   // TESTS //
   test_loading_ok() {
     if( this.oproc.system.id  != '' && this.oproc.system.id != undefined) {
