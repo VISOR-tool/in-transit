@@ -72,7 +72,7 @@ class Timeline extends Component {
     let tlWidth = window.innerWidth;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
 
-    if(filter.wrapEmptyLanes == 'on')
+    if(filter.laneWrap)
         swimlanes = swimlanes.filter((lane) => {
           return lane.processes.length  > 0
           })
@@ -112,9 +112,10 @@ class Timeline extends Component {
   }
 }
 
-const mapStateToProps = ({ zoom }) => ({
+const mapStateToProps = ({ zoom, filter }) => ({
   beginning: zoom.sectionStart,
   end: zoom.sectionEnd,
+  filter,
 });
 const mapDispatchToProps = dispatch => ({
   setZoomSection: (begin, end) => dispatch(zoomActions.setZoomSection(begin, end)),
