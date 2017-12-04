@@ -32,10 +32,9 @@ export default class Oproc {
     return parsedResponse;
   }
 
-  reload(process) {
-    const oproc = this.download(process)
-      .then( oproc => {return oproc})
-      .then( oproc => this.addVisibleProperty(oproc))
+  async reload(process) {
+    let oproc = await this.download(process);
+    oproc = this.addVisibleProperty(oproc);
     return oproc;
   }
 
