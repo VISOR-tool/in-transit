@@ -8,8 +8,8 @@
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "build": "preact build",
     "serve": "preact build && preact serve --dir src",
-    "dev": "preact build && preact watch --cwd src",
-    "dev": "preact watch"
+    "dev": "preact watch",
+    "flow": "flow"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "eslint": "^4.6.1",
     "eslint-config-synacor": "^2",
+    "flow-bin": "^0.60.1",
     "if-env": "^1.0.0",
     "semistandard": "^11.0.0"
   },

@@ -1,0 +1,20 @@
+[ignore]
+.*\.json
+
+[include]
+src/**/*.js
+
+[libs]
+flow-typed
+
+[options]
+all=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowBug
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+module.ignore_non_literal_requires=true
+module.name_mapper.extension='css' -> 'css-module-flow'
+module.name_mapper.extension='less' -> 'css-module-flow'
+module.name_mapper.extension='scss' -> 'css-module-flow'
+module.name_mapper.extension='styl' -> 'css-module-flow'
+
+[lints]
