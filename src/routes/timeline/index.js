@@ -4,6 +4,7 @@ import { connect } from 'preact-redux';
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
+import ToplistComponent from '../../components/timeline/toplist';
 import { dataLoad } from '../../lib/reducers/data';
 import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
@@ -38,7 +39,7 @@ class TimelineRoute extends Component {
         }
       }, 1000);
     }
-
+    
     if(data.process == undefined) return "Daten werden noch geladen";
     let stakeholderOptions = [{ id: "", name: "…" }].concat(data.process.stakeholder).map(sh => <option value={sh.id}>{sh.name}</option>);
 
@@ -69,6 +70,12 @@ class TimelineRoute extends Component {
             <Hitlist
               process={data}
               handleOnClicks={this.objectSelectionManager}/>
+          </div>
+
+          <div >
+            <ToplistComponent
+              processData={data}
+              />
           </div>
 
 
