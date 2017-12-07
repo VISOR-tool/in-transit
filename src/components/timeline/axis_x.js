@@ -7,7 +7,7 @@ class Axis_X extends Component {
   // }
 
   render () {
-    const { x, y, width, beginning, end } = this.props;
+    const { x, y, width, beginning, end, showAxisLabels } = this.props;
     const beginningDate = new Date(beginning);
     const endDate = new Date(end);
     const axisHeight = 20;
@@ -36,21 +36,23 @@ class Axis_X extends Component {
         width={width}
         height={axisHeight}
         {...attrs}
-      />
-      <text
-        x = {x + space}
-        y = {y + axisHeight-space}
-        {...attrsText}
-        >
-        {beginningDate.getFullYear()+'.'+beginningDate.getMonth()}
-      </text>
-      <text
-        x = {x + width-53-space}
-        y = {y + axisHeight-space}
-        {...attrsText}
-        >
-        {endDate.getFullYear()+'.'+endDate.getMonth()}
-      </text>
+        />
+        { showAxisLabels ? <g>
+            <text
+              x = {x + space}
+              y = {y + axisHeight-space}
+              {...attrsText}
+              >
+              {beginningDate.getFullYear()+'.'+beginningDate.getMonth()}
+            </text>
+            <text
+              x = {x + width-53-space}
+              y = {y + axisHeight-space}
+              {...attrsText}
+              >
+                {endDate.getFullYear()+'.'+endDate.getMonth()}
+            </text>
+        </g> : null}
       </g>
     );
   }

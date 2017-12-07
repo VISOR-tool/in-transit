@@ -106,8 +106,8 @@ class Timeline extends Component {
         </g>
         <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
         <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth}
-                onWheel={onWheel}
-               />
+          onWheel={onWheel} showAxisLabels={true}
+        />
       </svg>
     );
   }
