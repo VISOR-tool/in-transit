@@ -1,6 +1,12 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 
-const Process = ({ process, processPosition, stakeholder }) => {
+import { selectionActions } from '../../lib/reducers/selection';
+
+const Process = ({ process, processPosition, stakeholder,
+                   selected, select, hovered, hover, unhover,
+                 }) => {
+  const { id } = process;
   if(process.visible == true)
   {
     let procAttrs = {
@@ -9,6 +15,12 @@ const Process = ({ process, processPosition, stakeholder }) => {
       'stroke-width': 1,
       fill: '#61D2E8'
     };
+    if (hovered === id) {
+      procAttrs['fill'] = "#71E2F8";
+    }
+    if (selected === id) {
+      procAttrs['stroke'] = "#FF0000";
+    }
 
     if(process.searchHit){
       procAttrs = {
@@ -33,8 +45,11 @@ const Process = ({ process, processPosition, stakeholder }) => {
     const sh = stakeholder.find(sh => sh.id == process.initiator);
     const processInitiator = sh.name;
     return (
-      <g>
-        <rect id={process.id}
+      <g  onmouseenter={() => hover(id)}
+          onmouseleave={() => unhover(id)}
+          onmousedown={() => select(id)}
+          >
+        <rect id={id}
               x={processPosition.x}
               y={processPosition.y}
               height={processPosition.height}
@@ -65,4 +80,14 @@ const Process = ({ process, processPosition, stakeholder }) => {
   }
 }
 
-export default Process;
+const mapStateToProps = ({ selection }) => ({
+  hovered: selection.hovered,
+  selected: selection.selected,
+});
+const mapDispatchToProps = dispatch => ({
+  hover: value => dispatch(selectionActions.hover(value)),
+  unhover: value => dispatch(selectionActions.unhover(value)),
+  select: value => dispatch(selectionActions.select(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Process);
