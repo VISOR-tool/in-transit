@@ -19,6 +19,12 @@
   background-color: lightgray;
   border: solid 1px AliceBlue;
 }
+.toplist{
+  float: left;
+  width: 50%;
+  background-color: lightgray;
+  border: solid 1px AliceBlue;
+}
 
 .timeline{
  float: bottom;

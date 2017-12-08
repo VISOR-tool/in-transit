@@ -27,16 +27,29 @@ class Toplist {
 class ToplistComponent extends Component {
 
   render () {
-    console.log(this.props.processData);
     const process = this.props.processData;
-    let toplist = new Toplist();
-    process.process.childs.map( p => { p.location.map( loc => toplist.add(loc) ) });
-    let mostLocations = toplist.sort().map( li => <li>[{li.cnt}] {li.id}</li> );
+    let tlLoactions = new Toplist();
+    process.process.childs.map( p => { p.location.map( loc => tlLoactions.add(loc) ) });
+    let mostLocations = tlLoactions.sort().slice(0,3).map( li => <li data={li.id}>{li.id} ({li.cnt}x)</li> );
+
+    let nextPrtcpDates = []
+    process.process.childs.map( p => { 
+        if(p.participation.includes("open") && new Date(p.start) > new Date() ) 
+          nextPrtcpDates.push([p.participation, p.start, p.name]);
+      });
+    nextPrtcpDates.sort((a,b) => { return new Date(a[1]) - new Date(b[1]) });
+    nextPrtcpDates = nextPrtcpDates.slice(0,30).map( nextDate => <li> {nextDate[1]} {nextDate[2]} </li>)    
+
     return (
       <div> 
         <b>Toplist</b>
+        <br/>Häufigste Orte:
         <ul>
           {mostLocations}
+        </ul>
+        Nächste Beteiligungstermine:
+        <ul>
+          {nextPrtcpDates}
         </ul>
       </div>
     );

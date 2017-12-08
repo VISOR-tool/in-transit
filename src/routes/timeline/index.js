@@ -72,7 +72,7 @@ class TimelineRoute extends Component {
               handleOnClicks={this.objectSelectionManager}/>
           </div>
 
-          <div >
+          <div class={style.toplist}>
             <ToplistComponent
               processData={data}
               />
