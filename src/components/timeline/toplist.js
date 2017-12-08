@@ -40,6 +40,17 @@ class ToplistComponent extends Component {
     nextPrtcpDates.sort((a,b) => { return new Date(a[1]) - new Date(b[1]) });
     nextPrtcpDates = nextPrtcpDates.slice(0,30).map( nextDate => <li> {nextDate[1]} {nextDate[2]} </li>)    
 
+    let nextDecisionDates = [];
+    process.process.childs.map( p => { 
+      if(p.transformation.type === '>' && new Date(p.start) > new Date()) {
+        if(p.transformation.info.length == 0 ) 
+             nextDecisionDates.push( [p.start, p.name +'('+p.description+')'] );
+        else nextDecisionDates.push([p.start, p.transformation.info]);
+      }
+      
+    });
+    nextDecisionDates = nextDecisionDates.sort((a,b)=>{return new Date(a[0]) - new Date(b[0])} ).map( li => <li>{li[0]} {li[1]}</li> );
+
     return (
       <div> 
         <b>Toplist</b>
@@ -51,6 +62,10 @@ class ToplistComponent extends Component {
         <ul>
           {nextPrtcpDates}
         </ul>
+        Nächste Entscheidungen:
+        <ul>
+          {nextDecisionDates}
+        </ul>        
       </div>
     );
   }
