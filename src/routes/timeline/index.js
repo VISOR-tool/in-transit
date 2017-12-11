@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
-import ToplistComponent from '../../components/timeline/toplist';
+import Toplist from '../../components/timeline/toplist';
 import { dataLoad } from '../../lib/reducers/data';
 import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
@@ -73,9 +73,7 @@ class TimelineRoute extends Component {
           </div>
 
           <div class={style.toplist}>
-            <ToplistComponent
-              processData={data}
-              />
+            <Toplist />
           </div>
 
 

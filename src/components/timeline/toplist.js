@@ -3,7 +3,7 @@ import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
 
 
-class Toplist {
+class Uniqe {
   constructor () {
     this.items = [];
   }
@@ -24,11 +24,10 @@ class Toplist {
 }
 
 
-class ToplistComponent extends Component {
-
+class Toplist extends Component {
   render () {
-    const process = this.props.processData;
-    let tlLoactions = new Toplist();
+    const process = this.props.data;
+    let tlLoactions = new Uniqe();
     process.process.childs.map( p => { p.location.map( loc => tlLoactions.add(loc) ) });
     let mostLocations = tlLoactions.sort().slice(0,3).map( li => <li data={li.id}>{li.id} ({li.cnt}x)</li> );
 
@@ -74,10 +73,11 @@ class ToplistComponent extends Component {
 
 
 const mapStateToProps = ({ data }) => ({
+  data: data.data,
   dataUrl: data.wantedUrl,
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToplistComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(Toplist);
