@@ -1,6 +1,8 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+import { selectionActions } from '../../lib/reducers/selection';
 
-export default class Hitlist extends Component {
+class Hitlist extends Component {
   constructor () {
     super();
     this.setState({
@@ -77,10 +79,11 @@ export default class Hitlist extends Component {
   }
 
   render () {
+    const { select } = this.props;
     let stakeholder = "";
     if(this.state.searchHits.stakeholder.length > 0){
       stakeholder = this.state.searchHits.stakeholder.map(
-                    hit => <li onClick={() => this.props.handleOnClicks({cat:'sh',val:hit.id})} >
+                    hit => <li onClick={() => select({cat:'sh',val:hit.id})} >
                                {hit.name} </li> )
       stakeholder = <div> <b>Prozessbeteilige</b> {stakeholder} </div>;
     }
@@ -88,7 +91,7 @@ export default class Hitlist extends Component {
     let processes = "";
     if(this.state.searchHits.processes.length > 0){
       processes = this.state.searchHits.processes.map(
-                  hit => <li onClick={() => this.props.handleOnClicks({cat:'proc',val:hit.id})} >
+                  hit => <li onClick={() => select(hit.id)} >
                              {hit.name} </li> )
       processes = <div> <b>Prozesse</b> {processes} </div>;
       }
@@ -96,7 +99,7 @@ export default class Hitlist extends Component {
     let locations = "";
     if(this.state.searchHits.locations.length > 0){
       locations = this.state.searchHits.locations.map(
-                  hit => <li onClick={() => this.props.handleOnClicks({cat:'loc',val:hit.id})} >
+                  hit => <li onClick={() => select({cat:'loc',val:hit.id})} >
                              {hit.city}:<i>{hit.address} {hit.room}</i></li> )
       locations = <div><b>Orte</b>{locations}</div>;
     }
@@ -109,3 +112,11 @@ export default class Hitlist extends Component {
           </div>
   }
 }
+
+const mapStateToProps = ({ data }) => ({
+});
+const mapDispatchToProps = dispatch => ({
+  select: value => dispatch(selectionActions.select(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hitlist);

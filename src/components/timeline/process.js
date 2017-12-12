@@ -18,7 +18,22 @@ const Process = ({ process, processPosition, stakeholder,
     if (hovered === id) {
       procAttrs['fill'] = "#71E2F8";
     }
-    if (selected === id) {
+    let isSelected =
+        selected === id;
+    if (selected && selected.cat && selected.val) {
+      switch (selected.cat) {
+      case 'sh':
+        isSelected =
+          process.initiator === selected.val;
+        break;
+      case 'loc':
+        isSelected =
+          process.location &&
+          (process.location.indexOf(selected.val) != -1);
+        break;
+      }
+    }
+    if (isSelected) {
       procAttrs['stroke'] = "#FF0000";
     }
 

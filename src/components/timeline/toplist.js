@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
+import { selectionActions } from '../../lib/reducers/selection';
 
 
 class Uniqe {
@@ -26,14 +27,14 @@ class Uniqe {
 
 class Toplist extends Component {
   render () {
-    const process = this.props.data;
- 
+    const { data: process, select } = this.props;
+
     let tlLoactions = new Uniqe();
     process.process.childs.map( p => { p.location.map( loc => tlLoactions.add(loc) ) });
     let mostLocations = tlLoactions.sort()
         .slice(0,3)
         .map( li => <li 
-                onClick={() => this.props.handleOnClicks({cat:'loc',val:li.id})}
+                onClick={() => select({cat:'loc',val:li.id})}
                 data={li.id}
               >{li.id} ({li.cnt}x)</li> );
 
@@ -45,7 +46,7 @@ class Toplist extends Component {
     nextPrtcpDates.sort((a,b) => { return new Date(a[1]) - new Date(b[1]) });
     nextPrtcpDates = nextPrtcpDates.slice(0,3)
       .map( li => <li
-              onClick={() => this.props.handleOnClicks({cat:'proc',val:li[3]})}
+              onClick={() => select(li[3])}
             > {li[1]} {li[2]} </li>)    
 
     let nextDecisionDates = [];
@@ -60,7 +61,7 @@ class Toplist extends Component {
     nextDecisionDates = nextDecisionDates.sort((a,b)=>{return new Date(a[0]) - new Date(b[0])} )
                         .slice(0,3)
                         .map( li => <li
-                          onClick={() => this.props.handleOnClicks({cat:'proc',val:li[2]})}
+                          onClick={() => select(li[2])}
                           >{li[0]} {li[1]}</li> );
 
     return (
@@ -84,13 +85,13 @@ class Toplist extends Component {
 }
 
 
-
 const mapStateToProps = ({ data }) => ({
   data: data.data,
   dataUrl: data.wantedUrl,
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
+  select: value => dispatch(selectionActions.select(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toplist);

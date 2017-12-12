@@ -10,25 +10,6 @@ import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
 
 class TimelineRoute extends Component {
-  objectSelectionManager = (hitProperty,event) => {
-    const oproc = this.props.data;
-    oproc.process.childs.map( proc => {
-        proc.searchHit = false;
-        if(hitProperty.cat == 'sh'){
-          if(proc.initiator == hitProperty.val) proc.searchHit = true;
-          proc.searchHit = proc.participants.some( shId => { return shId == hitProperty.val } );
-        }
-        if(hitProperty.cat == 'proc')
-          if(proc.id == hitProperty.val) {
-              proc.searchHit = true;
-            }
-            if(hitProperty.cat == 'loc')
-              if(proc.location == hitProperty.val) proc.searchHit = true;
-        return proc;
-      });
-    this.setState(oproc)
-  }
-
   render () {
     const { dataUrl, loadData, data } = this.props;
     const wantedUrl = 'oproc-elias-2018.json';
@@ -67,14 +48,11 @@ class TimelineRoute extends Component {
           </div>
 
           <div class={style.hitlist}>
-            <Hitlist
-              process={data}
-              handleOnClicks={this.objectSelectionManager} />
+            <Hitlist process={data} />
           </div>
 
           <div class={style.toplist}>
-            <Toplist 
-              handleOnClicks={this.objectSelectionManager}/>
+            <Toplist />
           </div>
 
 
