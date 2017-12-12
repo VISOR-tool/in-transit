@@ -56,7 +56,7 @@ class TimelineRoute extends Component {
       <div class={style.home}>
           <div class={style.filter}>
             <p><b>Swimmbahnen</b>
-              <br />in Schwimbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b>
+              <br />in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b>
               <br />leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b>
               <br />Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren
             </p><p><b>Prozese</b>
