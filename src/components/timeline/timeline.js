@@ -19,6 +19,23 @@ class Timeline extends Component {
     });
   }
 
+  componentDidMount() {
+    if (!this.resize) {
+      this.resize = () => {
+        const { beginning, end, setZoomSection } = this.props;
+        setZoomSection(0, 0);
+      };
+      window.addEventListener('resize', this.resize)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.resize) {
+      window.removeEventListener('resize', this.resize)
+      this.resize = undefined;
+    }
+  }
+
   onMouseWheel = ({ beginning, end, setZoomSection }, tlWidth) => event => {
     event.preventDefault();
 
