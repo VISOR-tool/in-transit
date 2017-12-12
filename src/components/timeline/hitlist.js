@@ -1,111 +1,90 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
+import { searchActions } from '../../lib/reducers/search';
 
 class Hitlist extends Component {
-  constructor () {
-    super();
-    this.setState({
-        searchTerm: "",
-        searchHits: {
-          stakeholder: [],
-          processes: [],
-          locations: [],
-          },
-        });
-    this.handleSearch = this.handleSearch.bind(this);
-  }
-
   /*
    * Auftrennung des Prozesses. Rein kommt das ganze Objekt
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
    */
 
-  searchInPersons(searchTerm){
-      const searchHits = this.state.searchHits;
-      let hits = [];
-      this.props.process.process.stakeholder.forEach(
-          (sh) => {
-            if(sh.name.toLowerCase().includes(searchTerm.toLowerCase()))
-              hits.push(sh);
-        },
-        );
-      if(hits.length > 0) {
-        searchHits.stakeholder = hits;
-        this.setState({searchHits: searchHits});
-      }
-      return hits;
+  searchInPersons(query){
+    let hits = [];
+    this.props.process.process.stakeholder.forEach(
+      (sh) => {
+        if(sh.name.toLowerCase().includes(query.toLowerCase()))
+          hits.push(sh);
+      },
+    );
+    return hits;
   }
 
-  searchInProcesses(searchTerm){
-      const searchHits = this.state.searchHits;
-      let hits = [];
-      this.props.process.process.childs.forEach(
-          (proc) => {
-            if(proc.name.toLowerCase().includes(searchTerm.toLowerCase())) hits.push(proc);
-          }
-        );
-      if(hits.length > 0) {
-        searchHits.processes = hits;
-        this.setState({searchHits: searchHits});
+  searchInProcesses(query){
+    let hits = [];
+    this.props.process.process.childs.forEach(
+      (proc) => {
+        if(proc.name.toLowerCase().includes(query.toLowerCase()))
+          hits.push(proc);
       }
+    );
+    return hits;
   }
 
-  searchInLocations(searchTerm){
-      const searchHits = this.state.searchHits;
-      let hits = [];
-      this.props.process.process.locations.forEach(
-          loc => {
-            let str = Object.values(loc).toString().toLowerCase();
-            if( str.includes(searchTerm.toLowerCase()))
-              hits.push(loc);
-          }
-        );
-      if(hits.length > 0) {
-        searchHits.locations = hits;
-        this.setState({searchHits: searchHits});
+  searchInLocations(query){
+    let hits = [];
+    this.props.process.process.locations.forEach(
+      loc => {
+        let str = Object.values(loc).toString().toLowerCase();
+        if( str.includes(query.toLowerCase()))
+          hits.push(loc);
       }
-  }
-
-  handleSearch(event){
-    if(event.target.value.length > 2){
-      let searchTerm = event.target.value;
-      this.setState({ searchTerm: searchTerm });
-
-      this.searchInPersons(searchTerm);
-      this.searchInProcesses(searchTerm);
-      this.searchInLocations(searchTerm);
-    }
+    );
+    return hits;
   }
 
   render () {
-    const { select } = this.props;
+    const { select, search, query } = this.props;
+    const searchHits = query.length > 2 ? {
+      stakeholder: this.searchInPersons(query),
+      processes: this.searchInProcesses(query),
+      locations: this.searchInLocations(query),
+    } : {
+      stakeholder: 0,
+      processes: 0,
+      locations: 0,
+    };
     let stakeholder = "";
-    if(this.state.searchHits.stakeholder.length > 0){
-      stakeholder = this.state.searchHits.stakeholder.map(
+    if(searchHits.stakeholder.length > 0){
+      stakeholder = searchHits.stakeholder.map(
                     hit => <li onClick={() => select({cat:'sh',val:hit.id})} >
                                {hit.name} </li> )
       stakeholder = <div> <b>Prozessbeteilige</b> {stakeholder} </div>;
     }
 
     let processes = "";
-    if(this.state.searchHits.processes.length > 0){
-      processes = this.state.searchHits.processes.map(
+    if(searchHits.processes.length > 0){
+      processes = searchHits.processes.map(
                   hit => <li onClick={() => select(hit.id)} >
                              {hit.name} </li> )
       processes = <div> <b>Prozesse</b> {processes} </div>;
       }
 
     let locations = "";
-    if(this.state.searchHits.locations.length > 0){
-      locations = this.state.searchHits.locations.map(
+    if(searchHits.locations.length > 0){
+      locations = searchHits.locations.map(
                   hit => <li onClick={() => select({cat:'loc',val:hit.id})} >
                              {hit.city}:<i>{hit.address} {hit.room}</i></li> )
       locations = <div><b>Orte</b>{locations}</div>;
     }
 
+    const handleSearch = (event) => {
+      let query = event.target.value;
+      search(query);
+    };
+
     return  <div>
-              Suche: <input type="text" onInput={this.handleSearch} />
+              Suche: <input type="text" onInput={handleSearch} />
               {stakeholder}
               {processes}
               {locations}
@@ -113,10 +92,12 @@ class Hitlist extends Component {
   }
 }
 
-const mapStateToProps = ({ data }) => ({
+const mapStateToProps = ({ search }) => ({
+  query: search.query,
 });
 const mapDispatchToProps = dispatch => ({
   select: value => dispatch(selectionActions.select(value)),
+  search: query => dispatch(searchActions.search(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hitlist);

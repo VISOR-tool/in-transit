@@ -4,6 +4,7 @@ import { zoomReducer } from './reducers/zoom';
 import { dataReducer } from './reducers/data';
 import { filterReducer } from './reducers/filter';
 import { selectionReducer } from './reducers/selection';
+import { searchReducer } from './reducers/search';
 
 const INITIAL = {};
 
@@ -13,4 +14,5 @@ export default () => createStore(
     data: dataReducer,
     filter: filterReducer,
     selection: selectionReducer,
+    search: searchReducer,
   }), INITIAL, typeof devToolsExtension==='function' ? devToolsExtension() : undefined);
