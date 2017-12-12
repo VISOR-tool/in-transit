@@ -57,7 +57,7 @@ class TimelineRoute extends Component {
           <div class={style.filter}>
             <p><b>Swimmbahnen</b>
               <br />in Schwimbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b>
-              <br />leere Schwimbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b>
+              <br />leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b>
               <br />Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren
             </p><p><b>Prozese</b>
               <br />nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen
@@ -69,7 +69,7 @@ class TimelineRoute extends Component {
           <div class={style.hitlist}>
             <Hitlist
               process={data}
-              handleOnClicks={this.objectSelectionManager}/>
+              handleOnClicks={this.objectSelectionManager} />
           </div>
 
           <div class={style.toplist}>
@@ -95,6 +95,7 @@ const mapStateToProps = ({ data, filter }) => ({
   dataUrl: data.wantedUrl,
   data: applyFilter(data.data, filter),
   filter,
+
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
