@@ -11,7 +11,7 @@ import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
 class TimelineRoute extends Component {
   objectSelectionManager = (hitProperty,event) => {
-    const oproc = this.state.oproc;
+    const oproc = this.props.data;
     oproc.process.childs.map( proc => {
         proc.searchHit = false;
         if(hitProperty.cat == 'sh'){
@@ -73,7 +73,8 @@ class TimelineRoute extends Component {
           </div>
 
           <div class={style.toplist}>
-            <Toplist />
+            <Toplist 
+              handleOnClicks={this.objectSelectionManager}/>
           </div>
 
 

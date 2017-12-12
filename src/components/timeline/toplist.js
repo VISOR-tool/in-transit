@@ -29,7 +29,11 @@ class Toplist extends Component {
     const process = this.props.data;
     let tlLoactions = new Uniqe();
     process.process.childs.map( p => { p.location.map( loc => tlLoactions.add(loc) ) });
-    let mostLocations = tlLoactions.sort().slice(0,3).map( li => <li data={li.id}>{li.id} ({li.cnt}x)</li> );
+    let mostLocations = tlLoactions.sort().slice(0,3).map( li => <li 
+        onClick={() => this.props.handleOnClicks({cat:'loc',val:li.id})}
+        data={li.id}
+        >{li.id} ({li.cnt}x)</li> );
+    
 
     let nextPrtcpDates = []
     process.process.childs.map( p => { 
