@@ -21,9 +21,9 @@ class TimelineRoute extends Component {
         if(hitProperty.cat == 'proc')
           if(proc.id == hitProperty.val) {
               proc.searchHit = true;
-          }
-        if(hitProperty.cat == 'loc')
-          if(proc.location == hitProperty.val) proc.searchHit = true;
+            }
+            if(hitProperty.cat == 'loc')
+              if(proc.location == hitProperty.val) proc.searchHit = true;
         return proc;
       });
     this.setState(oproc)

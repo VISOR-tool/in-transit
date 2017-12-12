@@ -27,32 +27,41 @@ class Uniqe {
 class Toplist extends Component {
   render () {
     const process = this.props.data;
+ 
     let tlLoactions = new Uniqe();
     process.process.childs.map( p => { p.location.map( loc => tlLoactions.add(loc) ) });
-    let mostLocations = tlLoactions.sort().slice(0,3).map( li => <li 
-        onClick={() => this.props.handleOnClicks({cat:'loc',val:li.id})}
-        data={li.id}
-        >{li.id} ({li.cnt}x)</li> );
-    
+    let mostLocations = tlLoactions.sort()
+        .slice(0,3)
+        .map( li => <li 
+                onClick={() => this.props.handleOnClicks({cat:'loc',val:li.id})}
+                data={li.id}
+              >{li.id} ({li.cnt}x)</li> );
 
     let nextPrtcpDates = []
     process.process.childs.map( p => { 
         if(p.participation.includes("open") && new Date(p.start) > new Date() ) 
-          nextPrtcpDates.push([p.participation, p.start, p.name]);
+          nextPrtcpDates.push([p.participation, p.start, p.name, p.id]);
       });
     nextPrtcpDates.sort((a,b) => { return new Date(a[1]) - new Date(b[1]) });
-    nextPrtcpDates = nextPrtcpDates.slice(0,30).map( nextDate => <li> {nextDate[1]} {nextDate[2]} </li>)    
+    nextPrtcpDates = nextPrtcpDates.slice(0,3)
+      .map( li => <li
+              onClick={() => this.props.handleOnClicks({cat:'proc',val:li[3]})}
+            > {li[1]} {li[2]} </li>)    
 
     let nextDecisionDates = [];
     process.process.childs.map( p => { 
       if(p.transformation.type === '>' && new Date(p.start) > new Date()) {
         if(p.transformation.info.length == 0 ) 
-             nextDecisionDates.push( [p.start, p.name +'('+p.description+')'] );
-        else nextDecisionDates.push([p.start, p.transformation.info]);
+             nextDecisionDates.push( [p.start, p.name +'('+p.description+')',p.id] );
+        else nextDecisionDates.push([p.start, p.transformation.info, p.id]);
       }
       
     });
-    nextDecisionDates = nextDecisionDates.sort((a,b)=>{return new Date(a[0]) - new Date(b[0])} ).map( li => <li>{li[0]} {li[1]}</li> );
+    nextDecisionDates = nextDecisionDates.sort((a,b)=>{return new Date(a[0]) - new Date(b[0])} )
+                        .slice(0,3)
+                        .map( li => <li
+                          onClick={() => this.props.handleOnClicks({cat:'proc',val:li[2]})}
+                          >{li[0]} {li[1]}</li> );
 
     return (
       <div> 

@@ -31,7 +31,6 @@ const Process = ({ process, processPosition, stakeholder,
       };
     }
 
-
     const processAttrs = {
       "font-family": "Verdana",
       "font-size"  : 10,
