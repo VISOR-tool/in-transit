@@ -31,7 +31,7 @@ class TimelineRoute extends Component {
 
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias.json';
+    const wantedUrl = 'oproc-elias-2018.json';
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
