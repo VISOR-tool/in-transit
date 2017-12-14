@@ -1,6 +1,3 @@
-import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
-
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
@@ -10,6 +7,25 @@ import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
 
 class TimelineRoute extends Component {
+  objectSelectionManager = (hitProperty,event) => {
+    const oproc = this.props.data;
+    oproc.process.childs.map( proc => {
+        proc.searchHit = false;
+        if(hitProperty.cat == 'sh'){
+          if(proc.initiator == hitProperty.val) proc.searchHit = true;
+          proc.searchHit = proc.participants.some( shId => { return shId == hitProperty.val } );
+        }
+        if(hitProperty.cat == 'proc')
+          if(proc.id == hitProperty.val) {
+              proc.searchHit = true;
+            }
+            if(hitProperty.cat == 'loc')
+              if(proc.location == hitProperty.val) proc.searchHit = true;
+        return proc;
+      });
+    this.setState(oproc)
+  }
+
   render () {
     const { dataUrl, loadData, data } = this.props;
     const wantedUrl = 'oproc-elias-2018.json';
@@ -48,11 +64,14 @@ class TimelineRoute extends Component {
           </div>
 
           <div class={style.hitlist}>
-            <Hitlist process={data} />
+            <Hitlist
+              process={data}
+              handleOnClicks={this.objectSelectionManager} />
           </div>
 
           <div class={style.toplist}>
-            <Toplist />
+            <Toplist 
+              handleOnClicks={this.objectSelectionManager}/>
           </div>
 
 

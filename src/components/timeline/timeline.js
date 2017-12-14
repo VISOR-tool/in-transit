@@ -1,11 +1,17 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
+
+
+
+
+
+
+
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
 import { zoomActions } from '../../lib/reducers/zoom';
-
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
@@ -137,6 +143,7 @@ const mapStateToProps = ({ zoom, filter }) => ({
 });
 const mapDispatchToProps = dispatch => ({
   setZoomSection: (begin, end) => dispatch(zoomActions.setZoomSection(begin, end)),
+  setZoomBase: (begin, end) => dispatch(zoomActions.setZoomBase(begin, end)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

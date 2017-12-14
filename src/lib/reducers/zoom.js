@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 };
 
 const SET_ZOOM_SECTION = 'visor/zoom/SET_ZOOM_SECTION';
+const SET_ZOOM_BASE = 'visor/zoom/SET_ZOOM_BASE';
 
 export function zoomReducer(zoomState = INITIAL_STATE, action) {
   switch(action['type']) {
@@ -15,12 +16,21 @@ export function zoomReducer(zoomState = INITIAL_STATE, action) {
     if (start >= end) {
       start = end - 1000;
     }
-
     return {
       ...zoomState,
       sectionStart: new Date(start),
       sectionEnd: new Date(end),
     };
+  
+  case SET_ZOOM_BASE:  
+    return {
+      ...zoomState,
+      //sectionBegin: new Date(action.zoomStart),
+      //sectionEnd: new Date(action.zoomEnd),
+      sectionBegin: new Date(2014),
+      sectionEnd: new Date(2020),
+    };
+
   default:
     return zoomState;
   }
@@ -32,4 +42,10 @@ export const zoomActions = {
     deltaStart,
     deltaEnd,
   }),
+  setZoomBase: (begin, end) => ({
+    type: SET_ZOOM_BASE,
+    begin,
+    end,
+  }),  
+
 };
