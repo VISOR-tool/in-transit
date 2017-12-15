@@ -22,13 +22,11 @@ export function zoomReducer(zoomState = INITIAL_STATE, action) {
       sectionEnd: new Date(end),
     };
   
-  case SET_ZOOM_BASE:  
+  case SET_ZOOM_BASE:
     return {
       ...zoomState,
-      //sectionBegin: new Date(action.zoomStart),
-      //sectionEnd: new Date(action.zoomEnd),
-      sectionBegin: new Date(2014),
-      sectionEnd: new Date(2020),
+      sectionStart: new Date(Date.parse(action.start)),
+      sectionEnd: new Date(Date.parse(action.end)),
     };
 
   default:
@@ -42,9 +40,9 @@ export const zoomActions = {
     deltaStart,
     deltaEnd,
   }),
-  setZoomBase: (begin, end) => ({
+  setZoomBase: (start, end) => ({
     type: SET_ZOOM_BASE,
-    begin,
+    start,
     end,
   }),  
 

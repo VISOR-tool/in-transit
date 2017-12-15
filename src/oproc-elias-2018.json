@@ -34,6 +34,7 @@
       "https://process.stadt.de/location/1"
     ],
     "start": "2018-01-01T11:11:00+01:00",
+    "end": "2016-05-14T11:11:00+01:00",
     "end (optional)": "2016-05-14T11:11:00+01:00",
     "participation": "partial opened",
     "participants": [],

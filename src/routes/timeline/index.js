@@ -1,3 +1,6 @@
+import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+
 import style from './style';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';

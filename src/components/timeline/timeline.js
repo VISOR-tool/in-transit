@@ -1,16 +1,10 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-
-
-
-
-
-
-
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
+import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
@@ -26,6 +20,11 @@ class Timeline extends Component {
   }
 
   componentDidMount() {
+    let timeSorted = this.props.data.process.childs.sort(
+      (a,b) => { return new Date(a.start) - new Date(b.start) }
+    );
+    this.props.setZoomBase(timeSorted[0].start, timeSorted[timeSorted.length-1].start);
+
     if (!this.resize) {
       this.resize = () => {
         const { beginning, end, setZoomSection } = this.props;
@@ -136,14 +135,16 @@ class Timeline extends Component {
   }
 }
 
-const mapStateToProps = ({ zoom, filter }) => ({
+const mapStateToProps = ({ zoom, filter, data }) => ({
   beginning: zoom.sectionStart,
   end: zoom.sectionEnd,
   filter,
+  data: data.data,
 });
 const mapDispatchToProps = dispatch => ({
   setZoomSection: (begin, end) => dispatch(zoomActions.setZoomSection(begin, end)),
-  setZoomBase: (begin, end) => dispatch(zoomActions.setZoomBase(begin, end)),
+  setZoomBase: (start, end) => dispatch(zoomActions.setZoomBase(start, end)),
+  loadData: dataLoad(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);
