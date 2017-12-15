@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
 import style from './style';
+import SimplGraph from '../../components/simplGraph/simplGraph';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
 import Toplist from '../../components/timeline/toplist';
@@ -77,6 +78,7 @@ class TimelineRoute extends Component {
               handleOnClicks={this.objectSelectionManager}/>
           </div>
 
+        <SimplGraph  width={640} height={100} />
 
         <div class={style.timeline}>
           <h4>{data.process.name}</h4>
