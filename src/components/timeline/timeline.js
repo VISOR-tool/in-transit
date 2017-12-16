@@ -65,10 +65,6 @@ class Timeline extends Component {
     this.setState({ dragging: false });
   }
 
-  /*
-   * Auftrennung des Prozesses. Rein kommt das ganze Objekt
-   * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
-   */
   render () {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
@@ -76,22 +72,15 @@ class Timeline extends Component {
    let allProcesses = process.process.childs;
    let swimlaneheight = this.props.height / swimlanes.length;
 
-   swimlanes.forEach( function(lane){ //fill swimlane with concernd processes
+   swimlanes.forEach( function(lane){
       lane.processes = allProcesses.filter( function(process){
-        //skip processes before zoom time span
-        //if(Date.parse(process.start) <= beginning) return false;
-        //skip processes after zoom time span
-        //if(Date.parse(process.end) >= end) return false;
-
-        //Swimmlane & Prozesse = Partizipants
-        //skip processes whithout this participants
         if(filter.processMapping == "Initiator")
           return process.initiator == lane.id;
         else return process.participants.indexOf(lane.id) > -1;
         });
       return lane;
       });
-    let tlHeight = this.props.height; //swimlanes.length * swimlaneheight + 20;
+    let tlHeight = this.props.height;
     let tlWidth = window.innerWidth;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
 
