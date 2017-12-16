@@ -1,4 +1,7 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+import { dataLoad } from '../../lib/reducers/data';
+//import { applyFilter, filterActions } from '../../lib/reducers/filter';
 import Node from './node';
 import Path from './path';
 
@@ -8,19 +11,40 @@ const LANE_SPACING = 2;
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 
-export default class SimplGraph extends Component {
-  constructor () {
+class SimplGraph extends Component {
+/* 
+    constructor () {
     super();
+  }
+ */
 
-    this.setState({
-      lanes : [],
-      nodes : [{id: 1, x: 20, y: 30, size: 10, shape: "circle"},{id: 1, x: 60, y: 30, size: 8, shape: "circle"}],
-    });
-  }  
-
+  nodes = [];
+  createNodes(processes, start, x, y){
+    this.nodes.push({id:start.id, x: x, y: y, size: 3, shape: "circle"});
+    if(start.connection.to.length > 0){
+      start.connection.to.map(
+        (nextProc,index) => { 
+          const nextObj = processes.find( child => child.id === nextProc );
+          if( nextObj != undefined)
+          {
+            this.createNodes(processes, nextObj, x+40, y+10*index);
+          }
+        }
+      )
+    }
+  }
+  
   render() {
+    const { data: process } = this.props;  
+    let nodes = [];
+    let lanes = [];
+    let startX = 10, startY = 30;
+    
+    this.createNodes(process.process.childs, process.process.childs[0], startX, startY);
+    console.log('fffoo',this.nodes);
+
     return(
-      <Graph nodes={this.state.nodes} lanes={this.state.lanes} 
+      <Graph nodes={this.nodes} lanes={lanes} 
              height={this.props.height} width={this.props.width} />
     );
   }
@@ -45,7 +69,6 @@ class Graph extends Component {
 
   render () {
     const { nodes, lanes, width, height } = this.props;
-    console.log(nodes);
     return (
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' >
         <g>
@@ -62,3 +85,14 @@ class Graph extends Component {
     );
   }
 }
+
+
+const mapStateToProps = ({ data }) => ({
+  data: data.data,
+  dataUrl: data.wantedUrl,
+});
+const mapDispatchToProps = dispatch => ({
+  loadData: dataLoad(dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SimplGraph);
