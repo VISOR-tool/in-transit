@@ -6,13 +6,12 @@ export default class Node extends Component {
   // }
 
   render () {
-    const { shape, label, x, y, size, color } = this.props;
-    const labelRotation = typeof this.props.labelRotation === 'number' ? this.props.labelRotation : 90;
-
+    const { shape, label, x, y, size, color, stroke } = this.props;
+    
     var attrs = {
-      stroke: 'black',
+      stroke: stroke,
       'stroke-width': size,
-      fill: color || 'white',
+      fill: color,
       onmouseover: ev => this.setState({ labelVisible: true }),
       onmouseout: ev => this.setState({ labelVisible: false })
     };
@@ -28,6 +27,8 @@ export default class Node extends Component {
       default:
         throw new Error('No Node shape!');
     }
+
+    console.log(color);
 
     const { labelVisible } = this.state;
     return (
