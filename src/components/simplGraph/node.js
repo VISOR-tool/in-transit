@@ -7,7 +7,8 @@ export default class Node extends Component {
 
   render () {
     const { shape, label, x, y, size, color, stroke } = this.props;
-    
+    const labelRotation = typeof this.props.labelRotation === 'number' ? this.props.labelRotation : -13;
+
     var attrs = {
       stroke: stroke,
       'stroke-width': size,
@@ -35,13 +36,16 @@ export default class Node extends Component {
 
         {labelVisible
         ? <g transform={'translate(' + x + ',' + y + ')'}>
-          {(labelRotation <= 180)
-         ? <text x={1.5 * size} y={size / 3} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(size / 2)}>
+         ? <text  x={1.5 * size} y={size / 3} 
+                  transform={'rotate(' + labelRotation + ')'} 
+                  text-anchor='start' 
+                  font-size="15"
+                  stroke="white" 
+                  fill="black"
+                  >
            {label}
          </text>
-         : <text x={1.5 * size} y={size / 3} transform={'rotate(' + (labelRotation - 270) + ')'} text-anchor='end' font-size={Math.round(size)}>
-           {label}
-         </text>}
+         }
 
         </g> : null}
       </g>

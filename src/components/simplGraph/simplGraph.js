@@ -19,13 +19,18 @@ class SimplGraph extends Component {
     if(process.participation.includes('open')){
       stroke = "green";
       color = "yellow";
-    } 
-    if(filter.processParticipation == 'offener'){
-      if(process.participation.includes('open'))
-        this.nodes.push({id:process.id, x: x, y: y, size: 3, shape: "circle", stroke: stroke, color: color});
-    }
-    else  
-      this.nodes.push({id:process.id, x: x, y: y, size: 3, shape: "circle", stroke: stroke, color: color});
+    }     
+    if( ((filter.processParticipation == 'offener') && process.participation.includes('open')) 
+        || filter.processParticipation != 'offener' )
+          this.nodes.push(
+            { id:process.id, 
+              x: x, y: y, 
+              size: 3, 
+              shape: "circle", 
+              stroke: stroke, 
+              color: color,
+              label: process.start,
+            });
 
     if(process.connection.to.length > 0)
       process.connection.to.map(
@@ -96,7 +101,8 @@ class Graph extends Component {
               x={node.x} y={node.y} size={node.size}
               shape={node.shape}
               color={node.color}
-              stroke={node.stroke} />
+              stroke={node.stroke} 
+              label={node.label}/>
           )}
         );
           </g>
