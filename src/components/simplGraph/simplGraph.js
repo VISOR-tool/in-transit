@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
-//import { applyFilter, filterActions } from '../../lib/reducers/filter';
+import { applyFilter, filterActions } from '../../lib/reducers/filter';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
@@ -13,22 +13,26 @@ const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 
 class SimplGraph extends Component {
-  nodes = [];
-  links = [];
-  createNodes(processes, process, x, y){
+  createNodes(processes, process, x, y, filter){
     let stroke = "black";
     let color = "white";
     if(process.participation.includes('open')){
       stroke = "green";
       color = "yellow";
+    } 
+    if(filter.processParticipation == 'offener'){
+      if(process.participation.includes('open'))
+        this.nodes.push({id:process.id, x: x, y: y, size: 3, shape: "circle", stroke: stroke, color: color});
     }
-    this.nodes.push({id:process.id, x: x, y: y, size: 3, shape: "circle", stroke: stroke, color: color});
+    else  
+      this.nodes.push({id:process.id, x: x, y: y, size: 3, shape: "circle", stroke: stroke, color: color});
+
     if(process.connection.to.length > 0)
       process.connection.to.map(
         (nextProc,index) => { 
           const nextObj = processes.find( child => child.id === nextProc );
           if( nextObj != undefined){
-            this.createNodes(processes, nextObj, x+40, y+10*index);
+            this.createNodes(processes, nextObj, x+40, y+10*index, filter);            
             this.links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index });
           }
         }
@@ -37,12 +41,18 @@ class SimplGraph extends Component {
   
 
   render() {
-    const { data: process } = this.props;  
+    const { data: process,
+            filter,
+          } = this.props;  
     let startX = 10, startY = 30;
-    this.createNodes(process.process.childs, process.process.childs[0], startX, startY);
-    return(   
+    this.nodes = [];
+    this.links = [];
+    this.createNodes(process.process.childs, process.process.childs[0], startX, startY, filter);
+    return(
+      <div>Beteiligung: {filter.processParticipation}
       <Graph nodes={this.nodes} lanes={this.links} 
              height={this.props.height} width={this.props.width} />
+      </div>
     );
   }
 }
@@ -65,40 +75,47 @@ class Graph extends Component {
   */
   
   render () {
-    const { nodes, lanes, width, height } = this.props;
+    const { nodes, lanes, 
+            width, height,
+          } = this.props;
     return (
-      <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' >
-        <g>        
-        <Legend x="0" y="0" width={this.props.width}/>
-        <rect id="graph_bg" x="0" y="30" width={width+"px"} height={height+"px"} style="fill:#1B0D78" />
-        <g>
-        {lanes.map(link =>
-          <Path id={link.path} path={link} 
-                size={LANE_SIZE} color="white"
-          />)}
+      <div>
+        <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 30].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
+          <Legend x="0" y="0" width={this.props.width}/>      
+        </svg>
+        <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
+          <g>                    
+          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style="fill:#1B0D78" />
+          {lanes.map(link =>
+            <Path id={link.path} path={link} 
+                  size={LANE_SIZE} color="white"
+                  />)}
 
-        {nodes.map( node => 
-            <Node id={node.id}
+          {nodes.map( node => 
+              <Node id={node.id}
               x={node.x} y={node.y} size={node.size}
               shape={node.shape}
               color={node.color}
               stroke={node.stroke} />
-        )}
-      );
-        </g>
-        </g>
-      </svg>
+          )}
+        );
+          </g>
+        </svg>
+      </div>
     );
   }
 }
 
 
-const mapStateToProps = ({ data }) => ({
-  data: data.data,
+const mapStateToProps = ({ data, filter }) => ({
+  //data: data.data,
   dataUrl: data.wantedUrl,
+  data:    applyFilter(data.data, filter),
+  filter,
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
+  toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SimplGraph);

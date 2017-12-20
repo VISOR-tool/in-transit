@@ -28,8 +28,6 @@ export default class Node extends Component {
         throw new Error('No Node shape!');
     }
 
-    console.log(color);
-
     const { labelVisible } = this.state;
     return (
       <g>
