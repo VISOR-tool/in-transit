@@ -51,7 +51,8 @@ class TimelineRoute extends Component {
       setProcOnlyVisibleWith,
       toggleProcessMapping,
       toggleLaneOrder,
-      toggleLaneWrap
+      toggleLaneWrap,
+      toggleProcessOnlyWithResults,
     } = this.props;
     return (
       <div class={style.home}>
@@ -62,6 +63,7 @@ class TimelineRoute extends Component {
               <br />Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren
             </p><p><b>Prozese</b>
               <br />nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen
+              <br />nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> 
               <br />nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select>
               <br />nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select>
             </p>
@@ -102,7 +104,7 @@ const mapStateToProps = ({ data, filter }) => ({
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
-
+  toggleProcessOnlyWithResults: () => dispatch(filterActions.toggleProcessOnlyWithResults()),
   toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
   setProcVisibleWithout: value => dispatch(filterActions.setProcVisibleWithout(value)),
   setProcOnlyVisibleWith: value => dispatch(filterActions.setProcOnlyVisibleWith(value)),

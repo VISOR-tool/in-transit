@@ -48,13 +48,18 @@ class SimplGraph extends Component {
   render() {
     const { data: process,
             filter,
+            toggleParticipation,
+            toggleProcessOnlyWithResults,
           } = this.props;  
     let startX = 10, startY = 30;
     this.nodes = [];
     this.links = [];
     this.createNodes(process.process.childs, process.process.childs[0], startX, startY, filter);
     return(
-      <div>Beteiligung: {filter.processParticipation}
+      <div>                 
+        Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
+        | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
+
       <Graph nodes={this.nodes} lanes={this.links} 
              height={this.props.height} width={this.props.width} />
       </div>
@@ -114,7 +119,6 @@ class Graph extends Component {
 
 
 const mapStateToProps = ({ data, filter }) => ({
-  //data: data.data,
   dataUrl: data.wantedUrl,
   data:    applyFilter(data.data, filter),
   filter,
