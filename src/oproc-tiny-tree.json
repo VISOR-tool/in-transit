@@ -187,7 +187,7 @@
       {
         "id": "https://process.stadt.de/process/3",
         "reference": "AZ1337/11",
-        "initia tor": "https://process.stadt.de/stakeholder/2",
+        "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
             "https://process.stadt.de/process/2"
@@ -608,7 +608,35 @@
           "website ": "TODO"
         },
         "participated": []
-      }
+      },
+      {
+        "id": "https://process.stadt.de/stakeholder/9",
+        "name": "Bürger_Innen",
+        "type": "group opened",
+        "contact": {
+          "contactPerson ": "TODO",
+          "postAddress": "TODO",
+          "phone": "TODO",
+          "telefax": "TODO",
+          "email ": "TODO",
+          "website ": "TODO"
+        },
+        "participated": []
+      },
+      {
+        "id": "https://process.stadt.de/stakeholder/12",
+        "name": "Interdisziplinäres Planungsamt",
+        "type": "group closed",
+        "contact": {
+          "contactPerson ": "TODO",
+          "postAddress": "TODO",
+          "phone": "TODO",
+          "telefax": "TODO",
+          "email ": "TODO",
+          "website ": "TODO"
+        },
+        "participated": []
+      }      
     ],
     "locations": [
       {

@@ -35,6 +35,7 @@ const Process = ({ process, processPosition, stakeholder,
     }
     if (isSelected) {
       procAttrs['stroke'] = "#FF0000";
+      procAttrs['fill'] = "#3122F8";
     }
 
     if(process.searchHit){

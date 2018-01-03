@@ -9,8 +9,9 @@
   background-color: lightgray;
   border: solid 1px AliceBlue;
 }
-.filter b {
+.filter dd:hover {
   cursor: pointer;
+  background-color: rgb(67, 157, 185);  
 }
 
 .hitlist{

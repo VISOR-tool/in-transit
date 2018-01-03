@@ -32,7 +32,7 @@ class TimelineRoute extends Component {
 
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias-2018.json';
+    const wantedUrl = 'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -56,18 +56,18 @@ class TimelineRoute extends Component {
     } = this.props;
     return (
       <div class={style.home}>
-          <div class={style.filter}>
-            <p><b>Swimmbahnen</b>
-              <br />in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b>
-              <br />leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b>
-              <br />Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren
-            </p><p><b>Prozese</b>
-              <br />nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen
-              <br />nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> 
-              <br />nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select>
-              <br />nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select>
-            </p>
-          </div>
+          <dl class={style.filter}>
+              <dd>onClick: markieren/<b>selektieren</b></dd>
+            <dt><b>Swimmbahnen</b></dt>
+              <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
+              <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+              <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
+            <dt><b>Prozese</b></dt>
+              <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
+              <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
+              <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+              <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+            </dl>
 
           <div class={style.hitlist}>
             <Hitlist
@@ -81,7 +81,7 @@ class TimelineRoute extends Component {
           </div>
 
         <SimplGraph  width={640} height={100} />
-
+        Der unter view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
         <div class={style.timeline}>
           <h4>{data.process.name}</h4>
           <Timeline

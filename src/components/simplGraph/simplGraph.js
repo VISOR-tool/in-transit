@@ -13,6 +13,7 @@ const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 
 class SimplGraph extends Component {
+  
   createNodes(processes, process, x, y, filter){
     let stroke = "black";
     let color = "white";
@@ -21,24 +22,39 @@ class SimplGraph extends Component {
       color = "yellow";
     }     
     if( ((filter.processParticipation == 'offener') && process.participation.includes('open')) 
-        || filter.processParticipation != 'offener' )
-          this.nodes.push(
-            { id:process.id, 
-              x: x, y: y, 
-              size: 3, 
-              shape: "circle", 
-              stroke: stroke, 
-              color: color,
-              label: process.start,
-            });
+    || filter.processParticipation != 'offener' )
+    this.nodes.push(
+      { id:process.id, 
+        x: x, y: y, 
+        size: 3, 
+        shape: "circle", 
+        stroke: stroke, 
+        color: color,
+        label: process.start,
+      });
+      
+      /*
+      if childs -> rekursion
+      if to -> rekursion
+      */
+      if(process.childs.length > 0 ) {
+      console.log(color);
+      process.childs.map(
+        (nextChild,index) => { 
+            console.log(nextChild);
+            this.createNodes(processes, nextChild, x+40, y-10*index, filter, "white");
+            this.links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y-10*index, color:"yellow" });
+        }
+      )
+    }
 
     if(process.connection.to.length > 0)
       process.connection.to.map(
         (nextProc,index) => { 
-          const nextObj = processes.find( child => child.id === nextProc );
-          if( nextObj != undefined){
+          const nextObj = processes.find( nextTo => nextTo.id === nextProc );
+          if(nextObj != undefined){
             this.createNodes(processes, nextObj, x+40, y+10*index, filter);            
-            this.links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index });
+            this.links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:"gray" });
           }
         }
       );
@@ -54,7 +70,16 @@ class SimplGraph extends Component {
     let startX = 10, startY = 30;
     this.nodes = [];
     this.links = [];
+    
+    /* prozesse zeichnen die keine eltern & kinder haben
+    process.process.childs.map( orphan => {
+      if(orphan.to.lenght == 0 && orphan.from.lenght == 0)
+        this.createNodes(orphan, orphan, startX, startY, filter);
+      }
+    )
+    */
     this.createNodes(process.process.childs, process.process.childs[0], startX, startY, filter);
+
     return(
       <div>                 
         Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
@@ -98,7 +123,7 @@ class Graph extends Component {
           <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style="fill:#1B0D78" />
           {lanes.map(link =>
             <Path id={link.path} path={link} 
-                  size={LANE_SIZE} color="white"
+                  size={LANE_SIZE} color={link.color}
                   />)}
 
           {nodes.map( node => 

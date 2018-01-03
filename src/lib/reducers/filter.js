@@ -17,7 +17,6 @@ const TOGGLE_LANE_WRAP = 'visor/filter/TOGGLE_LANE_WRAP';
 const TOGGLE_WITH_RESULTS_ONLY = 'visor/filter/TOGGLE_WITH_RESULTS_ONLY';
 
 export function filterReducer(filterState = INITIAL_STATE, action) {
-  console.log(action['type']);
   switch(action['type']) {
   case TOGGLE_WITH_RESULTS_ONLY:
       return{

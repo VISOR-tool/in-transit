@@ -114,7 +114,94 @@
           ]
         },
         "parent": "https://process.stadt.de/process/1",
-        "childs": [],
+        "childs": [
+          {
+            "id": "https://process.stadt.de/process/19",
+            "reference (optional)": "",
+            "initiator": "https://process.stadt.de/stakeholder/2",
+            "connection": {
+              "from": [
+                "https://process.stadt.de/process/122"
+              ],
+              "to": []
+            },
+            "parent": "https://process.stadt.de/process/1",
+            "childs": [],
+            "name": "Veranstaltung zur Vorstellung der Entwürfe",
+            "description": "Veranstaltung zur Vorstellung der Entwürfe",
+            "location": [
+              "https://process.stadt.de/location/1"
+            ],
+            "start": "2014-06-24T11:11:00+01:00",
+            "end (optional)": "",
+            "participation": "partial opened",
+            "participants": [
+              "https://process.stadt.de/stakeholder/3",
+              "https://process.stadt.de/stakeholder/4",
+              "https://process.stadt.de/stakeholder/14"
+            ],
+            "transformation": {
+              "type": "<",
+              "info": "",
+              "decision": "false"
+            },
+            "results (optional)": [
+              {
+                "id": "https://process.stadt.de/results/11",
+                "name": "Antrag",
+                "description": "Antrag für NSP Mittel",
+                "copyright (optional)": "",
+                "text (optional)": "",
+                "files (optional)": [],
+                "created": "2011-11-11T11:11:00+01:00",
+                "modified": "2012-11-11T11:11:00+01:00"
+              }
+            ]
+          },
+          {
+            "id": "https://process.stadt.de/process/110",
+            "reference (optional)": "",
+            "initiator": "https://process.stadt.de/stakeholder/2",
+            "connection": {
+              "from": [
+                "https://process.stadt.de/process/142"
+              ],
+              "to": []
+            },
+            "parent": "https://process.stadt.de/process/1",
+            "childs": [],
+            "name": "Letzte Werbeveranstaltung",
+            "description": "Letzte Werbeveranstaltung",
+            "location": [
+              "https://process.stadt.de/location/1"
+            ],
+            "start": "2017-03-15T11:11:00+01:00",
+            "end (optional)": "",
+            "participation": "partial opened",
+            "participants": [
+              "https://process.stadt.de/stakeholder/3",
+              "https://process.stadt.de/stakeholder/4",
+              "https://process.stadt.de/stakeholder/14"
+            ],
+            "transformation": {
+              "type": "<",
+              "info": "",
+              "decision": "false"
+            },
+            "results (optional)": [
+              {
+                "id": "https://process.stadt.de/results/11",
+                "name": "Antrag",
+                "description": "Antrag für NSP Mittel",
+                "copyright (optional)": "",
+                "text (optional)": "",
+                "files (optional)": [],
+                "created": "2011-11-11T11:11:00+01:00",
+                "modified": "2012-11-11T11:11:00+01:00"
+              }
+            ]
+          }
+        ],
         "name": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
         "description": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
         "location": [
@@ -414,93 +501,7 @@
             "modified": "2012-11-11T11:11:00+01:00"
           }
         ]
-      },
-      {
-        "id": "https://process.stadt.de/process/19",
-        "reference (optional)": "",
-        "initiator": "https://process.stadt.de/stakeholder/2",
-        "connection": {
-          "from": [
-            "https://process.stadt.de/process/122"
-          ],
-          "to": []
-        },
-        "parent": "https://process.stadt.de/process/1",
-        "childs": [],
-        "name": "Veranstaltung zur Vorstellung der Entwürfe",
-        "description": "Veranstaltung zur Vorstellung der Entwürfe",
-        "location": [
-          "https://process.stadt.de/location/1"
-        ],
-        "start": "2014-06-24T11:11:00+01:00",
-        "end (optional)": "",
-        "participation": "partial opened",
-        "participants": [
-          "https://process.stadt.de/stakeholder/3",
-          "https://process.stadt.de/stakeholder/4",
-          "https://process.stadt.de/stakeholder/14"
-        ],
-        "transformation": {
-          "type": "<",
-          "info": "",
-          "decision": "false"
-        },
-        "results (optional)": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright (optional)": "",
-            "text (optional)": "",
-            "files (optional)": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
-        ]
-      },
-      {
-        "id": "https://process.stadt.de/process/110",
-        "reference (optional)": "",
-        "initiator": "https://process.stadt.de/stakeholder/2",
-        "connection": {
-          "from": [
-            "https://process.stadt.de/process/142"
-          ],
-          "to": []
-        },
-        "parent": "https://process.stadt.de/process/1",
-        "childs": [],
-        "name": "Letzte Werbeveranstaltung",
-        "description": "Letzte Werbeveranstaltung",
-        "location": [
-          "https://process.stadt.de/location/1"
-        ],
-        "start": "2017-03-15T11:11:00+01:00",
-        "end (optional)": "",
-        "participation": "partial opened",
-        "participants": [
-          "https://process.stadt.de/stakeholder/3",
-          "https://process.stadt.de/stakeholder/4",
-          "https://process.stadt.de/stakeholder/14"
-        ],
-        "transformation": {
-          "type": "<",
-          "info": "",
-          "decision": "false"
-        },
-        "results (optional)": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright (optional)": "",
-            "text (optional)": "",
-            "files (optional)": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
-        ]
-      },
+      },      
       {
         "id": "https://process.stadt.de/process/111",
         "reference (optional)": "",
