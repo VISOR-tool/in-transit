@@ -16,6 +16,9 @@
   float: bottom;
   border: solid 1px AliceBlue;
 }
+.hitlist ul li {
+    cursor: pointer;
+}
 
 .timeline{
  float: bottom;

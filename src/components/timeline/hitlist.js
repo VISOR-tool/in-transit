@@ -59,7 +59,7 @@ class Hitlist extends Component {
       stakeholder = searchHits.stakeholder.map(
                     hit => <li onClick={() => select({cat:'sh',val:hit.id})} >
                                {hit.name} </li> )
-      stakeholder = <div> <b>Prozessbeteilige</b> {stakeholder} </div>;
+      stakeholder = <div> <b>Prozessbeteilige</b> <ul>{stakeholder}</ul> </div>;
     }
 
     let processes = "";
@@ -67,7 +67,7 @@ class Hitlist extends Component {
       processes = searchHits.processes.map(
                   hit => <li onClick={() => select(hit.id)} >
                              {hit.name} </li> )
-      processes = <div> <b>Prozesse</b> {processes} </div>;
+      processes = <div> <b>Prozesse</b> <ul>{processes}</ul> </div>;
       }
 
     let locations = "";
@@ -75,7 +75,7 @@ class Hitlist extends Component {
       locations = searchHits.locations.map(
                   hit => <li onClick={() => select({cat:'loc',val:hit.id})} >
                              {hit.city}:<i>{hit.address} {hit.room}</i></li> )
-      locations = <div><b>Orte</b>{locations}</div>;
+      locations = <div><b>Orte</b><ul>{locations}</ul></div>;
     }
 
     const handleSearch = (event) => {
@@ -83,7 +83,7 @@ class Hitlist extends Component {
       search(query);
     };
 
-    return  <div>
+    return  <div class="hitlist">
               Suche: <input type="text" onInput={handleSearch} />
               {stakeholder}
               {processes}
