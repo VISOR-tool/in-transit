@@ -1,9 +1,6 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import style from './style';
-import Vertices from './vertices';
-import layout, { snapToGrid, eliminateGap, recenter } from './layout';
-import { uniqStrings } from '../../lib/util';
 import TransitMap from './transit_map';
 import { dataLoad } from '../../lib/reducers/data';
 import { applyFilter } from '../../lib/reducers/filter';

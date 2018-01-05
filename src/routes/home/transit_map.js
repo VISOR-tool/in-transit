@@ -1,7 +1,9 @@
 import { h, Component } from 'preact';
 import Graph from '../../components/graph';
-import * as Optimize from './optimize';
+import Vertices from './vertices';
 import layout, { snapToGrid, eliminateGap, recenter } from './layout';
+import * as Optimize from './optimize';
+import { uniqStrings } from '../../lib/util';
 
 /// Renders <Graph/> from OProc data
 export default class TransitMap extends Component {
@@ -27,25 +29,31 @@ export default class TransitMap extends Component {
       return;
     }
 
+    var vertices = new Vertices();
     var lanes = [];
-    const nodes = [data].concat(data.childs).map(child => {
-      if (child.parent) {
+    var procsById = {};
+    [data].concat(data.childs).forEach(proc => {
+      if (proc.parent) {
+        vertices.set(proc.id, proc.parent);
         lanes.push({
-          id: child.id,
-          nodes: [child.parent, child.id],
-          color: 'black',
+          id: proc.id,
+          nodes: [proc.id, proc.parent],
+          color: '#333',
         });
       }
-      return {
-        id: child.id,
-        x: Math.floor(20 * Math.random() - 10),
-        y: Math.floor(20 * Math.random() - 10),
-        size: 30,
-        shape: 'circle',
-        color: 'blue',
-        title: child.name,
-      };
+      procsById[proc.id] = proc;
     });
+    const nodes = layout(
+      uniqStrings(Object.keys(procsById)),
+      vertices
+    ).map(node => ({
+      ...node,
+      size: 30,
+      shape: 'circle',
+      color: 'blue',
+      title: procsById[node.id].name,
+    }));
+
     this.setState(
       { nodes, lanes },
       () => this._optimize()
