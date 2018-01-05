@@ -32,7 +32,7 @@ class TimelineRoute extends Component {
 
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
+    const wantedUrl = 'oproc-elias.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -46,6 +46,7 @@ class TimelineRoute extends Component {
 
     const {
       filter,
+      toggleSelectionBehaviour,
       toggleParticipation,
       setProcVisibleWithout,
       setProcOnlyVisibleWith,
@@ -57,7 +58,8 @@ class TimelineRoute extends Component {
     return (
       <div class={style.home}>
           <dl class={style.filter}>
-              <dd>onClick: markieren/<b>selektieren</b></dd>
+          <dt><b>Listeneinträge</b></dt>
+              <dd>onClick alleinstellen: <click onClick={toggleSelectionBehaviour}>{filter.selectionBehaviour}</click></dd>
             <dt><b>Swimmbahnen</b></dt>
               <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
               <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
@@ -104,6 +106,7 @@ const mapStateToProps = ({ data, filter }) => ({
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
+  toggleSelectionBehaviour: () => dispatch(filterActions.toggleSelectionBehaviour()),
   toggleProcessOnlyWithResults: () => dispatch(filterActions.toggleProcessOnlyWithResults()),
   toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
   setProcVisibleWithout: value => dispatch(filterActions.setProcVisibleWithout(value)),

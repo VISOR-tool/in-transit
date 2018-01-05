@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  selectionBehaviour: 'on',
   processMapping: 'Beteiligten',
   laneWrap: true,
   laneOrder: 'asc',
@@ -8,6 +9,7 @@ const INITIAL_STATE = {
   processOnlyWithResults: 'on',
 };
 
+const TOGGLE_SELECTION_BEAVIOUR = 'visor/filter/TOGGLE_SELECTION_BEAVIOUR';
 const TOGGLE_PARTICIPATION = 'visor/filter/TOGGLE_PARTICIPATION';
 const SET_PROC_VISIBLE_WITHOUT = 'visor/filter/SET_PROC_VISIBLE_WITHOUT';
 const SET_PROC_ONLY_VISIBLE_WITH = 'visor/filter/SET_PROC_ONLY_VISIBLE_WITH';
@@ -18,8 +20,13 @@ const TOGGLE_WITH_RESULTS_ONLY = 'visor/filter/TOGGLE_WITH_RESULTS_ONLY';
 
 export function filterReducer(filterState = INITIAL_STATE, action) {
   switch(action['type']) {
+  case TOGGLE_SELECTION_BEAVIOUR:
+    return{
+      ...filterState,
+      selectionBehaviour: filterState.selectionBehaviour == 'on' ? 'off' : 'on',
+    }
   case TOGGLE_WITH_RESULTS_ONLY:
-      return{
+    return{
         ...filterState,
         processOnlyWithResults: filterState.processOnlyWithResults == 'on' ? 'off' : 'on',
       }; 
@@ -62,6 +69,11 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
 }
 
 export const filterActions = {
+
+  toggleSelectionBehaviour: () => ({
+    type: TOGGLE_SELECTION_BEAVIOUR,
+  }),
+
   toggleProcessOnlyWithResults: () => ({
     type: TOGGLE_WITH_RESULTS_ONLY,
   }),
@@ -94,6 +106,11 @@ export const filterActions = {
 };
 
 export function applyFilter(data, filter) {
+
+  /*  ****
+   hier den Filter für TOGGLE_SELECTION_BEAVIOUR und objectSelectionManager() aus index
+   */
+
   if (!data.process) return data;
 
   (data.process.stakeholder || []).sort(

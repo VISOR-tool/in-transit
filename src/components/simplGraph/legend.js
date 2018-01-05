@@ -10,11 +10,11 @@ export default class Legend extends Component {
     const attrsText = "";
     return (
     <g>
-      <rect id="legend" x={x} y={y} width={width+"px"} height="100px" style="fill:red" />
-      <text x={x+20} y={y+20} {...attrsText}>Beteiligung: geschlosen:</text>
-      <circle cx={x+200} cy="+15" r="5" stroke="black" stroke-width="4" fill="white" />
-      <text x={x+240} y={y+20} {...attrsText}>offen:</text>
-      <circle cx={x+300} cy="+15" r="5" stroke="green" stroke-width="4" fill="yellow" />
+      <rect id="legend" x={x} y={y} width={width+"px"} height="20px" style="fill:red" />
+        <text x={x+20} y={y+12} {...attrsText}>Beteiligung: geschlossen:</text>
+        <circle cx={x+155} cy="8" r="3" stroke="black" stroke-width="2" fill="white" />
+        <text x={x+190} y={y+12} {...attrsText}>offen:</text>
+        <circle cx={x+230} cy="8" r="3" stroke="green" stroke-width="2" fill="yellow" />
     </g>
     );
   }

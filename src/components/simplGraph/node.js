@@ -39,7 +39,7 @@ export default class Node extends Component {
          ? <text  x={1.5 * size} y={size / 3} 
                   transform={'rotate(' + labelRotation + ')'} 
                   text-anchor='start' 
-                  font-size="15"
+                  font-size="0.8em"
                   stroke="white" 
                   fill="black"
                   >

@@ -49,12 +49,12 @@ const Process = ({ process, processPosition, stakeholder,
 
     const processAttrs = {
       "font-family": "Verdana",
-      "font-size"  : 10,
-      "font-weight" : "bold"
+      "font-weight" : "bold",
+      "font-size": "0.8em"
     }
     const iniAttrs = {
       "font-family": "Verdana",
-      "font-size"  : 10,
+      "font-size": "0.8em"
     }
     const spacer = 5;
     const sh = stakeholder.find(sh => sh.id == process.initiator);

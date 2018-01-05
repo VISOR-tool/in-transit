@@ -56,7 +56,7 @@ class Swimlane extends Component {
     };
     const textAttrs = {
       'font-family': "Verdana",
-      'font-size' : 10
+      'font-size' : "0.8em"
     }
     let lane = <rect id={id}
                     x = {x}

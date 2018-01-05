@@ -81,12 +81,11 @@ class SimplGraph extends Component {
     this.createNodes(process.process.childs, process.process.childs[0], startX, startY, filter);
 
     return(
-      <div>                 
-        Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
-        | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
-
+      <div >                 
       <Graph nodes={this.nodes} lanes={this.links} 
              height={this.props.height} width={this.props.width} />
+        Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
+        | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
       </div>
     );
   }
@@ -115,7 +114,7 @@ class Graph extends Component {
           } = this.props;
     return (
       <div>
-        <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 30].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
+        <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 15].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
           <Legend x="0" y="0" width={this.props.width}/>      
         </svg>
         <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
