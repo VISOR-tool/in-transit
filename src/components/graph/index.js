@@ -98,7 +98,6 @@ export default class Graph extends Component {
 
   render () {
     const { nodes, lanes } = this.props;
-    console.log('render props', this.props);
     var nodeById = {};
     var nodeIns = {};
     var nodeOuts = {};
@@ -122,11 +121,9 @@ export default class Graph extends Component {
     for (const id in nodeIns) {
       nodeIns[id] = Object.keys(nodeIns[id]);
     }
-    // console.log('nodeIns', nodeIns);
     for (const id in nodeOuts) {
       nodeOuts[id] = Object.keys(nodeOuts[id]);
     }
-    // console.log('nodeOuts', nodeOuts);
 
     const mapX = x => x * 100;
     const mapY = y => y * 100;

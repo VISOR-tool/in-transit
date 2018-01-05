@@ -66,8 +66,8 @@ export default class TransitMap extends Component {
     console.log('old score:', oldScore, 'nodes:', nodes);
     var bestGeneration;
     var bestScore = null;
-    for (let i = 0; i < 100; i++) {
-      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(4 * Math.random()));
+    for (let i = 0; i < 1000; i++) {
+      const newGeneration = Optimize.mutate(nodes, 1 + Math.floor(3 * Math.random()));
       snapToGrid(newGeneration);
       const newScore = Optimize.score(newGeneration, lanes);
       // console.log('new score:', newScore, 'gen:', newGeneration);

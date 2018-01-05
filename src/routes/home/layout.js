@@ -1,7 +1,7 @@
 import { flatten, uniqStrings } from '../../lib/util';
 
 const LEARN_RATE_INIT = 1;
-const LEARN_RATE_DEC = 0.0001;
+const LEARN_RATE_DEC = 0.0002;
 
 export default function layout (nodeIds, vertices) {
   if (nodeIds.length < 1) {
