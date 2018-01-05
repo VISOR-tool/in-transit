@@ -3,7 +3,6 @@ import { connect } from 'preact-redux';
 import style from './style';
 import Vertices from './vertices';
 import layout, { snapToGrid, eliminateGap, recenter } from './layout';
-import * as Optimize from './optimize';
 import { uniqStrings } from '../../lib/util';
 import TransitMap from './transit_map';
 import { dataLoad } from '../../lib/reducers/data';

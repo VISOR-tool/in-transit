@@ -162,7 +162,6 @@ export default class Graph extends Component {
       })),
       ...lane
     }));
-    console.log('links', links);
 
     const { dragging } = this.state;
     const { width, height } = this.props;
