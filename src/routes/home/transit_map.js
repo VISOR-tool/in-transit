@@ -16,6 +16,10 @@ export default class TransitMap extends Component {
     });
   }
 
+  componentWillUnmount () {
+    this._stopOptimizing();
+  }
+
   componentDidMount () {
     this._recalculate(this.props.data);
   }
@@ -25,6 +29,7 @@ export default class TransitMap extends Component {
   }
 
   _recalculate (data) {
+    this._stopOptimizing();
     if (!data) {
       return;
     }
@@ -56,8 +61,26 @@ export default class TransitMap extends Component {
 
     this.setState(
       { nodes, lanes },
-      () => this._optimize()
+      () => this._startOptimizing()
     );
+  }
+
+  _startOptimizing () {
+    if (this.optimizeTimeout) {
+      return;
+    }
+
+    this.optimizeTimeout = setTimeout(() => {
+      this.optimizeTimeout = null;
+      this._optimize();
+    }, 10);
+  }
+
+  _stopOptimizing () {
+    if (this.optimizeTimeout) {
+      clearTimeout(this.optimizeTimeout);
+      this.optimizeTimeout = null;
+    }
   }
 
   _optimize () {
@@ -76,13 +99,12 @@ export default class TransitMap extends Component {
         bestScore = newScore;
       }
     }
+    const cont = () => this._startOptimizing();
     if (bestScore > oldScore) {
       console.log('best score:', bestScore);
       this.setState({
         nodes: bestGeneration
-      }, () => {
-        requestAnimationFrame(() => this._optimize());
-      });
+      }, cont);
     } else {
       console.log('skip score:', bestScore);
       if (eliminateGap(nodes, 'x') || eliminateGap(nodes, 'y')) {
@@ -90,11 +112,9 @@ export default class TransitMap extends Component {
         recenter(nodes);
         this.setState({
           nodes
-        }, () => requestAnimationFrame(
-          () => this._optimize()
-        ));
+        }, () => this._startOptimizing());
       } else {
-        requestAnimationFrame(() => this._optimize());
+        requestAnimationFrame(cont);
         // console.log("Finished optimizing");
       }
     }
