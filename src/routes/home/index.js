@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import style from './style';
 import TransitMap from './transit_map';
+import Filtering from './filtering';
 import { dataLoad } from '../../lib/reducers/data';
 import { applyFilter } from '../../lib/reducers/filter';
 
@@ -23,6 +24,7 @@ class Home extends Component {
 
     return (
       <div class={style.home}>
+        <Filtering/>
         <TransitMap data={data.process}/>
       </div>
     );
