@@ -115,7 +115,7 @@ export default class TransitMap extends Component {
         }, () => this._startOptimizing());
       } else {
         requestAnimationFrame(cont);
-        // console.log("Finished optimizing");
+        //console.log("Finished optimizing");
       }
     }
   }

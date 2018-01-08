@@ -95,14 +95,14 @@ const Process = ({ process, processPosition, stakeholder,
   }
 }
 
-const mapStateToProps = ({ selection }) => ({
+const mapStateToProps = ({ selection, filter }) => ({
   hovered: selection.hovered,
   selected: selection.selected,
 });
 const mapDispatchToProps = dispatch => ({
   hover: value => dispatch(selectionActions.hover(value)),
   unhover: value => dispatch(selectionActions.unhover(value)),
-  select: value => dispatch(selectionActions.select(value)),
+  select: value => dispatch(selectionActions.select(value, filter)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Process);

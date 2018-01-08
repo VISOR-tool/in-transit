@@ -7,8 +7,11 @@ const INITIAL_STATE = {
   procVisibileWithout: '',
   processParticipation: 'beliebiger',
   processOnlyWithResults: 'on',
+  visibleByProp: { loc: [], proc: [], sh: []},
 };
 
+const GET_OBJ_VISIBILITY = 'visor/filter/GET_OBJ_VISIBILITY';
+const ADD_OBJ_TO_LIST_OF_VISIBLE = 'visor/filter/ADD_OBJ_TO_LIST_OF_VISIBLE';
 const TOGGLE_SELECTION_BEAVIOUR = 'visor/filter/TOGGLE_SELECTION_BEAVIOUR';
 const TOGGLE_PARTICIPATION = 'visor/filter/TOGGLE_PARTICIPATION';
 const SET_PROC_VISIBLE_WITHOUT = 'visor/filter/SET_PROC_VISIBLE_WITHOUT';
@@ -24,7 +27,7 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
     return{
       ...filterState,
       selectionBehaviour: filterState.selectionBehaviour == 'on' ? 'off' : 'on',
-    }
+    }  
   case TOGGLE_WITH_RESULTS_ONLY:
     return{
         ...filterState,
@@ -36,6 +39,21 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
       processParticipation: filterState.processParticipation == 'beliebiger' ?
         'offener' : 'beliebiger',
     };
+
+  case GET_OBJ_VISIBILITY:
+    if( action.value != undefined && action.value.val.length != 0) {
+      //console.log(filterState.visibleByProp[action.value.cat].indexOf(action.value.val));
+    } 
+
+  case ADD_OBJ_TO_LIST_OF_VISIBLE:
+    if( action.value != undefined && action.value.val.length != 0) {
+      let i = filterState.visibleByProp[action.value.cat].indexOf(action.value.val);
+      if( i > -1 )  filterState.visibleByProp[action.value.cat].splice(i, 1);
+      else filterState.visibleByProp[action.value.cat].push(action.value.val)
+      return{
+        ...filterState,
+        }; 
+      };
   case SET_PROC_VISIBLE_WITHOUT:
     return {
       ...filterState,
@@ -82,6 +100,16 @@ export const filterActions = {
     type: TOGGLE_PARTICIPATION,
   }),
 
+  getVisibility: value =>({
+    type: GET_OBJ_VISIBILITY,
+    value
+  }),
+
+  toggleVisibility: value =>({
+    type: ADD_OBJ_TO_LIST_OF_VISIBLE,
+    value
+  }),
+
   setProcVisibleWithout: value => ({
     type: SET_PROC_VISIBLE_WITHOUT,
     value,
@@ -106,11 +134,6 @@ export const filterActions = {
 };
 
 export function applyFilter(data, filter) {
-
-  /*  ****
-   hier den Filter für TOGGLE_SELECTION_BEAVIOUR und objectSelectionManager() aus index
-   */
-
   if (!data.process) return data;
 
   (data.process.stakeholder || []).sort(
@@ -121,10 +144,17 @@ export function applyFilter(data, filter) {
 
   data.process.childs = (data.process.childs || []).map(proc => {
     proc.visible =
-      !(filter.processParticipation == 'offener' && proc.participation == 'closed') &&
-      (!filter.procVisibileWithout || proc.participants.indexOf( filter.procVisibileWithout ) == -1) &&
-      (!filter.procOnlyVisibleWith || proc.participants.indexOf( filter.procOnlyVisibleWith ) != -1);
+      !(filter.processParticipation == 'offener' && proc.participation == 'closed') 
+      && (!filter.procVisibileWithout || proc.participants.indexOf( filter.procVisibileWithout ) == -1) 
+      && (!filter.procOnlyVisibleWith || proc.participants.indexOf( filter.procOnlyVisibleWith ) != -1);
 
+    if(filter.selectionBehaviour === 'on'){
+      proc.visible = filter.visibleByProp.proc.includes(proc.id);
+      if( ! proc.visible )
+        proc.location.map( loc => { if(filter.visibleByProp.loc.includes(loc)) proc.visible = true; });
+      if( ! proc.visible )
+        proc.participants.map( sh => { if(filter.visibleByProp.sh.includes(sh)) proc.visible = true; });
+    }
     return proc;
   });
   

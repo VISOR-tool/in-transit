@@ -11,28 +11,10 @@ import { applyFilter, filterActions } from '../../lib/reducers/filter';
 
 
 class TimelineRoute extends Component {
-  objectSelectionManager = (hitProperty,event) => {
-    const oproc = this.props.data;
-    oproc.process.childs.map( proc => {
-        proc.searchHit = false;
-        if(hitProperty.cat == 'sh'){
-          if(proc.initiator == hitProperty.val) proc.searchHit = true;
-          proc.searchHit = proc.participants.some( shId => { return shId == hitProperty.val } );
-        }
-        if(hitProperty.cat == 'proc')
-          if(proc.id == hitProperty.val) {
-              proc.searchHit = true;
-            }
-            if(hitProperty.cat == 'loc')
-              if(proc.location == hitProperty.val) proc.searchHit = true;
-        return proc;
-      });
-    this.setState(oproc)
-  }
-
+  
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
+    const wantedUrl = 'oproc-elias-2018.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -73,17 +55,15 @@ class TimelineRoute extends Component {
 
           <div class={style.hitlist}>
             <Hitlist
-              process={data}
-              handleOnClicks={this.objectSelectionManager} />
+              process={data} />
           </div>
 
           <div class={style.toplist}>
-            <Toplist 
-              handleOnClicks={this.objectSelectionManager}/>
+            <Toplist />
           </div>
 
         <SimplGraph  width={640} height={100} />
-        Der unter view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
+        Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
         <div class={style.timeline}>
           <h4>{data.process.name}</h4>
           <Timeline

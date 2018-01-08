@@ -38,10 +38,8 @@ class SimplGraph extends Component {
       if to -> rekursion
       */
       if(process.childs.length > 0 ) {
-      console.log(color);
       process.childs.map(
         (nextChild,index) => { 
-            console.log(nextChild);
             this.createNodes(processes, nextChild, x+40, y-10*index, filter, "white");
             this.links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y-10*index, color:"yellow" });
         }
