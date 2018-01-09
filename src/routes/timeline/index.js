@@ -7,7 +7,7 @@ import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
 import Toplist from '../../components/timeline/toplist';
 import { dataLoad } from '../../lib/reducers/data';
-import { applyFilter, filterActions } from '../../lib/reducers/filter';
+import { filterActions } from '../../lib/reducers/filter';
 
 
 class TimelineRoute extends Component {
@@ -78,9 +78,9 @@ class TimelineRoute extends Component {
   }
 }
 
-const mapStateToProps = ({ data, filter }) => ({
+const mapStateToProps = ({ data, filteredData, filter }) => ({
   dataUrl: data.wantedUrl,
-  data: applyFilter(data.data, filter),
+  data: filteredData,
   filter,
 
 });

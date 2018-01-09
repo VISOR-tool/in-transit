@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
-import { applyFilter, filterActions } from '../../lib/reducers/filter';
+import { filterActions } from '../../lib/reducers/filter';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
@@ -140,9 +140,9 @@ class Graph extends Component {
 }
 
 
-const mapStateToProps = ({ data, filter }) => ({
+const mapStateToProps = ({ data, filteredData, filter }) => ({
   dataUrl: data.wantedUrl,
-  data:    applyFilter(data.data, filter),
+  data: filteredData,
   filter,
 });
 const mapDispatchToProps = dispatch => ({

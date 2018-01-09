@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
-import { applyFilter, filterActions } from '../../lib/reducers/filter';
+import { filterActions } from '../../lib/reducers/filter';
 import { selectionActions } from '../../lib/reducers/selection';
 
 class Uniqe {

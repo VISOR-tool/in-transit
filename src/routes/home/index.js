@@ -4,7 +4,6 @@ import style from './style';
 import TransitMap from './transit_map';
 import Filtering from './filtering';
 import { dataLoad } from '../../lib/reducers/data';
-import { applyFilter } from '../../lib/reducers/filter';
 
 class Home extends Component {
   render () {
@@ -31,9 +30,9 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ data, filter }) => ({
+const mapStateToProps = ({ data, filteredData }) => ({
   dataUrl: data.wantedUrl,
-  data: applyFilter(data.data, filter),
+  data: filteredData,
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
