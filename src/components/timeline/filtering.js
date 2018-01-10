@@ -1,11 +1,10 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
-import Hitlist from '../../components/timeline/hitlist';
+import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
 import Iconbar from '../../components/timeline/iconbar';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
-import style2 from './iconbar';
 
 const Filtering = ({
   data,
@@ -24,32 +23,38 @@ const Filtering = ({
           sh => <option value={sh.id}>{sh.name}</option>
         );
 
-  return (
+  return (  
     <div>      
       <Iconbar />
-      <dl class={style.filter}>
-        <dd>onClick: markieren/<b>selektieren</b></dd>
-        <dt><b>Swimmbahnen</b></dt>
-        <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
-        <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
-        <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
-        <dt><b>Prozese</b></dt>
-        <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
-        <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
-        <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-        <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-      </dl>
+      {filter.visibilityOfFilter && 
+        <dl class={style.filter}>
+          <dd>onClick: markieren/<b>selektieren</b></dd>
+          <dt><b>Swimmbahnen</b></dt>
+          <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
+          <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+          <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
+          <dt><b>Prozese</b></dt>
+          <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
+          <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
+          <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+          <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+        </dl>
+      }
 
-      <div class={style.hitlist}>
-        <Hitlist
-          process={data}
-          handleOnClicks={this.objectSelectionManager} />
+      {filter.visibilityOfTextsearch && 
+        <div class={style.textsearch}>
+          <Textsearch
+            process={data}
+            handleOnClicks={this.objectSelectionManager} />
+          </div>
+      }
+
+      {filter.visibilityOfToplist && 
+        <div class={style.toplist}>
+          <Toplist 
+            handleOnClicks={this.objectSelectionManager}/>
         </div>
-
-      <div class={style.toplist}>
-        <Toplist 
-          handleOnClicks={this.objectSelectionManager}/>
-      </div>
+      }
       </div>
   );
 };

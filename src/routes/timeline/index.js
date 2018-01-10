@@ -3,7 +3,7 @@ import { connect } from 'preact-redux';
 
 import Filtering from './../../components/timeline/filtering';
 import Timeline from '../../components/timeline/timeline';
-import Hitlist from '../../components/timeline/hitlist';
+import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
 import SimplGraph from '../../components/simplGraph/simplGraph';
 import { dataLoad } from '../../lib/reducers/data';
