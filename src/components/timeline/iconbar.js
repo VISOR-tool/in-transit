@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
-import style from './iconbar';
+import style from './iconbar.css';
 
 const Iconbar = ({
     /*
@@ -15,7 +15,6 @@ const Iconbar = ({
     toggleLaneWrap,
     */
 }) => {
-    
   return (
     <div class={style.iconbar}>
         <div class={style.iconbarElement}><img src={require('./icons/maintenance-icon.png')} width="50" /></div>

@@ -5,7 +5,7 @@ import Toplist from '../../components/timeline/toplist';
 import Iconbar from '../../components/timeline/iconbar';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
-import iconbarStyle from './iconbar';
+import style2 from './iconbar';
 
 const Filtering = ({
   data,
@@ -23,8 +23,9 @@ const Filtering = ({
         .map(
           sh => <option value={sh.id}>{sh.name}</option>
         );
+
   return (
-    <div>
+    <div>      
       <Iconbar />
       <dl class={style.filter}>
         <dd>onClick: markieren/<b>selektieren</b></dd>
