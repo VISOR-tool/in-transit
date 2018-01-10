@@ -10,7 +10,6 @@ const INITIAL_STATE = {
   visibleByProp: { loc: [], proc: [], sh: []},
 };
 
-const GET_OBJ_VISIBILITY = 'visor/filter/GET_OBJ_VISIBILITY';
 const ADD_OBJ_TO_LIST_OF_VISIBLE = 'visor/filter/ADD_OBJ_TO_LIST_OF_VISIBLE';
 const TOGGLE_SELECTION_BEAVIOUR = 'visor/filter/TOGGLE_SELECTION_BEAVIOUR';
 const TOGGLE_PARTICIPATION = 'visor/filter/TOGGLE_PARTICIPATION';
@@ -39,12 +38,6 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
       processParticipation: filterState.processParticipation == 'beliebiger' ?
         'offener' : 'beliebiger',
     };
-
-  case GET_OBJ_VISIBILITY:
-    if( action.value != undefined && action.value.val.length != 0) {
-      //console.log(filterState.visibleByProp[action.value.cat].indexOf(action.value.val));
-    } 
-
   case ADD_OBJ_TO_LIST_OF_VISIBLE:
     if( action.value != undefined && action.value.val.length != 0) {
       let i = filterState.visibleByProp[action.value.cat].indexOf(action.value.val);
@@ -98,11 +91,6 @@ export const filterActions = {
 
   toggleParticipation: () => ({
     type: TOGGLE_PARTICIPATION,
-  }),
-
-  getVisibility: value =>({
-    type: GET_OBJ_VISIBILITY,
-    value
   }),
 
   toggleVisibility: value =>({

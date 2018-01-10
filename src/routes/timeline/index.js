@@ -1,13 +1,14 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import style from './style';
-import SimplGraph from '../../components/simplGraph/simplGraph';
+import Filtering from './../../components/timeline/filtering';
 import Timeline from '../../components/timeline/timeline';
 import Hitlist from '../../components/timeline/hitlist';
 import Toplist from '../../components/timeline/toplist';
+import SimplGraph from '../../components/simplGraph/simplGraph';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
+import style from './style';
 
 
 class TimelineRoute extends Component {
@@ -38,29 +39,8 @@ class TimelineRoute extends Component {
       toggleProcessOnlyWithResults,
     } = this.props;
     return (
-      <div class={style.home}>
-          <dl class={style.filter}>
-          <dt><b>Listeneinträge</b></dt>
-              <dd>onClick alleinstellen: <click onClick={toggleSelectionBehaviour}>{filter.selectionBehaviour}</click></dd>
-            <dt><b>Swimmbahnen</b></dt>
-              <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
-              <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
-              <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
-            <dt><b>Prozese</b></dt>
-              <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
-              <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
-              <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-              <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-            </dl>
-
-          <div class={style.hitlist}>
-            <Hitlist
-              process={data} />
-          </div>
-
-          <div class={style.toplist}>
-            <Toplist />
-          </div>
+      <div>
+        <Filtering />
 
         <SimplGraph  width={640} height={100} />
         Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.

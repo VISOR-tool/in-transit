@@ -1,0 +1,26 @@
+.filter{
+    margin-top: 30px;
+    float: left;
+    width: 50%;
+    background-color: lightgray;
+    border: solid 1px AliceBlue;
+  }
+  .filter dd:hover {
+    cursor: pointer;
+    background-color: rgb(67, 157, 185);  
+  }
+  
+  .hitlist{
+    margin-top: 30px;
+    float: left;
+    width: 50%;
+    background-color: lightgray;
+    border: solid 1px AliceBlue;
+  }
+  .toplist{
+    float: left;
+    width: 50%;
+    background-color: lightgray;
+    border: solid 1px AliceBlue;
+  }
+  

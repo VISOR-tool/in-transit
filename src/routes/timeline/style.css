@@ -7,29 +7,6 @@ body {
   min-height: 100%;
   width: 100%;
 }
-.filter{
-  float: left;
-  width: 50%;
-  background-color: lightgray;
-  border: solid 1px AliceBlue;
-}
-.filter dd:hover {
-  cursor: pointer;
-  background-color: rgb(67, 157, 185);  
-}
-
-.hitlist{
-  float: left;
-  width: 50%;
-  background-color: lightgray;
-  border: solid 1px AliceBlue;
-}
-.toplist{
-  float: left;
-  width: 50%;
-  background-color: lightgray;
-  border: solid 1px AliceBlue;
-}
 
 .timeline{
  float: bottom;

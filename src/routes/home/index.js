@@ -1,8 +1,8 @@
+import style from './style';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import style from './style';
 import TransitMap from './transit_map';
-import Filtering from './filtering';
+import Filtering from './../../components/timeline/filtering';
 import { dataLoad } from '../../lib/reducers/data';
 
 class Home extends Component {

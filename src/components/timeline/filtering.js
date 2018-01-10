@@ -3,8 +3,8 @@ import { connect } from 'preact-redux';
 import Hitlist from '../../components/timeline/hitlist';
 import Toplist from '../../components/timeline/toplist';
 import { filterActions } from '../../lib/reducers/filter';
+import style from './filter';
 
-const style = {};
 const Filtering = ({
   data,
   filter,
