@@ -45,9 +45,9 @@ const mapStateToProps = ({ filter }) => ({
   filter,
 });
 const mapDispatchToProps = dispatch => ({
-    toggleVisibilityOfFilter: () =>  dispatch(filterActions.toggleVisibilityOfFilter()),
-    toggleVisibilityOfTextsearch: () =>  dispatch(filterActions.toggleVisibilityOfTextsearch()),
-    toggleVisibilityOfToplist: () =>  dispatch(filterActions.toggleVisibilityOfToplist()),
+    toggleVisibilityOfTextsearch: () => dispatch(filterActions.toggleVisibilityOfTextsearch()),
+    toggleVisibilityOfFilter: () => dispatch(filterActions.toggleVisibilityOfFilter()),
+    toggleVisibilityOfToplist: () => dispatch(filterActions.toggleVisibilityOfToplist()),
     //setProcVisibleWithout: value => dispatch(filterActions.setProcVisibleWithout(value)),
 });
 

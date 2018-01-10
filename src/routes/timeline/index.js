@@ -44,15 +44,13 @@ class TimelineRoute extends Component {
 
         <SimplGraph  width={640} height={100} />
         Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
-        <div class={style.timeline}>
-          <h4>{data.process.name}</h4>
-          <Timeline
-            width="600"
-            height="1000"
-            process={data}
-            filter={filter}
-           />
-        </div>
+        <h4>{data.process.name}</h4>
+        <Timeline
+          width="600"
+          height="1000"
+          process={data}
+          filter={filter}
+          />
       </div>
     );
   }

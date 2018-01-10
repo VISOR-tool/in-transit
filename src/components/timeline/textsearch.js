@@ -3,7 +3,7 @@ import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
 import { searchActions } from '../../lib/reducers/search';
 
-class Hitlist extends Component {
+class Textsearch extends Component {
   /*
    * Auftrennung des Prozesses. Rein kommt das ganze Objekt
    * raus gehen verschiedene swimlanes die 1:n Ojekte enthalten
@@ -83,7 +83,7 @@ class Hitlist extends Component {
       search(query);
     };
 
-    return  <div class="hitlist">
+    return  <div class="textsearch"> 
               Suche: <input type="text" onInput={handleSearch} />
               {stakeholder}
               {processes}
@@ -100,4 +100,4 @@ const mapDispatchToProps = dispatch => ({
   search: query => dispatch(searchActions.search(query)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Hitlist);
+export default connect(mapStateToProps, mapDispatchToProps)(Textsearch);

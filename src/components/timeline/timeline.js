@@ -6,6 +6,7 @@ import AxisY from './axis_y';
 import Swimlane from './swimlane';
 import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
+import style from './timeline.css';
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
@@ -91,6 +92,7 @@ class Timeline extends Component {
 
     const onWheel = this.onMouseWheel(this.props, tlWidth);
     return (
+      <div class={style.timeline}>
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
         <g
@@ -120,6 +122,7 @@ class Timeline extends Component {
           onWheel={onWheel} showAxisLabels={true}
         />
       </svg>
+      </div>
     );
   }
 }

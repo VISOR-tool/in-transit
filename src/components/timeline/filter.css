@@ -1,5 +1,7 @@
 .filter{
-    float: left;
+    position: fixed;
+    top: 26px;
+    left: 55px;
     width: 50%;
     background-color: lightgray;
     border: solid 1px AliceBlue;
@@ -10,7 +12,10 @@
     background-color: rgb(67, 157, 185);  
   }
   
-  .hitlist{
+  .textsearch{
+    position: fixed;
+    top: 70px;
+    left: 55px;
     margin-top: 30px;
     float: left;
     width: 50%;
@@ -18,7 +23,9 @@
     border: solid 1px AliceBlue;
   }
   .toplist{
-    float: left;
+    position: fixed;
+    top: 110px;
+    left: 55px;
     width: 50%;
     background-color: lightgray;
     border: solid 1px AliceBlue;
