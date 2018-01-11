@@ -1,7 +1,8 @@
 .filter{
     position: fixed;
     top: 26px;
-    left: 55px;
+    left: 51px;
+    z-index: 20;
     width: 50%;
     background-color: lightgray;
     border: solid 1px AliceBlue;
@@ -15,17 +16,19 @@
   .textsearch{
     position: fixed;
     top: 70px;
-    left: 55px;
+    left: 51px;
+    z-index: 20;
     margin-top: 30px;
-    float: left;
     width: 50%;
     background-color: lightgray;
     border: solid 1px AliceBlue;
   }
+
   .toplist{
     position: fixed;
     top: 110px;
-    left: 55px;
+    left: 51px;
+    z-index: 20;
     width: 50%;
     background-color: lightgray;
     border: solid 1px AliceBlue;

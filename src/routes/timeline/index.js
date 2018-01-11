@@ -38,19 +38,25 @@ class TimelineRoute extends Component {
       toggleLaneWrap,
       toggleProcessOnlyWithResults,
     } = this.props;
+    
+    console.log('style: ', style);
+    
     return (
       <div>
-        <Filtering />
-
-        <SimplGraph  width={640} height={100} />
-        Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
-        <h4>{data.process.name}</h4>
-        <Timeline
-          width="600"
-          height="1000"
-          process={data}
-          filter={filter}
-          />
+        <div class={style.sidebar}>
+          <Filtering />
+        </div>
+        <div class={style.workspace}>
+          <SimplGraph  width={640} height={100} />        
+          <h4>{data.process.name}</h4>        
+          <Timeline
+            width="600"
+            height="1000"
+            process={data}
+            filter={filter}
+            />
+                  Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
+        </div>
       </div>
     );
   }

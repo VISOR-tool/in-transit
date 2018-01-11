@@ -39,6 +39,7 @@ const Iconbar = ({
                 width="50" /></div>
     </div>
   );
+  
 };
 
 const mapStateToProps = ({ filter }) => ({
