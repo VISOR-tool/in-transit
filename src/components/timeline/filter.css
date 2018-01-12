@@ -1,9 +1,7 @@
 .filter{
-    position: fixed;
-    top: 26px;
-    left: 51px;
-    z-index: 20;
-    width: 50%;
+    display: block;
+    width: 30em;
+    padding: 2em 4em;
     background-color: lightgray;
     border: solid 1px AliceBlue;
   }
@@ -14,22 +12,18 @@
   }
   
   .textsearch{
-    position: fixed;
-    top: 70px;
-    left: 51px;
-    z-index: 20;
     margin-top: 30px;
-    width: 50%;
+    display: block;
+    max-width: 30em;
+    padding: 2em 4em;
     background-color: lightgray;
     border: solid 1px AliceBlue;
   }
 
   .toplist{
-    position: fixed;
-    top: 110px;
-    left: 51px;
-    z-index: 20;
-    width: 50%;
+    display: block;
+    max-width: 30em;
+    padding: 2em 4em;
     background-color: lightgray;
     border: solid 1px AliceBlue;
   }

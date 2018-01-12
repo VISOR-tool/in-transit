@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { connect } from 'preact-redux';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
-import Iconbar from '../../components/timeline/iconbar';
+import Iconbar, { IconbarElement } from '../../components/timeline/iconbar';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
 
@@ -23,10 +23,9 @@ const Filtering = ({
           sh => <option value={sh.id}>{sh.name}</option>
         );
 
-  return (  
-    <div>      
-      <Iconbar />
-      {filter.visibilityOfFilter && 
+  return (
+    <Iconbar>
+      <IconbarElement icon={require('./icons/maintenance-icon.png')}>
         <dl class={style.filter}>
           <dd>onClick: markieren/<b>selektieren</b></dd>
           <dt><b>Swimmbahnen</b></dt>
@@ -39,23 +38,23 @@ const Filtering = ({
           <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
           <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
         </dl>
-      }
+      </IconbarElement>
 
-      {filter.visibilityOfTextsearch && 
+      <IconbarElement icon={require('./icons/process-users-icon.png')}>
         <div class={style.textsearch}>
           <Textsearch
             process={data}
             handleOnClicks={this.objectSelectionManager} />
-          </div>
-      }
+        </div>
+      </IconbarElement>
 
-      {filter.visibilityOfToplist && 
+      <IconbarElement icon={require('./icons/Adobe-PDF-Document-icon.png')}>
         <div class={style.toplist}>
-          <Toplist 
+          <Toplist
             handleOnClicks={this.objectSelectionManager}/>
         </div>
-      }
-      </div>
+      </IconbarElement>
+    </Iconbar>
   );
 };
 

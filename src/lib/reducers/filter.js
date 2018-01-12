@@ -8,14 +8,8 @@ const INITIAL_STATE = {
   processOnlyWithResults: 'on',
   selectionBehaviour: 'off',
   visibleByProp: { loc: [], proc: [], sh: []},
-  visibilityOfFilter: false,
-  visibilityOfTextsearch: false,
-  visibilityOfToplist: false,
 };
 
-const TOGGLE_VISIBILITY_OF_TOPLIST = 'visor/filter/TOGGLE_VISIBILITY_OF_TOPLIST'; 
-const SET_VISIBILITY_OF_TEXTSEARCH = 'visor/filter/SET_VISIBILITY_OF_TEXTSEARCH'; 
-const TOGGLE_VISIBILITY_OF_FILTER = 'visor/filter/TOGGLE_VISIBILITY_OF_FILTER'; 
 const ADD_OBJ_TO_LIST_OF_VISIBLE = 'visor/filter/ADD_OBJ_TO_LIST_OF_VISIBLE';
 const TOGGLE_SELECTION_BEAVIOUR = 'visor/filter/TOGGLE_SELECTION_BEAVIOUR';
 const TOGGLE_PARTICIPATION = 'visor/filter/TOGGLE_PARTICIPATION';
@@ -28,21 +22,6 @@ const TOGGLE_WITH_RESULTS_ONLY = 'visor/filter/TOGGLE_WITH_RESULTS_ONLY';
 
 export function filterReducer(filterState = INITIAL_STATE, action) {
   switch(action['type']) {
-  case TOGGLE_VISIBILITY_OF_TOPLIST:
-    return {
-      ...filterState,
-      visibilityOfToplist: ! filterState.visibilityOfToplist
-    }  
-  case SET_VISIBILITY_OF_TEXTSEARCH:
-    return {
-      ...filterState,
-      visibilityOfTextsearch: ! filterState.visibilityOfTextsearch
-    }  
-    case TOGGLE_VISIBILITY_OF_FILTER:
-    return {
-      ...filterState,
-      visibilityOfFilter: ! filterState.visibilityOfFilter 
-    }
   case TOGGLE_SELECTION_BEAVIOUR:
     return{
       ...filterState,
@@ -101,19 +80,6 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
 }
 
 export const filterActions = {
-  toggleVisibilityOfToplist: () => ({
-    type: TOGGLE_VISIBILITY_OF_TOPLIST,
-  }),
-
-  toggleVisibilityOfTextsearch: value => ({
-    type: SET_VISIBILITY_OF_TEXTSEARCH,
-    value
-  }),
-
-  toggleVisibilityOfFilter: () => ({
-    type: TOGGLE_VISIBILITY_OF_FILTER,
-  }),
-
   toggleSelectionBehaviour: () => ({
     type: TOGGLE_SELECTION_BEAVIOUR,
   }),
