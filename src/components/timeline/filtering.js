@@ -59,7 +59,7 @@ const Filtering = ({
 };
 
 const mapStateToProps = ({ data, filter }) => ({
-  data,
+  data: data && data.data,
   filter,
 });
 const mapDispatchToProps = dispatch => ({
