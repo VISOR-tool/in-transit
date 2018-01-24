@@ -102,7 +102,7 @@ const mapStateToProps = ({ selection, filter }) => ({
 const mapDispatchToProps = dispatch => ({
   hover: value => dispatch(selectionActions.hover(value)),
   unhover: value => dispatch(selectionActions.unhover(value)),
-  select: value => dispatch(selectionActions.select(value, filter)),
+  select: value => dispatch(selectionActions.select(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Process);
