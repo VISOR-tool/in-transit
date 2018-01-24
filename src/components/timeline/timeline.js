@@ -6,6 +6,7 @@ import AxisY from './axis_y';
 import Swimlane from './swimlane';
 import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
+import { selectionActions } from '../../lib/reducers/selection';
 import style from './timeline.css';
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
@@ -59,6 +60,7 @@ class Timeline extends Component {
   }
 
   onMouseDown = () => {
+    this.props.selectNone();
     this.setState({ dragging: true });
   }
 
@@ -137,6 +139,7 @@ const mapDispatchToProps = dispatch => ({
   setZoomSection: (begin, end) => dispatch(zoomActions.setZoomSection(begin, end)),
   setZoomBase: (start, end) => dispatch(zoomActions.setZoomBase(start, end)),
   loadData: dataLoad(dispatch),
+  selectNone: () => dispatch(selectionActions.select(null)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

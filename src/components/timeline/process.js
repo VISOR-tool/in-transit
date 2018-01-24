@@ -62,7 +62,10 @@ const Process = ({ process, processPosition, stakeholder,
     return (
       <g  onmouseenter={() => hover(id)}
           onmouseleave={() => unhover(id)}
-          onmousedown={() => select(id)}
+          onmousedown={ev => {
+            ev.cancelBubble = true;
+            select(id);
+          }}
           >
         <rect id={id}
               x={processPosition.x}
