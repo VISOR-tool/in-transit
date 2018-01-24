@@ -5,6 +5,7 @@ import Filtering from './../../components/timeline/filtering';
 import Timeline from '../../components/timeline/timeline';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
+import DetailsOverlay from '../../components/timeline/details';
 import SimplGraph from '../../components/simplGraph/simplGraph';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
@@ -55,6 +56,7 @@ class TimelineRoute extends Component {
             />
                   Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
         </div>
+        <DetailsOverlay/>
       </div>
     );
   }
@@ -64,7 +66,6 @@ const mapStateToProps = ({ data, filteredData, filter }) => ({
   dataUrl: data.wantedUrl,
   data: filteredData,
   filter,
-
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),

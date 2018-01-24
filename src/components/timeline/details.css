@@ -1,0 +1,31 @@
+.overlayHidden {
+    position: absolute;
+    top: 0;
+    right: -70%;
+    left: 100%;
+    bottom: 0;
+    margin: 0;
+    padding: 3em 1.5em 2em;
+    background-color: white;
+    border-left: 2px solid black;
+    box-shadow: 0 0 0 black;
+    z-index: 10;
+    transition: box-shadow 0.3s, left 0.3s, right 0.3s;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 70%;
+    bottom: 0;
+    margin: 0;
+    padding: 4em 2em;
+    background-color: white;
+    border-left: 1px solid #333;
+    box-shadow: 0 0 12px black;
+    z-index: 10;
+    transition: box-shadow 0.5s, left 0.5s, right 0.5s;
+}
+.overlay ul {
+    padding: 0;
+}
