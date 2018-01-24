@@ -39,8 +39,6 @@ class TimelineRoute extends Component {
       toggleProcessOnlyWithResults,
     } = this.props;
     
-    console.log('style: ', style);
-    
     return (
       <div>
         <div class={style.sidebar}>

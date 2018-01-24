@@ -38,11 +38,19 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
       processParticipation: filterState.processParticipation == 'beliebiger' ?
         'offener' : 'beliebiger',
     };
-  case ADD_OBJ_TO_LIST_OF_VISIBLE:
+  case ADD_OBJ_TO_LIST_OF_VISIBLE:    
     if( action.value != undefined && action.value.val.length != 0) {
       let i = filterState.visibleByProp[action.value.cat].indexOf(action.value.val);
       if( i > -1 )  filterState.visibleByProp[action.value.cat].splice(i, 1);
       else filterState.visibleByProp[action.value.cat].push(action.value.val)
+
+      if(filterState.visibleByProp['proc'].length > 0
+         || filterState.visibleByProp['loc'].length > 0
+         || filterState.visibleByProp['sh'].length > 0) 
+        filterState.selectionBehaviour = 'on';
+      else 
+        filterState.selectionBehaviour = 'off';
+
       return{
         ...filterState,
         }; 
