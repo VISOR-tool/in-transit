@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  processMapping: 'Beteiligten',
+  processMapping: 'Resultateanzahl', //'Beteiligte',
   laneWrap: true,
   laneOrder: 'asc',
   procOnlyVisibleWith: '',
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   processParticipation: 'beliebiger',
   processOnlyWithResults: 'on',
   selectionBehaviour: 'off',
+  swimlanesMode: 'on',
   visibleByProp: { loc: [], proc: [], sh: []},
 };
 
@@ -18,10 +19,16 @@ const SET_PROC_ONLY_VISIBLE_WITH = 'visor/filter/SET_PROC_ONLY_VISIBLE_WITH';
 const TOGGLE_PROCESS_MAPPING = 'visor/filter/TOGGLE_PROCESS_MAPPING';
 const TOGGLE_LANE_ORDER = 'visor/filter/TOGGLE_LANE_ORDER';
 const TOGGLE_LANE_WRAP = 'visor/filter/TOGGLE_LANE_WRAP';
+const TOGGLE_SWIMMLANES_MODE = 'visor/filter/TOGGLE_SWIMMLANES_MODE';
 const TOGGLE_WITH_RESULTS_ONLY = 'visor/filter/TOGGLE_WITH_RESULTS_ONLY';
 
 export function filterReducer(filterState = INITIAL_STATE, action) {
   switch(action['type']) {
+  case TOGGLE_SWIMMLANES_MODE:
+    return{
+      ...filterState,
+      swimlanesMode: filterState.swimlanesMode == 'on' ? 'off' : 'on',
+    }  
   case TOGGLE_SELECTION_BEAVIOUR:
     return{
       ...filterState,
@@ -66,11 +73,15 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
       procOnlyVisibleWith: action.value,
     };
   case TOGGLE_PROCESS_MAPPING:
+    let processMappingState = '';
+    if(filterState.processMapping == 'Initiator') processMappingState = 'Resultateanzahl';
+    if(filterState.processMapping == 'Resultateanzahl') processMappingState = 'Beteiligte';
+    if(filterState.processMapping == 'Beteiligte') processMappingState = 'Initiator';
+  
     return {
       ...filterState,
-      processMapping: filterState.processMapping == 'Initiator' ?
-        'Beteiligten' : 'Initiator',
-    };
+      processMapping: processMappingState,
+    }
   case TOGGLE_LANE_ORDER:
     return {
       ...filterState,
@@ -117,6 +128,10 @@ export const filterActions = {
 
   toggleProcessMapping: () => ({
     type: TOGGLE_PROCESS_MAPPING,
+  }),
+
+  toggleSwimlanesMode: () => ({
+    type: TOGGLE_SWIMMLANES_MODE,
   }),
 
   toggleLaneOrder: () => ({

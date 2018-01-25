@@ -8,6 +8,7 @@ import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
 import { selectionActions } from '../../lib/reducers/selection';
 import style from './timeline.css';
+import swimlane from './swimlane';
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
@@ -81,13 +82,45 @@ class Timeline extends Component {
         });
       return lane;
     });
+    console.log('swimlanes: ', swimlanes);
+    return swimlanes;
+  }
+
+  beFromResults(){
+    const { process, filter } = this.props;
+    let swimlanes = [];
+    let counts = [];
+    let matches = [];
+    process.process.childs.forEach( process => {
+      let index = swimlanes.findIndex( lane => {return lane.id == process.results.length} );
+      if( index == -1 ){
+        index = swimlanes.push({
+          id: process.results.length, 
+          name: 'Ergebnisanzahl: '+process.results.length, 
+          processes: [],
+        });
+        index--;
+      }
+      swimlanes[index].processes.push(process);
+    });
+    
+    swimlanes.sort( (lane_a,lane_b) => lane_a.id > lane_b.id);
     return swimlanes;
   }
 
   render () {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
-   let swimlanes = this.beFromStakeholder();
+   let swimlanes = [];
+   console.log('filter.processMapping: ', filter.processMapping);
+   switch(filter.processMapping){
+    case 'Initiator':
+        swimlanes = this.beFromStakeholder(); break;
+      case 'Beteiligte':
+        swimlanes = this.beFromStakeholder(); break;
+      case 'Resultateanzahl':
+        swimlanes = this.beFromResults(); break;
+   }
 
    let swimlaneheight = this.props.height / swimlanes.length;
 

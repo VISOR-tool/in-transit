@@ -38,8 +38,8 @@ const Filtering = ({
       </IconbarElement>
 
       <IconbarElement icon={require('./icons/swimlanes.png')}>
-        <b>Swimmbahnen</b>
         <dl class={style.filter}>
+          <b>Swimmbahnen</b>
           <dd onClick={toggleSwimlanesMode}>Swimlanes: <b>{filter.swimlanesMode}</b> </dd>
           <dd onClick={toggleProcessMapping}>Schwimmbahnen sind: <b>{filter.processMapping}</b></dd>
           <dd onClick={toggleLaneWrap}>leere Schwimmbahnen ausblenden: <b>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
