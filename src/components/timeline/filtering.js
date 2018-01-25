@@ -28,11 +28,7 @@ const Filtering = ({
       <IconbarElement icon={require('./icons/maintenance-icon.png')}>
         <dl class={style.filter}>
           <dd>onClick: markieren/<b>selektieren</b></dd>
-          <dt><b>Swimmbahnen</b></dt>
-          <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
-          <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
-          <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
-          <dt><b>Prozese</b></dt>
+          <dt><b>Prozesse</b></dt>
           <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
           <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
           <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
@@ -40,7 +36,16 @@ const Filtering = ({
         </dl>
       </IconbarElement>
 
-      <IconbarElement icon={require('./icons/process-users-icon.png')}>
+      <IconbarElement icon={require('./icons/swimlanes.png')}>
+        <dl class={style.filter}>
+          <dt><b>Swimmbahnen</b></dt>
+          <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
+          <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+          <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
+        </dl>
+      </IconbarElement>
+
+      <IconbarElement icon={require('./icons/search-icon.png')}>
         <div class={style.textsearch}>
           <Textsearch
             process={data}
@@ -48,7 +53,7 @@ const Filtering = ({
         </div>
       </IconbarElement>
 
-      <IconbarElement icon={require('./icons/Adobe-PDF-Document-icon.png')}>
+      <IconbarElement icon={require('./icons/process-users-icon.png')}>
         <div class={style.toplist}>
           <Toplist
             handleOnClicks={this.objectSelectionManager}/>
