@@ -16,6 +16,7 @@ const Filtering = ({
   toggleProcessMapping,
   toggleLaneOrder,
   toggleLaneWrap,
+  toggleSwimlanesMode,
 }) => {
   const stakeholderOptions = [{ id: "", name: "…" }]
         .concat(data.process && data.process.stakeholder || [])
@@ -29,19 +30,20 @@ const Filtering = ({
         <dl class={style.filter}>
           <dd>onClick: markieren/<b>selektieren</b></dd>
           <dt><b>Prozesse</b></dt>
-          <dd>nur Prozesse mit <b onClick={toggleParticipation}>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
-          <dd>nur Prozesse mit Ergebnissen anzeigen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults}</b> </dd>
+          <dd onClick={toggleParticipation}>nur Prozesse mit <b>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
+          <dd onClick={toggleProcessOnlyWithResults}>nur Prozesse mit Ergebnissen anzeigen: <b>{filter.processOnlyWithResults}</b> </dd>
           <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
           <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
         </dl>
       </IconbarElement>
 
       <IconbarElement icon={require('./icons/swimlanes.png')}>
+        <b>Swimmbahnen</b>
         <dl class={style.filter}>
-          <dt><b>Swimmbahnen</b></dt>
-          <dd>in Schwimmbahnen Prozesse zeigen von: <b onClick={toggleProcessMapping}>{filter.processMapping}</b></dd>
-          <dd>leere Schwimmbahnen ausblenden: <b onClick={toggleLaneWrap}>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
-          <dd>Aphabetisch <b onClick={toggleLaneOrder}>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
+          <dd onClick={toggleSwimlanesMode}>Swimlanes: <b>{filter.swimlanesMode}</b> </dd>
+          <dd onClick={toggleProcessMapping}>Schwimmbahnen sind: <b>{filter.processMapping}</b></dd>
+          <dd onClick={toggleLaneWrap}>leere Schwimmbahnen ausblenden: <b>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+          <dd onClick={toggleLaneOrder}>Aphabetisch <b>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
         </dl>
       </IconbarElement>
 
@@ -75,6 +77,7 @@ const mapDispatchToProps = dispatch => ({
   toggleProcessMapping: () => dispatch(filterActions.toggleProcessMapping()),
   toggleLaneOrder: () => dispatch(filterActions.toggleLaneOrder()),
   toggleLaneWrap: () => dispatch(filterActions.toggleLaneWrap()),
+  toggleSwimlanesMode: () => dispatch(filterActions.toggleSwimlanesMode()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filtering);

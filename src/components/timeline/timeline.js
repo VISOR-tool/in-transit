@@ -88,22 +88,8 @@ class Timeline extends Component {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
    let swimlanes = this.beFromStakeholder();
-   //let swimlanes = process.process.stakeholder;
-   //let allProcesses = process.process.childs;
+
    let swimlaneheight = this.props.height / swimlanes.length;
-
-   /*
-   swimlanes.forEach( function(lane){
-      lane.processes = allProcesses.filter( function(process){
-        if(filter.processMapping == "Initiator")
-          return process.initiator == lane.id;
-        else 
-          return process.participants.indexOf(lane.id) > -1;
-        });
-      return lane;
-      });
-    */
-
 
     let tlHeight = this.props.height;
     let tlWidth = window.innerWidth;
