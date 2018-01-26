@@ -121,7 +121,6 @@ class Timeline extends Component {
       }
       swimlanes[index].processes.push(process);
     });    
-    console.log('swimlanes: ', swimlanes);
     swimlanes.sort( (lane_a,lane_b) => lane_a.id > lane_b.id);
     return swimlanes;
   }
