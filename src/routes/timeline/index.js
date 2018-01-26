@@ -16,7 +16,7 @@ class TimelineRoute extends Component {
   
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc.json'; //'oproc-elias.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
+    const wantedUrl = 'oproc-elias.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -47,7 +47,7 @@ class TimelineRoute extends Component {
         </div>
         <div class={style.workspace}>
           <SimplGraph  width={640} height={100} />        
-          <h4>{data.process.name}</h4>        
+          <h4>{data.process.name}</h4>
           <Timeline
             width="600"
             height="1000"

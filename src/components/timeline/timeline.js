@@ -130,18 +130,23 @@ class Timeline extends Component {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
    let swimlanes = [];
-   switch(filter.processMapping){
-    case 'Initiator':
-      swimlanes = this.fromStakeholder(); break;
-    case 'Beteiligte':
-      swimlanes = this.fromStakeholder(); break;
-    case 'Resultateanzahl':
-      swimlanes = this.fromResults(); break;
-    case 'Beteiligtenanzahl':
-      swimlanes = this.fromParticipationCount(); break;        
+   
+   if(filter.swimlanesMode == 'off')
+      swimlanes = [{id: '', name: '', processes: process.process.childs}];
+   else{
+     switch(filter.processMapping){
+       case 'Initiator':
+         swimlanes = this.fromStakeholder(); break;
+       case 'Beteiligte':
+         swimlanes = this.fromStakeholder(); break;
+       case 'Resultateanzahl':
+         swimlanes = this.fromResults(); break;
+       case 'Beteiligtenanzahl':
+         swimlanes = this.fromParticipationCount(); break;        
+     }
    }
-   let swimlaneheight = this.props.height / swimlanes.length;
 
+    let swimlaneheight = this.props.height / swimlanes.length;
     let tlHeight = this.props.height;
     let tlWidth = window.innerWidth;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
