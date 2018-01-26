@@ -1,33 +1,30 @@
 .filter{
-    display: block;
-    width: 30em;
-    padding: 2em 4em;
-    background-color: lightgray;
-    border: solid 1px AliceBlue;
-  }
+  display: block;
+  padding: 1em 2em;
+  background-color: lightgray;
+  border: solid 1px rgb(77, 59, 59);
+}
 
-  .filter dd:hover {
-    cursor: pointer;
-    background-color: rgb(67, 157, 185);  
-  }
-  
-  .textsearch{
-    margin-top: 30px;
-    display: block;
-    max-width: 30em;
-    padding: 2em 4em;
-    background-color: lightgray;
-    border: solid 1px AliceBlue;
-  }
+.filter dd:hover {
+  cursor: pointer;
+  background-color: rgb(67, 157, 185);  
+}
 
-  .toplist{
-    display: block;
-    max-width: 30em;
-    padding: 2em 4em;
-    background-color: lightgray;
-    border: solid 1px AliceBlue;
-  }
-  
-  .hidden {
-    display:none;
+.textsearch{
+  margin-top: 30px;
+  display: block;
+  padding: 1em 2em;
+  background-color: lightgray;
+  border: solid 1px rgb(77, 59, 59);
+}
+
+.toplist{
+  display: block;
+  padding: 1em 2em;
+  background-color: lightgray;
+  border: solid 1px rgb(77, 59, 59);
+}
+
+.hidden {
+  display:none;
 }

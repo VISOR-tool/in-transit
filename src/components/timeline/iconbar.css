@@ -24,7 +24,7 @@
 
     top: 0;
     left: 54px;
-    width: 30em;
+    width: 35em;
     transition: opacity 0.3s ease-out, visibility 0.3s;
     opacity: 0;
     visibility: hidden;
