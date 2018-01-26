@@ -7,7 +7,7 @@ class Axis_X extends Component {
   // }
 
   render () {
-    const { x, y, width, beginning, end, showAxisLabels } = this.props;
+    const { x, y, width, beginning, end, showAxisLabels, processName } = this.props;
     const beginningDate = new Date(beginning);
     const endDate = new Date(end);
     const axisHeight = 20;
@@ -38,6 +38,16 @@ class Axis_X extends Component {
         {...attrs}
         />
         { showAxisLabels ? <g>
+          <text
+              x = "200"
+              y = {y + axisHeight-space}
+              stroke = '#9E49DE'
+              stroke-width = "0.3"
+              fill = "Black"
+              font-size = "2em"
+              >
+              {processName}
+            </text>
             <text
               x = {x + space}
               y = {y + axisHeight-space}

@@ -46,8 +46,7 @@ class TimelineRoute extends Component {
           <Filtering />
         </div>
         <div class={style.workspace}>
-          <SimplGraph  width={640} height={100} />        
-          <h4>{data.process.name}</h4>
+          <SimplGraph  width={640} height={100} />
           <Timeline
             width={window.outerWidth - 5}
             height={window.outerHeight - 300}
