@@ -131,8 +131,9 @@ class Timeline extends Component {
    const yAxisWidth = 33;
    let swimlanes = [];
    
-   if(filter.swimlanesMode == 'off')
-      swimlanes = [{id: '', name: '', processes: process.process.childs}];
+   if(filter.swimlanesMode == 'off'){
+     swimlanes = [{id: '', name: '', processes: process.process.childs}];
+   }
    else{
      switch(filter.processMapping){
        case 'Initiator':
@@ -148,7 +149,7 @@ class Timeline extends Component {
 
     let swimlaneheight = this.props.height / swimlanes.length;
     let tlHeight = this.props.height;
-    let tlWidth = window.innerWidth;
+    let tlWidth = this.props.width;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
 
     if(filter.laneWrap)
