@@ -130,7 +130,6 @@ class Timeline extends Component {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
    let swimlanes = [];
-   console.log('filter.processMapping: ', filter.processMapping);
    switch(filter.processMapping){
     case 'Initiator':
       swimlanes = this.fromStakeholder(); break;
