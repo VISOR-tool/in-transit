@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  processMapping: 'Resultateanzahl', //'Beteiligte',
+  processMapping: 'Beteiligtenanzahl', //'Beteiligte',
   laneWrap: true,
   laneOrder: 'asc',
   procOnlyVisibleWith: '',
@@ -75,7 +75,8 @@ export function filterReducer(filterState = INITIAL_STATE, action) {
   case TOGGLE_PROCESS_MAPPING:
     let processMappingState = '';
     if(filterState.processMapping == 'Initiator') processMappingState = 'Resultateanzahl';
-    if(filterState.processMapping == 'Resultateanzahl') processMappingState = 'Beteiligte';
+    if(filterState.processMapping == 'Resultateanzahl') processMappingState = 'Beteiligtenanzahl';
+    if(filterState.processMapping == 'Beteiligtenanzahl') processMappingState = 'Beteiligte';
     if(filterState.processMapping == 'Beteiligte') processMappingState = 'Initiator';
   
     return {

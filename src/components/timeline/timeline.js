@@ -69,7 +69,7 @@ class Timeline extends Component {
     this.setState({ dragging: false });
   }
 
-  beFromStakeholder(){
+  fromStakeholder(){
     const { process, filter } = this.props;
     let swimlanes = process.process.stakeholder;
     let allProcesses = process.process.childs;
@@ -82,15 +82,13 @@ class Timeline extends Component {
         });
       return lane;
     });
-    console.log('swimlanes: ', swimlanes);
     return swimlanes;
   }
-
-  beFromResults(){
+  
+  fromResults(){
     const { process, filter } = this.props;
     let swimlanes = [];
     let counts = [];
-    let matches = [];
     process.process.childs.forEach( process => {
       let index = swimlanes.findIndex( lane => {return lane.id == process.results.length} );
       if( index == -1 ){
@@ -102,11 +100,32 @@ class Timeline extends Component {
         index--;
       }
       swimlanes[index].processes.push(process);
-    });
-    
+    });    
     swimlanes.sort( (lane_a,lane_b) => lane_a.id > lane_b.id);
     return swimlanes;
   }
+ 
+  fromParticipationCount(){
+    const { process, filter } = this.props;
+    let swimlanes = [];
+    let counts = [];
+    process.process.childs.forEach( process => {
+      let index = swimlanes.findIndex( lane => {return lane.id == process.participants.length} );
+      if( index == -1 ){
+        index = swimlanes.push({
+          id: process.participants.length, 
+          name: 'Beteiligetenanzahl: '+process.participants.length, 
+          processes: [],
+        });
+        index--;
+      }
+      swimlanes[index].processes.push(process);
+    });    
+    console.log('swimlanes: ', swimlanes);
+    swimlanes.sort( (lane_a,lane_b) => lane_a.id > lane_b.id);
+    return swimlanes;
+  }
+
 
   render () {
    const { beginning, end, steps, process, filter } = this.props;
@@ -115,13 +134,14 @@ class Timeline extends Component {
    console.log('filter.processMapping: ', filter.processMapping);
    switch(filter.processMapping){
     case 'Initiator':
-        swimlanes = this.beFromStakeholder(); break;
-      case 'Beteiligte':
-        swimlanes = this.beFromStakeholder(); break;
-      case 'Resultateanzahl':
-        swimlanes = this.beFromResults(); break;
+      swimlanes = this.fromStakeholder(); break;
+    case 'Beteiligte':
+      swimlanes = this.fromStakeholder(); break;
+    case 'Resultateanzahl':
+      swimlanes = this.fromResults(); break;
+    case 'Beteiligtenanzahl':
+      swimlanes = this.fromParticipationCount(); break;        
    }
-
    let swimlaneheight = this.props.height / swimlanes.length;
 
     let tlHeight = this.props.height;
