@@ -24,6 +24,10 @@
   background-color: lightgray;
   border: solid 1px rgb(77, 59, 59);
 }
+.toplist div ul span:hover {
+  cursor: pointer;
+  background-color: rgb(67, 157, 185);  
+}
 
 .hidden {
   display:none;
