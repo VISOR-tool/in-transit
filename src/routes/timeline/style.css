@@ -12,5 +12,6 @@ body {
   position: absolute;
   top: 30px;
   left: 55px;
+  width: 95%;
   z-index: 1;
 }

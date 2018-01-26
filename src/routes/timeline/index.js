@@ -54,7 +54,6 @@ class TimelineRoute extends Component {
             process={data}
             filter={filter}
             />
-                  Der untere view macht keinen Sinn, da potentiell verbundene Objekte gar nicht auf einer Swimlane liegen müssen. die Folge: viele unverbundene Objekte. Swimlanes machen eher Sinn für größere Themengebiete. Vielleicht auch für Parent-child-verbindungen.
         </div>
         <DetailsOverlay/>
       </div>
