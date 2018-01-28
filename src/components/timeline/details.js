@@ -1,8 +1,11 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
+import moment from 'moment';
 import style from './details.css';
 
 import { selectionActions } from '../../lib/reducers/selection';
+
+const MOMENT_FORMAT = "D.M.Y";
 
 function LocationDetail({ room, address, zip, city }) {
   return (
@@ -78,9 +81,9 @@ function DetailsOverlay({ data, selected, hover, unhover, select }) {
   }
 
   const start = process.start &&
-        new Date(process.start).toString();
+        moment(process.start).format(MOMENT_FORMAT);
   const end = process.end &&
-        new Date(process.end).toString();
+        moment(process.end).format(MOMENT_FORMAT);
   const timeText = (start && end) ?
         start + " -\n" + end :
         start ?
