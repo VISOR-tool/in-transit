@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   processParticipation: 'beliebiger',
   processOnlyWithResults: 'on',
   selectionBehaviour: 'off',
-  swimlanesMode: 'on',
+  swimlanesMode: 'off',
   visibleByProp: { loc: [], proc: [], sh: []},
 };
 

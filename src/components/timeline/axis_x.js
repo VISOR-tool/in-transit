@@ -7,10 +7,9 @@ class Axis_X extends Component {
   // }
 
   render () {
-    const { x, y, width, beginning, end, showAxisLabels, processName } = this.props;
+    const { x, y, width, height, beginning, end, showAxisLabels, processName } = this.props;
     const beginningDate = new Date(beginning);
     const endDate = new Date(end);
-    const axisHeight = 20;
     const space = 3;
 
 
@@ -34,13 +33,13 @@ class Axis_X extends Component {
         x={x}
         y={y}
         width={width}
-        height={axisHeight}
+        height={height}
         {...attrs}
         />
         { showAxisLabels ? <g>
           <text
               x = "200"
-              y = {y + axisHeight-space}
+              y = {y + height-space}
               stroke = '#9E49DE'
               stroke-width = "0.3"
               fill = "Black"
@@ -50,14 +49,14 @@ class Axis_X extends Component {
             </text>
             <text
               x = {x + space}
-              y = {y + axisHeight-space}
+              y = {y + height-space}
               {...attrsText}
               >
               {beginningDate.getFullYear()+'.'+beginningDate.getMonth()}
             </text>
             <text
               x = {x + width-53-space}
-              y = {y + axisHeight-space}
+              y = {y + height-space}
               {...attrsText}
               >
                 {endDate.getFullYear()+'.'+endDate.getMonth()}

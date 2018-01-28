@@ -129,6 +129,7 @@ class Timeline extends Component {
   render () {
    const { beginning, end, steps, process, filter } = this.props;
    const yAxisWidth = 33;
+   const xAxisHeight = 20;
    let swimlanes = [];
    
    if(filter.swimlanesMode == 'off'){
@@ -147,21 +148,27 @@ class Timeline extends Component {
      }
    }
 
-    let swimlaneheight = this.props.height / swimlanes.length;
+    let swimlaneHeight = (this.props.height-xAxisHeight) / swimlanes.length;
     let tlHeight = this.props.height;
     let tlWidth = this.props.width;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
-
+    
     if(filter.laneWrap)
-        swimlanes = swimlanes.filter((lane) => {
-          return lane.processes.length  > 0
-          })
-
+    swimlanes = swimlanes.filter((lane) => {
+      return lane.processes.length  > 0
+    })
+    
     const onWheel = this.onMouseWheel(this.props, tlWidth);
+    
     return (
       <div class={style.timeline}>
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
+        <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
+        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth} height={xAxisHeight}
+              onWheel={onWheel} showAxisLabels={true}
+              processName={process.process.name}
+        />
         <g
           onMouseWheel={onWheel}
           onwheel={onWheel}
@@ -175,20 +182,15 @@ class Timeline extends Component {
             <Swimlane id = {lane.id}
                       title = {lane.name}
                       x = {yAxisWidth}
-                      y = {20 + (swimlaneheight * parseInt(index))}
+                      y = {20 + (swimlaneHeight * parseInt(index))}
                       width = {tlWidth-yAxisWidth}
-                      height = {swimlaneheight}
+                      height = {swimlaneHeight}
                       processes = {lane.processes}
                       stakeholder = {process.process.stakeholder}
                       />
           ))
         }
         </g>
-        <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
-        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth}
-          onWheel={onWheel} showAxisLabels={true}
-          processName={process.process.name}
-        />
       </svg>
       </div>
     );
