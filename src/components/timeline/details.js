@@ -82,17 +82,17 @@ function DetailsOverlay({ data, selected, hover, unhover, select }) {
   const end = process.end &&
         new Date(process.end).toString();
   const timeText = (start && end) ?
-        start + " - " + end :
+        start + " -\n" + end :
         start ?
         start :
-        end ?
-        end :
-        null;
+        end;
 
   return (
     <div id='overlay' class={style.overlay}>
-      <h2>{ process.name }</h2>
-      { timeText && <p>{ timeText }</p>}
+      <div class={style.titlebar}>
+        <h2>{ process.name }</h2>
+        { timeText && <p class={style.time}>{ timeText }</p>}
+      </div>
       { parent &&
         <p>
           { "Übergeordnet: " }

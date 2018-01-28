@@ -1,31 +1,59 @@
 .overlayHidden {
-    position: absolute;
+    position: fixed;
     top: 0;
-    right: -70%;
-    left: 100%;
+    width: 15rem;
+    right: -15rem;
     bottom: 0;
     margin: 0;
-    padding: 3em 1.5em 2em;
     background-color: white;
     border-left: 2px solid black;
-    box-shadow: 0 0 0 black;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     z-index: 10;
-    transition: box-shadow 0.3s, left 0.3s, right 0.3s;
+    transition: box-shadow 0.3s, right 0.3s;
+    overflow: hidden;
 }
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    left: 70%;
+    width: 15rem;
     bottom: 0;
     margin: 0;
-    padding: 4em 2em;
     background-color: white;
     border-left: 1px solid #333;
     box-shadow: 0 0 12px black;
     z-index: 10;
-    transition: box-shadow 0.5s, left 0.5s, right 0.5s;
+    transition: box-shadow 0.5s, right 0.5s;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-.overlay ul {
+.overlay h3, .overlay ul, .overlay p {
+    margin: 0;
+    padding: 0.2rem 1.3rem 0.5rem;
+}
+.overlay h3 {
+    padding-top: 1rem;
+}
+.overlay li {
+    margin: 0.3rem 0;
+}
+.overlay a {
+    text-decoration: none;
+}
+
+.titlebar {
+    color: white;
+    background-color: #7f3f7f;
+    padding: 4rem 1.3rem 0.5rem;
+}
+.titlebar h2 {
+    font-size: 150%;
+    margin: 0;
+    padding: 0;
+}
+p.time {
+    font-size: 75%;
+    white-space: pre;
+    margin: 0;
     padding: 0;
 }
