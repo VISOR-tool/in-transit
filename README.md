@@ -1,6 +1,11 @@
 # in-transit
 timeline based und Transit based diagrams prototype for oproc data
 
+# requirements
+
+* python3 / npm
+* yarn (install via npm)
+
 # install
 
 * clone repository
