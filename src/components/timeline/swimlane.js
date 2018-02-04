@@ -13,7 +13,7 @@ class Swimlane extends Component {
   spacer = 5;
   stacking = { base: false, count: 0 };
 
-  processPositionX = function(process, tlX, tlY, width){
+  processPositionX (process, tlX, tlY, width) {
     //from connections mimize staking.base
     if (process.connection.from.length > 1) {
       this.stacking.base =
