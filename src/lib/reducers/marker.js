@@ -3,7 +3,6 @@ const INITIAL_STATE = {
 };
 
 const ADD_MARKER = 'visor/data/ADD_MARKER';
-const GET_ALL_MARKER = 'visor/data/GET_ALL_MARKER';
 
 export function markerReducer(allMarker = INITIAL_STATE, action) {
   switch(action['type']) {
@@ -21,9 +20,5 @@ const markerActions = {
     type: ADD_MARKER,
     id,
     position,
-  }),
-
-  getMarkers: () => ({
-    type: GET_ALL_MARKER,
   }),
 }
