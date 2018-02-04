@@ -24,7 +24,7 @@ export default class Node extends Component {
         break;
       case 'square':
         shapeComponent = <rect x={size} y={size} width={size} height={size} {...attrs} />;
-        break;
+        break;        
       default:
         throw new Error('No Node shape!');
     }

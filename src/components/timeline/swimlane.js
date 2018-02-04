@@ -207,9 +207,10 @@ class Swimlane extends Component {
   }
 }
 
-const mapStateToProps = ({ zoom }) => ({
+const mapStateToProps = ({ zoom,marker }) => ({
   zoomStart: zoom.sectionStart,
   zoomEnd: zoom.sectionEnd,
+  marker: marker,
 });
 
 export default connect(mapStateToProps)(Swimlane);

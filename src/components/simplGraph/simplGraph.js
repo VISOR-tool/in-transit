@@ -23,50 +23,71 @@ function SimplGraph({ data: process,
   var links = [];
   
   function createNodes(processes, process, x, y, filter){
+    let size = 3;
     let stroke = "black";
     let color = "white";
-    if(process.participation.includes('open')){
-      stroke = "green";
-      color = "yellow";
-    }
-    if (process.id == selected) {
-      stroke = "red";
-    }
-    if( ((filter.processParticipation == 'offener') && process.participation.includes('open'))
-    || filter.processParticipation != 'offener' )
-    nodes.push(
-      { id:process.id,
-        x: x, y: y,
-        size: 3,
-        shape: "circle",
-        stroke: stroke,
-        color: color,
-        label: process.start,
-      });
+    let shape = "circle";
+    if(typeof process != 'object'){
+      nodes.push(
+        { id:process,
+          x: x+40, y: y-10,
+          size: 5,
+          shape: shape,
+          stroke: 2,
+          color: "blue",
+          label: "weitere",
+        });   
+      links.push({path:process, x1:x, y1:y, x2:x+40, y2:y-10, color:color });
+    }else{
+      if(process.participation.includes('open')){
+        stroke = "green";
+        color = "yellow";
+      }
+      if (process.id == selected) {
+        stroke = "red";
+      }
+      if(process.childs.length > 0) {
+        shape = "square";
+        size = 5;
+      }
 
       /*
       if childs -> rekursion
       if to -> rekursion
       */
       if(process.childs.length > 0 ) {
-      process.childs.map(
-        (nextChild,index) => {
-            createNodes(processes, nextChild, x+40, y-10*index, filter, "white");
-            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y-10*index, color:"yellow" });
-        }
-      )
+        process.childs.map(
+          (nextChild,index) => {
+              createNodes(processes, nextChild, x+40, y-10*index, filter, "white");
+              links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y-10*index, color:"yellow" });
+          }
+        )
+      }
+  
+      if(process.connection.to.length > 0)
+        process.connection.to.map(
+          (nextProc,index) => {
+            const nextObj = processes.find( nextTo => nextTo.id === nextProc );
+            if(nextObj != undefined){
+              createNodes(processes, nextObj, x+40, y+10*index, filter);
+              links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:"gray" });
+            }
+          }
+        );
     }
 
-    if(process.connection.to.length > 0)
-      process.connection.to.map(
-        (nextProc,index) => {
-          const nextObj = processes.find( nextTo => nextTo.id === nextProc );
-          if(nextObj != undefined){
-            createNodes(processes, nextObj, x+40, y+10*index, filter);
-            links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:"gray" });
-          }
-        }
-      );
+    // Seiteneffekte abfangen wenn childs childs haben
+    // if( ((filter.processParticipation == 'offener') && process.participation.includes('open'))
+    // || filter.processParticipation != 'offener' )
+    nodes.push(
+      { id:process.id,
+        x: x, y: y,
+        size: 3,
+        shape: shape,
+        stroke: stroke,
+        color: color,
+        label: process.start,
+      });      
   }
 
   /* prozesse zeichnen die keine eltern & kinder haben

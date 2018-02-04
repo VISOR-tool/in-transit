@@ -4,6 +4,7 @@ import { dataReducer } from './reducers/data';
 import { filterReducer, applyFilter } from './reducers/filter';
 import { selectionReducer } from './reducers/selection';
 import { searchReducer } from './reducers/search';
+import { markerReducer } from './reducers/marker';
 
 const INITIAL = {};
 
@@ -30,6 +31,7 @@ export default () => createStore(
       filter: filterReducer,
       selection: selectionReducer,
       search: searchReducer,
+      marker: markerReducer,
     })
   ),
   INITIAL,

@@ -4,6 +4,7 @@ import { connect } from 'preact-redux';
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
+import Marker from './marker';
 import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
 import { selectionActions } from '../../lib/reducers/selection';
@@ -127,39 +128,38 @@ class Timeline extends Component {
 
 
   render () {
-   const { beginning, end, steps, process, filter } = this.props;
-   const yAxisWidth = 33;
-   const xAxisHeight = 20;
-   let swimlanes = [];
+    const { beginning, end, steps, process, filter } = this.props;
+    const onWheel = this.onMouseWheel(this.props, tlWidth);
+    const yAxisWidth = 33;
+    const xAxisHeight = 20;
+    let swimlanes = [];
    
-   if(filter.swimlanesMode == 'off'){
-     swimlanes = [{id: '', name: '', processes: process.process.childs}];
-   }
-   else{
-     switch(filter.processMapping){
-       case 'Initiator':
-         swimlanes = this.fromStakeholder(); break;
-       case 'Beteiligte':
-         swimlanes = this.fromStakeholder(); break;
-       case 'Resultateanzahl':
-         swimlanes = this.fromResults(); break;
-       case 'Beteiligtenanzahl':
-         swimlanes = this.fromParticipationCount(); break;        
-     }
-   }
+    if(filter.swimlanesMode == 'off'){
+      swimlanes = [{id: '', name: '', processes: process.process.childs}];
+    }
+    else{
+      switch(filter.processMapping){
+        case 'Initiator':
+          swimlanes = this.fromStakeholder(); break;
+        case 'Beteiligte':
+          swimlanes = this.fromStakeholder(); break;
+        case 'Resultateanzahl':
+          swimlanes = this.fromResults(); break;
+        case 'Beteiligtenanzahl':
+          swimlanes = this.fromParticipationCount(); break;        
+      }
+    }   
 
     let swimlaneHeight = (this.props.height-xAxisHeight) / swimlanes.length;
     let tlHeight = this.props.height;
     let tlWidth = this.props.width;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
-    
+
     if(filter.laneWrap)
     swimlanes = swimlanes.filter((lane) => {
       return lane.processes.length  > 0
     })
-    
-    const onWheel = this.onMouseWheel(this.props, tlWidth);
-    
+
     return (
       <div class={style.timeline}>
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
@@ -169,6 +169,7 @@ class Timeline extends Component {
               onWheel={onWheel} showAxisLabels={true}
               processName={process.process.name}
         />
+        <Marker x={yAxisWidth} y="0" height={xAxisHeight}/>
         <g
           onMouseWheel={onWheel}
           onwheel={onWheel}

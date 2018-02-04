@@ -2,9 +2,6 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
 class Axis_X extends Component {
-  // constructor () {
-  //   super();
-  // }
 
   render () {
     const { x, y, width, height, beginning, end, showAxisLabels, processName } = this.props;
