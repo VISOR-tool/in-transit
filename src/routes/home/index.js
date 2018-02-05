@@ -1,14 +1,13 @@
 import style from './style';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import TransitMap from './transit_map';
 import Filtering from './../../components/timeline/filtering';
 import { dataLoad } from '../../lib/reducers/data';
 
 class Home extends Component {
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
+    const wantedUrl = 'oproc-elias.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -24,7 +23,6 @@ class Home extends Component {
     return (
       <div class={style.home}>
         <Filtering/>
-        <TransitMap data={data.process}/>
       </div>
     );
   }
