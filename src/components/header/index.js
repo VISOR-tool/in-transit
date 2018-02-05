@@ -9,6 +9,7 @@ export default class Header extends Component {
         <h3>visor - Städtebauliche Pläne durchforsten</h3>
         <nav>
           <Link activeClassName={style.active} href='/'>Home</Link>
+          <Link activeClassName={style.active} href='/timeline'>Timeline</Link>
         </nav>
       </header>
     );
