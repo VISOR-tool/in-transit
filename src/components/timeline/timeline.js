@@ -129,7 +129,6 @@ class Timeline extends Component {
 
   render () {
     const { beginning, end, steps, process, filter } = this.props;
-    const onWheel = this.onMouseWheel(this.props, tlWidth);
     const yAxisWidth = 33;
     const xAxisHeight = 20;
     let swimlanes = [];
@@ -159,6 +158,8 @@ class Timeline extends Component {
     swimlanes = swimlanes.filter((lane) => {
       return lane.processes.length  > 0
     })
+
+    const onWheel = this.onMouseWheel(this.props, tlWidth);
 
     return (
       <div class={style.timeline}>
