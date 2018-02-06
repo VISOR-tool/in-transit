@@ -7,7 +7,7 @@ import { dataLoad } from '../../lib/reducers/data';
 class Home extends Component {
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias.json'
+    const wantedUrl = 'oproc-118-kapselt-ein.json'; //'oproc-elias.json'
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {

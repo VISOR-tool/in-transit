@@ -78,7 +78,7 @@ const Process = ({ process, processPosition, stakeholder,
               {...processAttrs}
               >{process.name}
         </text>
-        <text x={processPosition.x + spacer}
+        {/* <text x={processPosition.x + spacer}
               y={processPosition.y + 20}
               {...iniAttrs}
               >Ini:{processInitiator}
@@ -92,7 +92,7 @@ const Process = ({ process, processPosition, stakeholder,
               y={processPosition.y + 40}
               {...iniAttrs}
               >[{process.start}]
-        </text>
+        </text> */}
       </g>
     );
   }
