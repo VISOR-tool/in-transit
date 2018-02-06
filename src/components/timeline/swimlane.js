@@ -38,7 +38,9 @@ class Swimlane extends Component {
   }
 
   render () {
-    const { id, title, x, y, width, height, processes, stakeholder, zoomStart, zoomEnd } = this.props;
+    const { id, title, x, y, width, height, stakeholder, zoomStart, zoomEnd } = this.props;
+    // Clone
+    let processes = this.props.processes.concat();
 
     let timelineAttrs = {
       stroke: '#16CEEA',
@@ -78,11 +80,12 @@ class Swimlane extends Component {
       return width / (zoomEnd - zoomStart) * (time - zoomStart);
     }
 
-    processes.sort((p1, p2) {
+    // Sorting isn't needed actually
+    processes.sort((p1, p2) => {
       if (p1.start != p2.start) {
-        return Date.parse(p2.start) - Date.parse(p1.start);
+        return Date.parse(p1.start) - Date.parse(p2.start);
       } else {
-        return Date.parse(p2.end) - Date.parse(p1.end);
+        return Date.parse(p1.end) - Date.parse(p2.end);
       }
     });
 
@@ -97,21 +100,22 @@ class Swimlane extends Component {
       return { x, y, width, height };
     });
     // Align without overlaps
-    processPositions.forEach((pos, i) => {
+    for (let i = 0; i < processPositions.length; i++) {
+      const pos = processPositions[i];
       let done = false;
-      let prevPositions = processPositions.slice(0, i);
       while (!done) {
         done = true;
-        prevPositions.forEach(prevPos => {
+        for (let j = 0; j < i; j++) {
+          const prevPos = processPositions[j];
           if (overlaps(pos, prevPos)) {
             // Move down
             pos.y += PROCESS_HEIGHT + PROCESS_SPACING;
             // Retry with new pos.y
             done = false;
           }
-        });
+        }
       }
-    });
+    }
     let processObjs = processes.map( (process, index) =>
             <Process
               process = {process}
