@@ -1,25 +1,27 @@
 import { h, Component } from 'preact';
 
 
-const dimmedLinks = '#DAC9CA'; 
-const highlightedLinks = '#635C91'; 
+const dimmedLinks = '#DAC9CA';
+const highlightedLinks = '#635C91';
 
 
-const Links = ({ processes }) => {
-  if(processes.length < 2) return false;
+const Links = ({ processes, processPositions }) => {
+  if (processes.length < 2) return false;
 
   let lines = [];
-  processes.map( (process,index,all) => {
-    if(process.attributes.process.visible === true){
-      all.map(pAll => {
-        if( pAll.attributes.process.visible === true &&
-            pAll.attributes.process.connection.from.includes(process.attributes.process.id))
-        {          
+  processes.map( (p1, i) => {
+    if (p1.visible === true){
+      processes.map( (p2, j) => {
+        if (p2.visible === true &&
+            p2.connection.from.includes(p1.id)) {
+          const pos1 = processPositions[i];
+          const pos2 = processPositions[j];
           lines.push({
-            x1: process.attributes.processPosition.x + process.attributes.processPosition.width,
-            y1: process.attributes.processPosition.y + process.attributes.processPosition.height,
-            x2: pAll.attributes.processPosition.x ,
-            y2: pAll.attributes.processPosition.y,
+            x1: pos1.x + pos1.width,
+            y1: pos1.y + pos1.height / 2,
+            x2: pos2.x,
+            y2: pos2.y + pos2.height / 2,
+
             color: process.attributes.process.subselected ? highlightedLinks : dimmedLinks,
             stroke: process.attributes.process.subselected ? 3 : 1,
           });
@@ -32,7 +34,7 @@ const Links = ({ processes }) => {
       <line x1={line.x1} y1={line.y1} 
             x2={line.x2} y2={line.y2}  
             stroke={line.color}
-            stroke-width = {line.stroke} />
+            stroke-width={line.stroke} />
   ));
 
   return (

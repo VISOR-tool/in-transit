@@ -4,143 +4,11 @@ import Process from './process';
 import Links from './links';
 import { selectionActions } from '../../lib/reducers/selection';
 
+const PROCESS_MIN_WIDTH = 80;
+const PROCESS_SPACING = 5;
+const PROCESS_HEIGHT = 32;
+
 class Swimlane extends Component {
-  constructor () {
-    super();
-  }
-
-  processWidth = 80;
-  spacer = 5;
-  stacking = { base: false, count: 0 };  
-
-  processPositionX (process, tlX, tlY, width) {
-    //from connections mimize staking.base
-    if (process.connection.from.length > 1) {
-      this.stacking.base =
-        this.stacking.base - process.connection.from.length - 1;
-    }
-
-    //reset values on last from connection
-    if (this.stacking.base < 1) {
-      this.stacking.base = 1;
-      this.stacking.count = 0;
-    }
-    //increase the staking.count for every child
-    if (this.stacking.base > 1) this.stacking.count++;
-    if (this.stacking.base === 1) this.stacking.count=0;
-
-    if (process.connection.to.length > 1) {
-      this.stacking.base += (process.connection.to.length - 1);
-    }
-
-    let startPx = this.props.width/(this.props.zoomEnd.valueOf()-this.props.zoomStart.valueOf())
-                  *(Date.parse(process.start)-this.props.zoomStart.valueOf())
-                  +tlX;
-
-    let stacking = 0;
-
-    if (this.stacking.count > 1) stacking = this.stacking.count - 1;
-
-    return {
-      id: process.id,
-      visible: startPx > width ? false : true,
-      x: startPx,
-      width: this.processWidth,
-      stackingOrder: 1
-    };
-  }
-
-  getIntersections (thisElement, allPositions) {
-    const thisStart = thisElement.x;
-    const thisEnd = thisElement.x + thisElement.width;
-    let intersectionList = [];
-    allPositions.forEach(proc => {
-      if (thisElement === proc) return; // skip self compare
-      if ((proc.x >= thisStart && proc.x <= thisEnd) || (thisStart >= proc.x && thisStart <= proc.x + proc.width)) {
-        if (intersectionList.indexOf(thisElement.id) === -1) intersectionList.push(thisElement.id);
-        if (intersectionList.indexOf(proc.id) === -1) intersectionList.push(proc.id);
-      }
-    });
-    return intersectionList;
-  }
-
-  processPositionY (thisElement, tlY, processPositions, intersectionMap) {
-    // find stackings and place the elements vertical
-    if (!thisElement.visible || thisElement.hasOwnProperty('y')) return;
-
-    // set initial values
-    thisElement.height = this.maxObjectHeight;
-    thisElement.y = tlY;
-
-    // find maximun intersections for the element in the map
-    let intersectionEntry = [];
-    intersectionMap.forEach(tmpList => {
-      if (tmpList.indexOf(thisElement.id) > -1) { intersectionEntry = tmpList.length > intersectionEntry.length ? tmpList : intersectionEntry; }
-    });
-
-    // no intersection, skip this process
-    if (intersectionEntry.length < 2) return thisElement;
-
-    // update values by intersections    
-    thisElement.height = ((this.props.height - this.spacer) / intersectionEntry.length);
-    thisElement.y = (thisElement.height * intersectionEntry.indexOf(thisElement.id)) + tlY;
-
-    if(thisElement.height > this.maxObjectHeight) thisElement.height = this.maxObjectHeight;
-    return thisElement;
-  }
-
-  reduceIntersectionMap(intersectionMap, processes) {
-    // remove duplicated entries in map
-    let uniqueList = [];
-    intersectionMap.forEach(elem => {
-      let sortedList = elem.sort();
-      let sortedListJoin = sortedList.join();
-      if (uniqueList.some(elem => elem.join() === sortedListJoin) === false) uniqueList.push(sortedList);
-    });
-
-    // join entries that intersect each other by a process
-    let mergedList = uniqueList.map(elem => elem);
-
-    let update = false;
-    do {
-      update = false;
-      mergedList.forEach((entry, index) => {
-        // find processId that is present in multiple entries
-        let duplicatedId = entry.find(id => {
-          let e = mergedList.find(e => e.indexOf(id) > -1);
-          return typeof e !== 'undefined' && e !== entry;
-        });
-
-        if (typeof duplicatedId === 'undefined')	return;
-
-        // merge entries togehter
-        let idxOtherEntry = mergedList.findIndex(e => e.indexOf(duplicatedId) > -1);
-        entry = entry.concat(mergedList[idxOtherEntry]).filter((value, index, self) => self.indexOf(value) === index); // merge and remove duplicates
-        mergedList[index] = entry; // update entry
-        mergedList.splice(idxOtherEntry, 1); // remove other entry
-        update = true;
-      });
-    } while (update);
-
-    // sort by processList
-    let sortedList = mergedList.sort((a, b) => {
-      let comparison = 0;
-
-      if (processes.indexOf(a) > processes.indexOf(b)) { comparison = 1; }
-      else if (processes.indexOf(b) > processes.indexOf(a)) { comparison = -1; }
-
-      return comparison;
-    });
-
-    /*
-    console.log('processes', processes);
-    console.log('uniqueList', uniqueList);
-    console.log('mergedList', mergedList);
-    console.log('sortedList', sortedList);
-    */
-    return sortedList;
-  }
-
   markNodes( startNode, processes ){
     processes.map( process => {
       if(process.id === startNode) {
@@ -170,23 +38,7 @@ class Swimlane extends Component {
   }
 
   render () {
-    const { id, title, x, y, width, height, processes, stakeholder } = this.props;
-    
-    let processObjs = this.assignSubselectionToAffectedObjects ( processes );
-
-    this.maxObjectHeight = this.props.height / 4;
-    this.stacking.base = 1;
-    this.stacking.count = 0;
-    let processPositions = [];
-    processPositions = processes.map(process => this.processPositionX( process, x, width));
-    this.stacking.count = 1;
-    let intersectionMap = [];
-    processPositions.forEach(pos => {
-      let intersectedList = this.getIntersections(pos, processPositions);
-      if (intersectedList.length > 1) intersectionMap.push(intersectedList);
-    });
-    let reducedIntersectionMap = this.reduceIntersectionMap(intersectionMap, processes); // optimize intersectionMap
-    processPositions.map(pos => this.processPositionY(pos, y, processPositions, reducedIntersectionMap)); // update positions because of intersections
+    const { id, title, x, y, width, height, processes, stakeholder, zoomStart, zoomEnd } = this.props;
 
     let timelineAttrs = {
       stroke: '#16CEEA',
@@ -208,12 +60,59 @@ class Swimlane extends Component {
 
     let laneTitle = <text
                     x = {x}
-                    y = {y + height - this.spacer}
+                    y = {y + height - PROCESS_SPACING}
                     {...textAttrs}
                     >
                     {title}</text>;
 
-    processObjs = processes.map( (process, index) =>
+    function timeToX(time) {
+      if (typeof time == 'string') {
+        time = Date.parse(time);
+      }
+      if (time.getTime) {
+        time = time.getTime();
+      }
+      if (typeof time != 'number') {
+        throw new Error('Cannot calculate with time');
+      }
+      return width / (zoomEnd - zoomStart) * (time - zoomStart);
+    }
+
+    processes.sort((p1, p2) {
+      if (p1.start != p2.start) {
+        return Date.parse(p2.start) - Date.parse(p1.start);
+      } else {
+        return Date.parse(p2.end) - Date.parse(p1.end);
+      }
+    });
+
+    // Construct basic positions
+    let processPositions = processes.map(process => {
+      const x = timeToX(process.start);
+      const width = Math.max(
+        PROCESS_MIN_WIDTH,
+        process.end ? timeToX(process.end) - x : PROCESS_MIN_WIDTH
+      );
+      const height = PROCESS_HEIGHT;
+      return { x, y, width, height };
+    });
+    // Align without overlaps
+    processPositions.forEach((pos, i) => {
+      let done = false;
+      let prevPositions = processPositions.slice(0, i);
+      while (!done) {
+        done = true;
+        prevPositions.forEach(prevPos => {
+          if (overlaps(pos, prevPos)) {
+            // Move down
+            pos.y += PROCESS_HEIGHT + PROCESS_SPACING;
+            // Retry with new pos.y
+            done = false;
+          }
+        });
+      }
+    });
+    let processObjs = processes.map( (process, index) =>
             <Process
               process = {process}
               processPosition = {processPositions[index]}
@@ -225,7 +124,7 @@ class Swimlane extends Component {
       <g>
         {lane}
         {laneTitle}
-        <Links processes={processObjs} />
+        <Links processes={processes} processPositions={processPositions} />
         {processObjs}
       </g>
     );
@@ -233,10 +132,15 @@ class Swimlane extends Component {
 }
 
 const mapStateToProps = ({ zoom,marker, selection }) => ({
-  zoomStart: zoom.sectionStart,
-  zoomEnd: zoom.sectionEnd,
+  zoomStart: zoom.sectionStart.getTime(),
+  zoomEnd: zoom.sectionEnd.getTime(),
   marker: marker,
   selected: selection.selected,
 });
 
 export default connect(mapStateToProps)(Swimlane);
+
+function overlaps(pos1, pos2) {
+  return pos1.x + pos1.width >= pos2.x && pos1.x < pos2.x + pos2.width &&
+    pos1.y + pos1.height >= pos2.y && pos1.y < pos2.y + pos2.height;
+}

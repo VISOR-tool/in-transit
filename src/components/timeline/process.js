@@ -16,9 +16,8 @@ const searchHitObjectstrokeColor = '#3784F8';
 const Process = ({ process, processPosition, stakeholder,
                    selected, select, hovered, hover, unhover,
                  }) => {
-  const { id,subselected } = process;
-  if(process.visible == true)
-  {
+  const { id, subselected } = process;
+  if (process.visible === true) {
     let bodyAttrs = {
       width: 80,
       stroke: defaultObjectStrokeColor,
@@ -91,6 +90,7 @@ const Process = ({ process, processPosition, stakeholder,
         <rect id={id}
               x={processPosition.x}
               y={processPosition.y}
+              width={processPosition.width}
               height={processPosition.height}
               {...bodyAttrs}
         />
