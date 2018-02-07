@@ -370,25 +370,25 @@
         ]
       },
       {
-        "id": "https://process.stadt.de/process/118",
+        "id": "https://process.stadt.de/process/145",
         "reference": "",
-        "initiator": "",
+        "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
             "https://process.stadt.de/process/15",
             "https://process.stadt.de/process/22",
-            "https://process.stadt.de/process/42"
+            "https://process.stadt.de/process/142"
           ],
           "to": [
-            "https://process.stadt.de/process/8",
-            "https://process.stadt.de/process/9",
-            "https://process.stadt.de/process/10"
+            "https://process.stadt.de/process/18",
+            "https://process.stadt.de/process/19",
+            "https://process.stadt.de/process/110"
           ]
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
         "name": "Einwerbung potenzieller Bauherren Informationsveranstalung des Investors",
-        "description": "Sammleprozess: Einwerbung potenzieller Bauherren Informationsveranstalung des Investors",
+        "description": "Samelprozess: Einwerbung potenzieller Bauherren Informationsveranstalung des Investors",
         "location": [
           "https://process.stadt.de/location/1"
         ],
@@ -424,7 +424,7 @@
         "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
-            "https://process.stadt.de/process/118"
+            "https://process.stadt.de/process/145"
           ],
           "to": [
             ""
@@ -469,7 +469,7 @@
         "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
-            "https://process.stadt.de/process/118"
+            "https://process.stadt.de/process/145"
           ],
           "to": []
         },
@@ -512,7 +512,7 @@
         "initiator": "https://process.stadt.de/stakeholder/2",
         "connection": {
           "from": [
-            "https://process.stadt.de/process/118"
+            "https://process.stadt.de/process/145"
           ],
           "to": []
         },

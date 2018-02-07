@@ -132,7 +132,7 @@ class Timeline extends Component {
     const yAxisWidth = 33;
     const xAxisHeight = 20;
     let swimlanes = [];
-   
+
     if(filter.swimlanesMode == 'off'){
       swimlanes = [{id: '', name: '', processes: process.process.childs}];
     }
