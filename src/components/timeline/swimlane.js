@@ -11,7 +11,7 @@ class Swimlane extends Component {
 
   processWidth = 80;
   spacer = 5;
-  stacking = { base: false, count: 0 };
+  stacking = { base: false, count: 0 };  
 
   processPositionX (process, tlX, tlY, width) {
     //from connections mimize staking.base
@@ -73,7 +73,7 @@ class Swimlane extends Component {
     if (!thisElement.visible || thisElement.hasOwnProperty('y')) return;
 
     // set initial values
-    thisElement.height = this.props.height;
+    thisElement.height = this.maxObjectHeight;
     thisElement.y = tlY;
 
     // find maximun intersections for the element in the map
@@ -82,12 +82,14 @@ class Swimlane extends Component {
       if (tmpList.indexOf(thisElement.id) > -1) { intersectionEntry = tmpList.length > intersectionEntry.length ? tmpList : intersectionEntry; }
     });
 
-    // skip this process
+    // no intersection, skip this process
     if (intersectionEntry.length < 2) return thisElement;
 
-    // update values by intersections
-    thisElement.height = (this.props.height - this.spacer) / intersectionEntry.length;
+    // update values by intersections    
+    thisElement.height = ((this.props.height - this.spacer) / intersectionEntry.length);
     thisElement.y = (thisElement.height * intersectionEntry.indexOf(thisElement.id)) + tlY;
+
+    if(thisElement.height > this.maxObjectHeight) thisElement.height = this.maxObjectHeight;
 
     return thisElement;
   }
@@ -146,6 +148,7 @@ class Swimlane extends Component {
 
   render () {
     const { id, title, x, y, width, height, processes, stakeholder } = this.props;
+    this.maxObjectHeight = this.props.height / 4;
     this.stacking.base = 1;
     this.stacking.count = 0;
     let processPositions = [];
@@ -153,15 +156,13 @@ class Swimlane extends Component {
     this.stacking.count = 1;
 
     let intersectionMap = [];
-
-    // find intersections
     processPositions.forEach(pos => {
       let intersectedList = this.getIntersections(pos, processPositions);
       if (intersectedList.length > 1) intersectionMap.push(intersectedList);
     });
 
     let reducedIntersectionMap = this.reduceIntersectionMap(intersectionMap, processes); // optimize intersectionMap
-    processPositions.map(pos => pos = this.processPositionY(pos, y, processPositions, reducedIntersectionMap)); // update positions because of intersections
+    processPositions.map(pos => this.processPositionY(pos, y, processPositions, reducedIntersectionMap)); // update positions because of intersections
 
     let timelineAttrs = {
       stroke: '#16CEEA',
