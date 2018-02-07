@@ -22,15 +22,13 @@ const Links = ({ processes }) => {
   });
 
   var attrs = {
-    stroke: '#D41A20',
+    stroke: '#DAC9CA',
     'stroke-width': 1,
   };
 
   let svgLines = lines.map( line => (
       <line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}  {...attrs} />
   ));
-
-  //links.map( link => ( <line x1="0" y1="0" x2="200" y2="200"  {...attrs} /> ) )
 
   return (
     <g>

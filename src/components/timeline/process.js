@@ -2,18 +2,14 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
 
-const defaultObjectColor = '#7F7F7F';
+const defaultObjectColor = '#CCCCCC';
 const defaultObjectStrokeColor = '#3784F8';
-const defaultObjectOpacity = '0.3';
-const participateObjectColor = '#FFFF00';
+const participateObjectColor = '#FFFFAD';
 const participateObjectStrokeColor = "#000000";
-const participateObjectOpacity = '0.5';
 const onHoverObjectColor = "#71E2F8";
-const onHoverObjectOpacity = '0.9';
-const selectedObjectColor = "#3122F8";
+const selectedObjectColor = "#B5B0FF";
 const selectedObjectStrokeColor = "#FF0000";
-const selectedObjectOpacity = '0.9';
-const searchHitObjectColor = '#E88261';
+const searchHitObjectColor = '#FFA487';
 const searchHitObjectstrokeColor = '#3784F8';
 
 
@@ -28,13 +24,11 @@ const Process = ({ process, processPosition, stakeholder,
       stroke: defaultObjectStrokeColor,
       'stroke-width': 1,
       fill: defaultObjectColor,
-      opacity: defaultObjectOpacity,
     };
 
     if(process.participation.includes("open")){
       procAttrs['fill'] = participateObjectColor;
       procAttrs['stroke'] = participateObjectStrokeColor;
-      procAttrs['opacity'] = participateObjectOpacity;      
     }
 
 
@@ -59,7 +53,6 @@ const Process = ({ process, processPosition, stakeholder,
     if (isSelected) {
       procAttrs['fill'] = selectedObjectColor;
       procAttrs['stroke'] = selectedObjectStrokeColor;
-      procAttrs['opacity'] = selectedObjectOpacity;
     }
 
     if(process.searchHit){
