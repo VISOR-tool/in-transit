@@ -90,7 +90,6 @@ class Swimlane extends Component {
     thisElement.y = (thisElement.height * intersectionEntry.indexOf(thisElement.id)) + tlY;
 
     if(thisElement.height > this.maxObjectHeight) thisElement.height = this.maxObjectHeight;
-
     return thisElement;
   }
 
@@ -201,8 +200,8 @@ class Swimlane extends Component {
       <g>
         {lane}
         {laneTitle}
-        {processObjs}
         <Links processes={processObjs} />
+        {processObjs}
       </g>
     );
   }
