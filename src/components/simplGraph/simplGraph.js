@@ -5,6 +5,7 @@ import { filterActions } from '../../lib/reducers/filter';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
+import moment from 'moment';
 
 const LANE_SIZE = 2;
 const LANE_SPACING = 2;
@@ -86,7 +87,7 @@ function SimplGraph({ data: process,
         shape: shape,
         stroke: stroke,
         color: color,
-        label: process.start,
+        label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
       });      
   }
 

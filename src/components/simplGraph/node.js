@@ -36,15 +36,16 @@ export default class Node extends Component {
 
         {labelVisible
         ? <g transform={'translate(' + x + ',' + y + ')'}>
-         ? <text  x={1.5 * size} y={size / 3} 
-                  transform={'rotate(' + labelRotation + ')'} 
+         ? <g>
+           <rect  x={1.5 * size} y={size / 3 -6} height="8" width={(label.length+4) * 2.55} fill="green" opacity="0.8"/>
+           <text  x={1.5 * size +5} y={size / 3}                   
                   text-anchor='start' 
-                  font-size="0.8em"
-                  stroke="white" 
-                  fill="black"
+                  font-size="0.5em"                   
+                  fill="white"
                   >
            {label}
          </text>
+         </g>
          }
 
         </g> : null}
