@@ -126,8 +126,8 @@ class Swimlane extends Component {
           other.y = Math.min(other.y, y + yScale * (other.origY - y));
           if (!other.origHeight) {
             other.origHeight = other.height;
-            other.height = Math.min(other.height, yScale * other.origHeight);
           }
+          other.height = Math.min(other.height, yScale * other.origHeight);
         }
       }
     }
