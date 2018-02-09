@@ -6,7 +6,7 @@ import Timeline from '../../components/timeline/timeline';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
 import DetailsOverlay from '../../components/timeline/details';
-import SimplGraph from '../../components/simplGraph/simplGraph';
+import RelationsGraph from '../../components/relationsGraph/relationsGraph';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './style';
@@ -47,7 +47,7 @@ class TimelineRoute extends Component {
           <Filtering />
         </div>
         <div class={style.workspace}>
-          <SimplGraph  width={640} height={100} />        
+          <RelationsGraph  width={640} height={100} />        
           <Timeline
             width={window.outerWidth - 5}
             height={window.outerHeight - 300}
