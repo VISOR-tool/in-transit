@@ -106,12 +106,12 @@ class Swimlane extends Component {
     for (let i = 0; i < processPositions.length; i++) {
       let pos = processPositions[i];
       const oldY = pos.y + pos.height;
-      if (oldY < height) {
+      if (oldY < y + height) {
         // Skip processes that are within swimlane height
         continue;
       }
 
-      const yRatio = height / oldY;
+      const yScale = height / (oldY - y);
       for (let j = 0; j < processPositions.length; j++) {
         let other = processPositions[j];
         // Is in the same swimlane and
@@ -119,8 +119,15 @@ class Swimlane extends Component {
         if (other.x < pos.x + pos.width &&
             pos.x < other.x + other.width) {
 
-          other.y = y + yRatio * (other.y - y);
-          other.height *= yRatio;
+          if (!other.origY) {
+            other.origY = other.y;
+          }
+          // min() so that we retain previous downsizing
+          other.y = Math.min(other.y, y + yScale * (other.origY - y));
+          if (!other.origHeight) {
+            other.origHeight = other.height;
+            other.height = Math.min(other.height, yScale * other.origHeight);
+          }
         }
       }
     }
