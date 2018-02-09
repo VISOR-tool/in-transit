@@ -151,25 +151,28 @@ class Swimlane extends Component {
     });
   }
 
+  
+  resetSubselection( processes ){
+    processes.map( process => {
+        process.subselected = false;        
+    });
+  }
+
   assignSubselectionToAffectedObjects( processes ){
+    this.resetSubselection( processes );    
     if(this.props.selected === null) return processes;
+
     this.markNodes(
       this.props.selected,
-      processes
+      processes,
     )
-    //processes.map( process => { if(process.id === this.props.selected) markNodes(process.id, processes) }); 
     return processes;
   }
 
   render () {
     const { id, title, x, y, width, height, processes, stakeholder } = this.props;
     
-    let processObjs = processes;
-    processObjs.map( process => {return processes.subselected = false});
-    
-    processObjs = this.assignSubselectionToAffectedObjects ( processes );
-
-    Zuweisung funktioniert nicht, vielleciht ist eh besser die liste der selctecd und subselected im store zu lagern
+    let processObjs = this.assignSubselectionToAffectedObjects ( processes );
 
     this.maxObjectHeight = this.props.height / 4;
     this.stacking.base = 1;
