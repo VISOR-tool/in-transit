@@ -6,7 +6,7 @@ import { selectionActions } from '../../lib/reducers/selection';
 
 const PROCESS_MIN_WIDTH = 80;
 const PROCESS_SPACING = 5;
-const PROCESS_HEIGHT = 32;
+const PROCESS_HEIGHT = 40;
 
 class Swimlane extends Component {
   markNodes( startNode, processes ){
@@ -52,20 +52,6 @@ class Swimlane extends Component {
       'font-family': 'Verdana',
       'font-size': '0.8em'
     };
-
-    let lane = <rect id={id}
-                    x = {x}
-                    y = {y}
-                    width = {width}
-                    height = {height}
-                    {...timelineAttrs} />;
-
-    let laneTitle = <text
-                    x = {x}
-                    y = {y + height - PROCESS_SPACING}
-                    {...textAttrs}
-                    >
-                    {title}</text>;
 
     function timeToX(time) {
       if (typeof time == 'string') {
@@ -116,20 +102,33 @@ class Swimlane extends Component {
         }
       }
     }
-    let processObjs = processes.map( (process, index) =>
+    const maxY = processPositions.reduce((maxY, pos) => {
+      const y = pos.y + pos.height;
+      return y > maxY ? y : maxY;
+    }, 0);
+
+    return (
+      <g>
+        <rect id={id}
+            x = {x}
+            y = {y}
+            width = {width}
+            height = {height}
+            {...timelineAttrs} />
+        <text
+            x = {x}
+            y = {y + height - PROCESS_SPACING}
+            {...textAttrs}
+          >{title}</text>
+
+        <Links processes={processes} processPositions={processPositions} />
+        {processes.map( (process, index) =>
             <Process
               process = {process}
               processPosition = {processPositions[index]}
               stakeholder = {stakeholder}
             />
-        );
-    //let startIndicator =  <line x1= y1= x2= y2=  {...attrs} />
-    return (
-      <g>
-        {lane}
-        {laneTitle}
-        <Links processes={processes} processPositions={processPositions} />
-        {processObjs}
+        )}
       </g>
     );
   }
