@@ -31,7 +31,7 @@ function DetailsOverlay({ data, selected, hover, unhover, select }) {
   if (!process) {
     return <div id='overlay' class={style.overlayHidden}></div>;
   }
-  console.log('DetailsOverlay', process);
+
   const getProcessById = processId =>
         processes.filter(({ id }) => id == processId)
         [0];

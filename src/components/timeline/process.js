@@ -16,10 +16,10 @@ const searchHitObjectstrokeColor = '#3784F8';
 const Process = ({ process, processPosition, stakeholder,
                    selected, select, hovered, hover, unhover,
                  }) => {
-  const { id } = process;
+  const { id,subselected } = process;
   if(process.visible == true)
   {
-    let procAttrs = {
+    let bodyAttrs = {
       width: 80,
       stroke: defaultObjectStrokeColor,
       'stroke-width': 1,
@@ -27,36 +27,16 @@ const Process = ({ process, processPosition, stakeholder,
     };
 
     if(process.participation.includes("open")){
-      procAttrs['fill'] = participateObjectColor;
-      procAttrs['stroke'] = participateObjectStrokeColor;
+      bodyAttrs['fill'] = participateObjectColor;
+      bodyAttrs['stroke'] = participateObjectStrokeColor;
     }
-
 
     if (hovered === id) {
-      procAttrs['fill'] = onHoverObjectColor;
+      bodyAttrs['fill'] = onHoverObjectColor;
     }
-    let isSelected =
-        selected === id;
-    if (selected && selected.cat && selected.val) {
-      switch (selected.cat) {
-      case 'sh':
-        isSelected =
-          process.initiator === selected.val;
-        break;
-      case 'loc':
-        isSelected =
-          process.location &&
-          (process.location.indexOf(selected.val) != -1);
-        break;
-      }
-    }
-    if (isSelected) {
-      procAttrs['fill'] = selectedObjectColor;
-      procAttrs['stroke'] = selectedObjectStrokeColor;
-    }
-
+      
     if(process.searchHit){
-      procAttrs = {
+      bodyAttrs = {
         width: 80,
         stroke: searchHitObjectstrokeColor,
         'stroke-width': 1,
@@ -64,7 +44,31 @@ const Process = ({ process, processPosition, stakeholder,
       };
     }
 
-    const processAttrs = {
+    let isSelected = selected === id;
+    if (selected && selected.cat && selected.val) {
+      switch (selected.cat) {
+        case 'sh':
+        isSelected =
+          process.initiator === selected.val;
+          break;
+          case 'loc':
+          isSelected =
+          process.location &&
+          (process.location.indexOf(selected.val) != -1);
+          break;
+        }
+      }
+    if (isSelected) {
+      bodyAttrs['fill'] = selectedObjectColor;
+      bodyAttrs['stroke'] = selectedObjectStrokeColor;
+    }
+      
+    if(subselected === true) {
+      bodyAttrs['fill'] = selectedObjectColor;
+      bodyAttrs['stroke'] = selectedObjectStrokeColor;
+    }
+
+    const textAttrs = {
       "font-family": "Verdana",
       "font-weight" : "bold",
       "font-size": "0.8em"
@@ -88,11 +92,11 @@ const Process = ({ process, processPosition, stakeholder,
               x={processPosition.x}
               y={processPosition.y}
               height={processPosition.height}
-              {...procAttrs}
+              {...bodyAttrs}
         />
         <text x={processPosition.x + spacer}
               y={processPosition.y + 9 }
-              {...processAttrs}
+              {...textAttrs}
               >{process.name}
         </text>
         {/* <text x={processPosition.x + spacer}

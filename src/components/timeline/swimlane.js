@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-
 import Process from './process';
 import Links from './links';
+import { selectionActions } from '../../lib/reducers/selection';
 
 class Swimlane extends Component {
   constructor () {
@@ -53,18 +53,14 @@ class Swimlane extends Component {
   getIntersections (thisElement, allPositions) {
     const thisStart = thisElement.x;
     const thisEnd = thisElement.x + thisElement.width;
-
     let intersectionList = [];
-
     allPositions.forEach(proc => {
       if (thisElement === proc) return; // skip self compare
-
       if ((proc.x >= thisStart && proc.x <= thisEnd) || (thisStart >= proc.x && thisStart <= proc.x + proc.width)) {
         if (intersectionList.indexOf(thisElement.id) === -1) intersectionList.push(thisElement.id);
         if (intersectionList.indexOf(proc.id) === -1) intersectionList.push(proc.id);
       }
     });
-
     return intersectionList;
   }
 
@@ -145,21 +141,47 @@ class Swimlane extends Component {
     return sortedList;
   }
 
+  markNodes( startNode, processes ){
+    processes.map( process => {
+      if(process.id === startNode) {
+        process.subselected = true;
+        if(process.connection.to.length > 0)
+        process.connection.to.map( nextNode => this.markNodes(nextNode, processes) )
+      }
+    });
+  }
+
+  assignSubselectionToAffectedObjects( processes ){
+    if(this.props.selected === null) return processes;
+    this.markNodes(
+      this.props.selected,
+      processes
+    )
+    //processes.map( process => { if(process.id === this.props.selected) markNodes(process.id, processes) }); 
+    return processes;
+  }
+
   render () {
     const { id, title, x, y, width, height, processes, stakeholder } = this.props;
+    
+    let processObjs = processes;
+    processObjs.map( process => {return processes.subselected = false});
+    
+    processObjs = this.assignSubselectionToAffectedObjects ( processes );
+
+    Zuweisung funktioniert nicht, vielleciht ist eh besser die liste der selctecd und subselected im store zu lagern
+
     this.maxObjectHeight = this.props.height / 4;
     this.stacking.base = 1;
     this.stacking.count = 0;
     let processPositions = [];
     processPositions = processes.map(process => this.processPositionX( process, x, width));
     this.stacking.count = 1;
-
     let intersectionMap = [];
     processPositions.forEach(pos => {
       let intersectedList = this.getIntersections(pos, processPositions);
       if (intersectedList.length > 1) intersectionMap.push(intersectedList);
     });
-
     let reducedIntersectionMap = this.reduceIntersectionMap(intersectionMap, processes); // optimize intersectionMap
     processPositions.map(pos => this.processPositionY(pos, y, processPositions, reducedIntersectionMap)); // update positions because of intersections
 
@@ -188,7 +210,7 @@ class Swimlane extends Component {
                     >
                     {title}</text>;
 
-    let processObjs = processes.map( (process, index) =>
+    processObjs = processes.map( (process, index) =>
             <Process
               process = {process}
               processPosition = {processPositions[index]}
@@ -207,10 +229,11 @@ class Swimlane extends Component {
   }
 }
 
-const mapStateToProps = ({ zoom,marker }) => ({
+const mapStateToProps = ({ zoom,marker, selection }) => ({
   zoomStart: zoom.sectionStart,
   zoomEnd: zoom.sectionEnd,
   marker: marker,
+  selected: selection.selected,
 });
 
 export default connect(mapStateToProps)(Swimlane);
