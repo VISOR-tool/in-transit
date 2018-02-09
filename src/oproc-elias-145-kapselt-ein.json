@@ -2,7 +2,7 @@
   "system": {
     "_comment": "Es handelt sich um die Systembeschreibung",
     "id": "https://oproc.dresden.org/",
-    "type": "https://schema.oproc.org/0.1/system",
+    "specification": "https://schema.oproc.org/0.1/system",
     "entrypoints": "https://process.stadt.de/process/",
     "name": "Beispiel-System",
     "email": "info@stadt.de",
@@ -19,7 +19,7 @@
     "modified": "2012-11-11T11:11:00+01:00"
   },
   "process": {
-    "_comment": "Es handelt sich um Prozesse, diese beinhalten Struktur- und Metainformationen",
+    "specification": "https://schema.oproc.org/0.1/process",
     "id": "https://process.stadt.de/process/1",
     "reference": "AZ1337/11",
     "initiator": "https://process.stadt.de/stakeholder/3",

@@ -30,7 +30,7 @@ const Process = ({ process, processPosition, stakeholder,
       bodyAttrs['stroke'] = participateObjectStrokeColor;
     }
 
-    if (hovered === id) {
+    if(hovered === id) {
       bodyAttrs['fill'] = onHoverObjectColor;
     }
       
