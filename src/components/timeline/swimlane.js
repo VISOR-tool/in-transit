@@ -105,28 +105,26 @@ class Swimlane extends Component {
     // Shrink horizontally
     for (let i = 0; i < processPositions.length; i++) {
       let pos = processPositions[i];
-      const oldY = pos.y + pos.height;
-      if (oldY < y + height) {
+      pos.origY = pos.y;
+      pos.origHeight = pos.height;
+    }
+    for (let i = 0; i < processPositions.length; i++) {
+      let pos = processPositions[i];
+      if (pos.y + pos.height <= y + height) {
         // Skip processes that are within swimlane height
         continue;
       }
 
-      const yScale = height / (oldY - y);
+      const yScale = (height - PROCESS_SPACING) / (pos.origY + pos.origHeight - y);
       for (let j = 0; j < processPositions.length; j++) {
         let other = processPositions[j];
         // Is in the same swimlane and
         // overlaps horizontally?
-        if (other.x < pos.x + pos.width &&
-            pos.x < other.x + other.width) {
+        if (other.x <= pos.x + pos.width &&
+            pos.x <= other.x + other.width) {
 
-          if (!other.origY) {
-            other.origY = other.y;
-          }
           // min() so that we retain previous downsizing
           other.y = Math.min(other.y, y + yScale * (other.origY - y));
-          if (!other.origHeight) {
-            other.origHeight = other.height;
-          }
           other.height = Math.min(other.height, yScale * other.origHeight);
         }
       }
