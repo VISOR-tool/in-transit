@@ -102,10 +102,28 @@ class Swimlane extends Component {
         }
       }
     }
-    const maxY = processPositions.reduce((maxY, pos) => {
-      const y = pos.y + pos.height;
-      return y > maxY ? y : maxY;
-    }, 0);
+    // Shrink horizontally
+    for (let i = 0; i < processPositions.length; i++) {
+      let pos = processPositions[i];
+      const oldY = pos.y + pos.height;
+      if (oldY < height) {
+        // Skip processes that are within swimlane height
+        continue;
+      }
+
+      const yRatio = height / oldY;
+      for (let j = 0; j < processPositions.length; j++) {
+        let other = processPositions[j];
+        // Is in the same swimlane and
+        // overlaps horizontally?
+        if (other.x < pos.x + pos.width &&
+            pos.x < other.x + other.width) {
+
+          other.y = y + yRatio * (other.y - y);
+          other.height *= yRatio;
+        }
+      }
+    }
 
     return (
       <g>
