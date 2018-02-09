@@ -22,8 +22,8 @@ const Links = ({ processes, processPositions }) => {
             x2: pos2.x,
             y2: pos2.y + pos2.height / 2,
 
-            color: process.attributes.process.subselected ? highlightedLinks : dimmedLinks,
-            stroke: process.attributes.process.subselected ? 3 : 1,
+            color: p1.subselected ? highlightedLinks : dimmedLinks,
+            stroke: p1.subselected ? 3 : 1,
           });
         }
       });
