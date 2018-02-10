@@ -42,12 +42,17 @@ class TimelineRoute extends Component {
     } = this.props;
     
     return (
-      <div>
-        <div class={style.sidebar}>
+      <div class={style.container}>
+        <div class={style.tile1}>
+          <RelationsGraph  width={640} height={100} />        
+        </div>
+        <div class={style.tile2}>
           <Filtering />
         </div>
-        <div class={style.workspace}>
-          <RelationsGraph  width={640} height={100} />        
+        <div class={style.tile1}>
+          <DetailsOverlay/>
+        </div>
+        <div class={style.tile2}>
           <Timeline
             width={window.outerWidth - 5}
             height={window.outerHeight - 300}
@@ -55,7 +60,6 @@ class TimelineRoute extends Component {
             filter={filter}
             />
         </div>
-        <DetailsOverlay/>
       </div>
     );
   }

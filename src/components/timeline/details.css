@@ -1,29 +1,21 @@
 .overlayHidden {
-    position: fixed;
-    top: 0;
-    width: 15rem;
-    right: -15rem;
-    bottom: 0;
     margin: 0;
+    margin-top: 60vh;
     background-color: white;
     border-left: 2px solid black;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     z-index: 10;
-    transition: box-shadow 0.3s, right 0.3s;
+    transition: box-shadow 0.3s, margin-top 0.3s;
     overflow: hidden;
 }
 .overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 15rem;
-    bottom: 0;
     margin: 0;
     background-color: white;
     border-left: 1px solid #333;
     box-shadow: 0 0 12px black;
     z-index: 10;
-    transition: box-shadow 0.5s, right 0.5s;
+    transition: box-shadow 0.5s, margin-top 0.5s;
+    max-height: 60vh;
     overflow-x: hidden;
     overflow-y: auto;
 }
