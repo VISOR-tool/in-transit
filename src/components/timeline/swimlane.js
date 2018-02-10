@@ -41,6 +41,8 @@ class Swimlane extends Component {
     const { id, title, x, y, width, height, stakeholder, zoomStart, zoomEnd } = this.props;
     // Clone
     let processes = this.props.processes.concat();
+    
+    processes = this.assignSubselectionToAffectedObjects( processes );
 
     let timelineAttrs = {
       stroke: '#16CEEA',
