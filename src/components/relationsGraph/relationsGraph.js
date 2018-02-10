@@ -13,7 +13,7 @@ const LANE_SPACING = 2;
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml';
 
-function SimplGraph({ data: process,
+function RelationsGraph({ data: process,
                       filter, selected,
                       toggleParticipation,
                       toggleProcessOnlyWithResults,
@@ -150,4 +150,4 @@ const mapDispatchToProps = dispatch => ({
   toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SimplGraph);
+export default connect(mapStateToProps, mapDispatchToProps)(RelationsGraph);
