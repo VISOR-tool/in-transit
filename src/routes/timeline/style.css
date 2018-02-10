@@ -1,18 +1,23 @@
 body {
   font-size: 0.7em;
+  margin: 0;
+  padding: 0;
 }
 
-.home {
-  padding: 26px 20px;
-  min-height: 100%;
-  width: 100%;
+.container {
+  margin: 0;
+  padding-top: 30px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
 }
-
-.workspace{
-  position: absolute;
-  top: 30px;
-  width: 100%;
-  padding-left: 55px;
-  padding-right: 2px;
-  z-index: 1;
+.tile1 {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex: 25vw;
+}
+.tile2 {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex: 60vw;
 }

@@ -22,7 +22,7 @@ class Swimlane extends Component {
   
   resetSubselection( processes ){
     processes.map( process => {
-        process.subselected = false;        
+        process.subselected = false;
     });
   }
 
