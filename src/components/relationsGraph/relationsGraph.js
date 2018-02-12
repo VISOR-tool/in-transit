@@ -7,103 +7,115 @@ import Path from './path';
 import Legend from './legend';
 import moment from 'moment';
 
-const LANE_SIZE = 2;
-const LANE_SPACING = 2;
-
 const NS_SVG = 'http://www.w3.org/2000/svg';
-const NS_XHTML = 'http://www.w3.org/1999/xhtml';
+const NS_XHTML = 'http://www.w3.org/1999/xhtml'
 
-function RelationsGraph({ data: process,
-                      filter, selected,
-                      toggleParticipation,
-                      toggleProcessOnlyWithResults,
-                      width, height,
-                    }) {
+const BACKGROUND_COLOR = {fill: "#1B0D78"};
+const LANE_SIZE = 1;
+const LANE_SPACING = 2;
+const VERT_DISTANCE = 20;
+const HORZ_DISTANCE = 20;
+const PARENT_SHAPE = "square";
+const PARENT_SIZE = 12;
+const PARENT_FILL = "yellow";
+const PARENT_STROKE = "white";
+const PARENT_LINK_COLOR = "yellow";
+// const PARENT_LINK_STROKE = 1;
+const CHILD_SHAPE = "circle";
+const CHILD_SIZE = 2;
+const CHILD_FILL= "white";
+const CHILD_STROKE = "black";
+const CHILD_LINK_COLOR = "gray";
+// const CHILD_LINK_STROKE = 1;
+// const PARTICIPATION_SHAPE = "circle";
+// const PARTICIPATION_SIZE = 2;
+const PARTICIPATION_FILL = "green";
+const PARTICIPATION_STROKE = "green";
+// const PARTICIPATION_LINK_COLOR = "red";
+// const PARTICIPATION_LINK_STROKE = 1;
+const SELECTED_STROKE = "blue";
+
+
+function RelationsGraph({ 
+  data: process, filter, selected, width, height,                    
+  toggleParticipation, toggleProcessOnlyWithResults,
+  }) {
   let startX = 10, startY = 30;
+  let maxHeight = 0;
   var nodes = [];
   var links = [];
   
-  function createNodes(processes, process, x, y, filter){
-    let size = 3;
-    let stroke = "black";
-    let color = "white";
-    let shape = "circle";
-    if(typeof process != 'object'){
-      nodes.push(
-        { id:process,
-          x: x+40, y: y-10,
-          size: 5,
-          shape: shape,
-          stroke: 2,
-          color: "blue",
-          label: "weitere",
-        });   
-      links.push({path:process, x1:x, y1:y, x2:x+40, y2:y-10, color:color });
-    }else{
-      if(process.participation.includes('open')){
-        stroke = "green";
-        color = "yellow";
-      }
-      if (process.id == selected) {
-        stroke = "red";
-      }
-      if(process.childs.length > 0) {
-        shape = "square";
-        size = 5;
-      }
+  function createNodesAndLinks(processes, process, x, y, filter){
+    
+    if(nodes.find( node => node.id === process.id )) return 'also known node';
 
-      /*
-      if childs -> rekursion
-      if to -> rekursion
-      */
-      if(process.childs.length > 0 ) {
-        process.childs.map(
-          (nextChild,index) => {
-              createNodes(processes, nextChild, x+40, y-10*index, filter, "white");
-              links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y-10*index, color:"yellow" });
-          }
-        )
-      }
-  
-      if(process.connection.to.length > 0)
-        process.connection.to.map(
-          (nextProc,index) => {
-            const nextObj = processes.find( nextTo => nextTo.id === nextProc );
-            if(nextObj != undefined){
-              createNodes(processes, nextObj, x+40, y+10*index, filter);
-              links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:"gray" });
-            }
-          }
-        );
+    let shape = CHILD_SHAPE;
+    let size = CHILD_SIZE;
+    let fill = CHILD_FILL;
+    let stroke = CHILD_STROKE;
+
+    if(process.participation.includes('open')){
+      fill = PARTICIPATION_FILL;
+      stroke = PARTICIPATION_STROKE;
+    }
+    if (process.id == selected) {
+      stroke = SELECTED_STROKE;
+    }
+    
+    if(process.childs.length > 0) {
+      shape = PARENT_SHAPE;
+      size = PARENT_SIZE;
+      fill = PARENT_FILL;
+      stroke = PARENT_STROKE;
+    }    
+
+    if(process.childs.length > 0 ) {
+      process.childs.map(
+        (nextChild,index) => {
+            if(nodes.find( node => node.id === nextChild.id )) return 'also known';
+            createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
+            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
+            
+        }
+      )
     }
 
-    // Seiteneffekte abfangen wenn childs childs haben
-    // if( ((filter.processParticipation == 'offener') && process.participation.includes('open'))
-    // || filter.processParticipation != 'offener' )
+    if(process.connection.to.length > 0)
+      process.connection.to.map(
+        (nextProc,index) => {
+          const nextObj = processes.find( nextTo => nextTo.id === nextProc );
+          if(nextObj != undefined ){
+            createNodesAndLinks(processes, nextObj, x+40, y+10*index, filter);
+            links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:CHILD_LINK_COLOR });
+          }
+        }
+      );
+
     nodes.push(
       { id:process.id,
         x: x, y: y,
-        size: 3,
+        size: size,
         shape: shape,
         stroke: stroke,
-        color: color,
+        fill: fill,
         label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
-      });      
+      });     
+      maxHeight = maxHeight > y ? maxHeight : y; 
   }
 
   /* prozesse zeichnen die keine eltern & kinder haben
      process.process.childs.map( orphan => {
      if(orphan.to.lenght == 0 && orphan.from.lenght == 0)
-     this.createNodes(orphan, orphan, startX, startY, filter);
+     this.createNodesAndLinks(orphan, orphan, startX, startY, filter);
      }
      )
   */
-  createNodes(process.process.childs, process.process.childs[0], startX, startY, filter);
+  createNodesAndLinks(process.process.childs, process.process, startX, startY, filter);
 
   return(
     <div >
       <Graph nodes={nodes} lanes={links}
-             height={height} width={width} />
+             height={maxHeight+10} width={width} />
         Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
         | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
     </div>
@@ -118,7 +130,7 @@ function Graph({ nodes, lanes, width, height }) {
       </svg>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
         <g>
-          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style="fill:#1B0D78" />
+          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR} />
           {lanes.map(link =>
             <Path id={link.path} path={link}
                   size={LANE_SIZE} color={link.color}
@@ -128,7 +140,7 @@ function Graph({ nodes, lanes, width, height }) {
               <Node id={node.id}
               x={node.x} y={node.y} size={node.size}
               shape={node.shape}
-              color={node.color}
+              fill={node.fill}
               stroke={node.stroke}
               label={node.label}/>
           )}

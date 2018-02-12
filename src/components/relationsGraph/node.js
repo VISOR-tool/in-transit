@@ -6,13 +6,12 @@ export default class Node extends Component {
   // }
 
   render () {
-    const { shape, label, x, y, size, color, stroke } = this.props;
+    const { shape, label, x, y, size, fill, stroke } = this.props;
     const labelRotation = typeof this.props.labelRotation === 'number' ? this.props.labelRotation : -13;
 
     var attrs = {
       stroke: stroke,
-      'stroke-width': size,
-      fill: color,
+      fill: fill,
       onmouseover: ev => this.setState({ labelVisible: true }),
       onmouseout: ev => this.setState({ labelVisible: false })
     };
@@ -20,10 +19,10 @@ export default class Node extends Component {
     var shapeComponent;
     switch (shape) {
       case 'circle':
-        shapeComponent = <circle cx={x} cy={y} r={size} {...attrs} />;
+        shapeComponent = <circle cx={x} cy={y} r={size} stroke-width={size/3} {...attrs} />;
         break;
       case 'square':
-        shapeComponent = <rect x={size} y={size} width={size} height={size} {...attrs} />;
+        shapeComponent = <rect x={x} y={y} width={size/2} height={size/2} stroke-width={size/5} {...attrs} />;
         break;        
       default:
         throw new Error('No Node shape!');
@@ -33,18 +32,17 @@ export default class Node extends Component {
     return (
       <g>
         {shapeComponent}
-
         {labelVisible
         ? <g transform={'translate(' + x + ',' + y + ')'}>
          ? <g>
-           <rect  x={1.5 * size} y={size / 3 -6} height="8" width={(label.length+4) * 2.55} fill="green" opacity="0.8"/>
-           <text  x={1.5 * size +5} y={size / 3}                   
-                  text-anchor='start' 
-                  font-size="0.5em"                   
-                  fill="white"
-                  >
-           {label}
-         </text>
+          <rect  x={1.5 * size} y={size / 3 -6} height="8" width={(label.length+4) * 2.55} fill="green" />
+          <text  x={1.5 * size +5} y={size / 3}                   
+                text-anchor='start' 
+                font-size="0.5em"                   
+                fill="white"
+                >
+          {label}
+          </text>
          </g>
          }
 
