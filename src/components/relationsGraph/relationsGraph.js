@@ -20,19 +20,19 @@ const PARENT_SIZE = 12;
 const PARENT_FILL = "yellow";
 const PARENT_STROKE = "white";
 const PARENT_LINK_COLOR = "yellow";
-// const PARENT_LINK_STROKE = 1;
+// const PARENT_LINK_WIDTH = 1;
 const CHILD_SHAPE = "circle";
 const CHILD_SIZE = 2;
 const CHILD_FILL= "white";
 const CHILD_STROKE = "black";
 const CHILD_LINK_COLOR = "gray";
-// const CHILD_LINK_STROKE = 1;
+// const CHILD_LINK_WIDTH = 1;
 // const PARTICIPATION_SHAPE = "circle";
 // const PARTICIPATION_SIZE = 2;
 const PARTICIPATION_FILL = "green";
 const PARTICIPATION_STROKE = "green";
 // const PARTICIPATION_LINK_COLOR = "red";
-// const PARTICIPATION_LINK_STROKE = 1;
+// const PARTICIPATION_LINK_WIDTH = 1;
 const SELECTED_STROKE = "blue";
 
 
