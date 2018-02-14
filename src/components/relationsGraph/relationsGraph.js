@@ -42,13 +42,22 @@ function RelationsGraph({
   }) {
   let startX = 10, startY = 30;
   let maxHeight = 0;
-  var nodes = [];
-  var links = [];
-  
-  function createNodesAndLinks(processes, process, x, y, filter){
-    
-    if(nodes.find( node => node.id === process.id )) return 'also known node';
+  let nodes = [];
+  let links = [];
+  let prospects = [];
 
+
+  function isInNodesList( subjects ){
+    let inNodeList = false;
+    subjects.forEach( subject => 
+      nodes.forEach( node => {
+        if(node.id === subject) inNodeList = true;
+      })
+    );
+    return inNodeList;
+  }
+
+  function getAGuise( process ){
     let shape = CHILD_SHAPE;
     let size = CHILD_SIZE;
     let fill = CHILD_FILL;
@@ -67,7 +76,14 @@ function RelationsGraph({
       size = PARENT_SIZE;
       fill = PARENT_FILL;
       stroke = PARENT_STROKE;
-    }    
+    } 
+    return { size, shape, stroke, fill };
+  }
+
+
+  function createNodesAndLinks(processes, process, x, y, filter){
+    
+    if(nodes.find( node => node.id === process.id )) return 'also known node';   
 
     if(process.childs.length > 0 ) {
       process.childs.map(
@@ -75,7 +91,6 @@ function RelationsGraph({
             if(nodes.find( node => node.id === nextChild.id )) return 'also known';
             createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
             links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
-            
         }
       )
     }
@@ -91,16 +106,20 @@ function RelationsGraph({
         }
       );
 
-    nodes.push(
-      { id:process.id,
-        x: x, y: y,
-        size: size,
-        shape: shape,
-        stroke: stroke,
-        fill: fill,
-        label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
-      });     
-      maxHeight = maxHeight > y ? maxHeight : y; 
+    
+    {
+      const g = getAGuise(process);
+      nodes.push(
+        { id:process.id,
+          x: x, y: y,
+          size: g.size,
+          shape: g.shape,
+          stroke: g.stroke,
+          fill: g.fill,
+          label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
+        });     
+        maxHeight = maxHeight > y ? maxHeight : y;
+    }
   }
 
   /* prozesse zeichnen die keine eltern & kinder haben
