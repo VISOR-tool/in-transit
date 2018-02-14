@@ -48,7 +48,17 @@ function RelationsGraph({
   let links = [];
   let prospects = [];
 
-  
+
+  function isInNodesList( subjects ){
+    let inNodeList = false;
+    subjects.forEach( subject => 
+      nodes.forEach( node => {
+        if(node.id === subject) inNodeList = true;
+      })
+    );
+    return inNodeList;
+  }
+
   function getAGuise( process ){
     let shape = CHILD_SHAPE;
     let size = CHILD_SIZE;
@@ -69,27 +79,20 @@ function RelationsGraph({
       fill = PARENT_FILL;
       stroke = PARENT_STROKE;
     } 
-    
-    return { 
-      size, shape, 
-      stroke, fill, 
-      label: moment(process.start).format('DD.MM.YYYY')+" "+process.name,
-    };
-  }
-  
-  function allInNodesList( subjects ){
-    return subjects.every( subject => nodes.some( node => node.id === subject));
+    return { size, shape, stroke, fill };
   }
 
-  function createNodesAndLinks(processes, process, x, y){
+
+  function createNodesAndLinks(processes, process, x, y, filter){
+    
     if(nodes.find( node => node.id === process.id )) return 'also known node';   
 
     if(process.childs.length > 0 ) {
       process.childs.map(
         (nextChild,index) => {
             if(nodes.find( node => node.id === nextChild.id )) return 'also known';
-            createNodesAndLinks(processes, nextChild, x+HORZ_DISTANCE, y+10*index);
-            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+HORZ_DISTANCE, y2:y+10*index, color:PARENT_LINK_COLOR });
+            createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
+            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
         }
       )
     }
@@ -104,7 +107,8 @@ function RelationsGraph({
         }
       );
 
-    if( allInNodesList( process.connection.from ) || process.connection.from.length == 0 ){
+    
+    {
       const g = getAGuise(process);
       nodes.push(
         { id:process.id,
@@ -113,32 +117,9 @@ function RelationsGraph({
           shape: g.shape,
           stroke: g.stroke,
           fill: g.fill,
-          label: g.label,
+          label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
         });     
-        
-        let stillProspects = [];
-        prospects.map( prospect => {          
-          if( allInNodesList( prospect.from ) ){
-            nodes.push( prospect );
-          } else {
-            stillProspects.push( prospect );
-          }
-        });
-        prospects = stillProspects;
-        
         maxHeight = maxHeight > y ? maxHeight : y;
-    } else {
-      const g = getAGuise(process);
-      prospects.push(
-        { from: process.connection.from,
-          id:process.id,
-          x: x, y: y,
-          size: g.size,
-          shape: g.shape,
-          stroke: g.stroke,
-          fill: g.fill,
-          label: g.label,
-        });
     }
   }
 
