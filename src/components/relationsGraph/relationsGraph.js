@@ -8,6 +8,7 @@ import Path from './path';
 import Legend from './legend';
 import moment from 'moment';
 
+
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml'
 
@@ -47,23 +48,13 @@ function RelationsGraph({
   let links = [];
   let prospects = [];
 
-
-  function isInNodesList( subjects ){
-    let inNodeList = false;
-    subjects.forEach( subject => 
-      nodes.forEach( node => {
-        if(node.id === subject) inNodeList = true;
-      })
-    );
-    return inNodeList;
-  }
-
+  
   function getAGuise( process ){
     let shape = CHILD_SHAPE;
     let size = CHILD_SIZE;
     let fill = CHILD_FILL;
     let stroke = CHILD_STROKE;
-
+    
     if(process.participation.includes('open')){
       fill = PARTICIPATION_FILL;
       stroke = PARTICIPATION_STROKE;
@@ -78,37 +69,42 @@ function RelationsGraph({
       fill = PARENT_FILL;
       stroke = PARENT_STROKE;
     } 
-    return { size, shape, stroke, fill };
+    
+    return { 
+      size, shape, 
+      stroke, fill, 
+      label: moment(process.start).format('DD.MM.YYYY')+" "+process.name,
+    };
+  }
+  
+  function allInNodesList( subjects ){
+    return subjects.every( subject => nodes.some( node => node.id === subject));
   }
 
-
-  function createNodesAndLinks(processes, process, x, y, filter){
-    
+  function createNodesAndLinks(processes, process, x, y){
     if(nodes.find( node => node.id === process.id )) return 'also known node';   
 
     if(process.childs.length > 0 ) {
       process.childs.map(
         (nextChild,index) => {
             if(nodes.find( node => node.id === nextChild.id )) return 'also known';
-            createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
-            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
+            createNodesAndLinks(processes, nextChild, x+HORZ_DISTANCE, y+10*index);
+            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+HORZ_DISTANCE, y2:y+10*index, color:PARENT_LINK_COLOR });
         }
       )
     }
-
     if(process.connection.to.length > 0)
       process.connection.to.map(
         (nextProc,index) => {
           const nextObj = processes.find( nextTo => nextTo.id === nextProc );
           if(nextObj != undefined ){
-            createNodesAndLinks(processes, nextObj, x+40, y+10*index, filter);
-            links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:CHILD_LINK_COLOR });
+            createNodesAndLinks(processes, nextObj, x+HORZ_DISTANCE, y+10*index);
+            links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+HORZ_DISTANCE, y2:y+10*index, color:CHILD_LINK_COLOR });
           }
         }
       );
 
-    
-    {
+    if( allInNodesList( process.connection.from ) || process.connection.from.length == 0 ){
       const g = getAGuise(process);
       nodes.push(
         { id:process.id,
@@ -117,9 +113,32 @@ function RelationsGraph({
           shape: g.shape,
           stroke: g.stroke,
           fill: g.fill,
-          label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
+          label: g.label,
         });     
+        
+        let stillProspects = [];
+        prospects.map( prospect => {          
+          if( allInNodesList( prospect.from ) ){
+            nodes.push( prospect );
+          } else {
+            stillProspects.push( prospect );
+          }
+        });
+        prospects = stillProspects;
+        
         maxHeight = maxHeight > y ? maxHeight : y;
+    } else {
+      const g = getAGuise(process);
+      prospects.push(
+        { from: process.connection.from,
+          id:process.id,
+          x: x, y: y,
+          size: g.size,
+          shape: g.shape,
+          stroke: g.stroke,
+          fill: g.fill,
+          label: g.label,
+        });
     }
   }
 
@@ -130,7 +149,9 @@ function RelationsGraph({
      }
      )
   */
-  createNodesAndLinks(process.process.childs, process.process, startX, startY, filter);
+  createNodesAndLinks(process.process.childs, process.process, startX, startY);
+  
+  console.log('nodes: ', nodes.length);
 
   return(
     <div >
