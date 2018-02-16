@@ -14,10 +14,15 @@ body {
 .tile1 {
   flex-grow: 1;
   flex-shrink: 1;
-  flex: 25vw;
+  flex: 45vw;
 }
 .tile2 {
   flex-grow: 1;
   flex-shrink: 0;
-  flex: 60vw;
+  flex: 45vw;
+}
+.tile3 {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex: 100vw;
 }

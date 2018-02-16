@@ -49,10 +49,7 @@ class TimelineRoute extends Component {
         <div class={style.tile2}>
           <Filtering />
         </div>
-        <div class={style.tile1}>
-          <DetailsOverlay/>
-        </div>
-        <div class={style.tile2}>
+        <div class={style.tile3}>
           <Timeline
             width={window.outerWidth - 5}
             height={window.outerHeight - 300}
@@ -60,6 +57,7 @@ class TimelineRoute extends Component {
             filter={filter}
             />
         </div>
+        <DetailsOverlay/>
       </div>
     );
   }
