@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
+import { selectionActions } from '../../lib/reducers/selection';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
@@ -36,17 +37,17 @@ const PARTICIPATION_STROKE = "green";
 const SELECTED_STROKE = "blue";
 
 
-function RelationsGraph({ 
-  data: process, filter, selected, width, height,                    
-  toggleParticipation, toggleProcessOnlyWithResults,
-  }) {
+function RelationsGraph({
+  data: process, filter, selected, width, height,
+  toggleParticipation, toggleProcessOnlyWithResults, selectNone
+}) {
   let startX = 10, startY = 30;
   let maxHeight = 0;
   var nodes = [];
   var links = [];
-  
+
   function createNodesAndLinks(processes, process, x, y, filter){
-    
+
     if(nodes.find( node => node.id === process.id )) return 'also known node';
 
     let shape = CHILD_SHAPE;
@@ -61,13 +62,13 @@ function RelationsGraph({
     if (process.id == selected) {
       stroke = SELECTED_STROKE;
     }
-    
+
     if(process.childs.length > 0) {
       shape = PARENT_SHAPE;
       size = PARENT_SIZE;
       fill = PARENT_FILL;
       stroke = PARENT_STROKE;
-    }    
+    }
 
     if(process.childs.length > 0 ) {
       process.childs.map(
@@ -75,7 +76,7 @@ function RelationsGraph({
             if(nodes.find( node => node.id === nextChild.id )) return 'also known';
             createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
             links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
-            
+
         }
       )
     }
@@ -99,8 +100,8 @@ function RelationsGraph({
         stroke: stroke,
         fill: fill,
         label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
-      });     
-      maxHeight = maxHeight > y ? maxHeight : y; 
+      });
+      maxHeight = maxHeight > y ? maxHeight : y;
   }
 
   /* prozesse zeichnen die keine eltern & kinder haben
@@ -114,7 +115,7 @@ function RelationsGraph({
 
   return(
     <div >
-      <Graph nodes={nodes} lanes={links}
+      <Graph nodes={nodes} lanes={links} onmousedown={selectNone}
              height={maxHeight+10} width={width} />
         Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
         | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
@@ -122,15 +123,15 @@ function RelationsGraph({
   );
 }
 
-function Graph({ nodes, lanes, width, height }) {
+function Graph({ nodes, lanes, width, height, onmousedown }) {
   return (
     <div>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 15].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
         <Legend x="0" y="0" width={width}/>
       </svg>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
-        <g>
-          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR} />
+      <g onmousedown={onmousedown}>
+          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR}/>
           {lanes.map(link =>
             <Path id={link.path} path={link}
                   size={LANE_SIZE} color={link.color}
@@ -160,6 +161,7 @@ const mapStateToProps = ({ data, filteredData, filter, selection }) => ({
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
   toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
+  selectNone: () => dispatch(selectionActions.select(null)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RelationsGraph);
