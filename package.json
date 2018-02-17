@@ -36,6 +36,7 @@
     "preact-router": "^2.5.7",
     "redux": "^3.7.2",
     "robust-segment-intersect": "^1.0.1",
-    "simplehttp2server": "^2.0.0"
+    "simplehttp2server": "^2.0.0",
+    "dagre": "^0.8.2"
   }
 }

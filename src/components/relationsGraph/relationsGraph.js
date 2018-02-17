@@ -2,10 +2,13 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
+import { toDagre } from '../../lib/adapters';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
 import moment from 'moment';
+import dagre from 'dagre';
+
 
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml'
@@ -36,112 +39,91 @@ const PARTICIPATION_STROKE = "green";
 const SELECTED_STROKE = "blue";
 
 
+class dagre_adapter{
+  heigth = 0;
+  width = 0;
+  nodes = [];
+  edges = [];
+  g = 'dagre graph';
+
+  constructor( renderOptions ){
+    this.g = new dagre.graphlib.Graph();
+    this.g.setGraph( renderOptions );
+    this.g.setDefaultEdgeLabel(function() { return {}; });
+    return this;
+  }
+  
+  convertDagesEdgesZoSvgPaths(){
+    //ausgabe werte = [{ x:21, y:12}, {x:231,y:213},{x:123,y:231}]
+    //benötigt für svg: <path d='M x y L x y ...'
+  }
+
+  setConnections( node ){
+    node.connection.from.forEach( link => this.g.setEdge( node.id, link ) );
+    node.connection.to.forEach( link => this.g.setEdge( node.id, link ) );
+  }
+
+  createGraphLayoutFromOproc( oprocProcess ){
+    let g = this.g;
+
+    oprocProcess.childs.map( 
+      child => {
+        g.setNode(child.id, { 
+          label: child.name, 
+          id: child.id,
+          width: CHILD_SIZE, 
+          height: CHILD_SIZE, 
+          size: CHILD_SIZE,
+          shape: CHILD_SHAPE, 
+          stroke: CHILD_STROKE
+        } );
+        //g.setEdge(child.id, child.connection.to[0]);
+        //this.setConnections( child );
+      }
+    );
+    
+    g.setEdge(oprocProcess.childs[1].connection.from[0],  oprocProcess.childs[1].id);
+    mit setConnections() versuchen alle edges herzustellen
+
+    dagre.layout(g);
+    let nodes = [];
+    g.nodes().forEach( function(v){ 
+      if( g.node(v) != undefined ) nodes.push( g.node(v) )
+    } );
+
+    this.convertDagesEdgesZoSvgPaths();
+    
+    this.nodes = nodes;
+    this.edges = g.edges;
+    this.height = g.graph().height;
+    this.width = g.graph().width;
+    
+    console.log('dagre nodes: ', this.nodes.length, 'dagre edges: ', this.edges.length);
+  }
+}
+
 function RelationsGraph({ 
   data: process, filter, selected, width, height,                    
   toggleParticipation, toggleProcessOnlyWithResults,
   }) {
-  let startX = 10, startY = 30;
-  let maxHeight = 0;
   let nodes = [];
-  let links = [];
-  let prospects = [];
+  let edges = [];
 
-
-  function isInNodesList( subjects ){
-    let inNodeList = false;
-    subjects.forEach( subject => 
-      nodes.forEach( node => {
-        if(node.id === subject) inNodeList = true;
-      })
-    );
-    return inNodeList;
+  const renderOptions ={ 
+    rankdir: "RL",
+    nodesep: 10, 
+    edgesep: 15,
+    marginx: 10,
+    marginy: 10,
   }
 
-  function getAGuise( process ){
-    let shape = CHILD_SHAPE;
-    let size = CHILD_SIZE;
-    let fill = CHILD_FILL;
-    let stroke = CHILD_STROKE;
-
-    if(process.participation.includes('open')){
-      fill = PARTICIPATION_FILL;
-      stroke = PARTICIPATION_STROKE;
-    }
-    if (process.id == selected) {
-      stroke = SELECTED_STROKE;
-    }
-    
-    if(process.childs.length > 0) {
-      shape = PARENT_SHAPE;
-      size = PARENT_SIZE;
-      fill = PARENT_FILL;
-      stroke = PARENT_STROKE;
-    } 
-    return { size, shape, stroke, fill };
-  }
-
-
-  function createNodesAndLinks(processes, process, x, y, filter){
-    
-    if(nodes.find( node => node.id === process.id )) return 'also known node';   
-
-    if(process.childs.length > 0 ) {
-      process.childs.map(
-        (nextChild,index) => {
-            if(nodes.find( node => node.id === nextChild.id )) return 'also known';
-            createNodesAndLinks(processes, nextChild, x+40, y+10*index, filter);
-            links.push({path:process.id+nextChild.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:PARENT_LINK_COLOR });
-        }
-      )
-    }
-
-    if(process.connection.to.length > 0)
-      process.connection.to.map(
-        (nextProc,index) => {
-          const nextObj = processes.find( nextTo => nextTo.id === nextProc );
-          if(nextObj != undefined ){
-            createNodesAndLinks(processes, nextObj, x+40, y+10*index, filter);
-            links.push({path:process.id+nextObj.id, x1:x, y1:y, x2:x+40, y2:y+10*index, color:CHILD_LINK_COLOR });
-          }
-        }
-      );
-
-    
-    {
-      const g = getAGuise(process);
-      nodes.push(
-        { id:process.id,
-          x: x, y: y,
-          size: g.size,
-          shape: g.shape,
-          stroke: g.stroke,
-          fill: g.fill,
-          label: moment(process.start).format('DD.MM.YYYY')+" "+process.name
-        });     
-        maxHeight = maxHeight > y ? maxHeight : y;
-    }
-  }
-
-  /* prozesse zeichnen die keine eltern & kinder haben
-     process.process.childs.map( orphan => {
-     if(orphan.to.lenght == 0 && orphan.from.lenght == 0)
-     this.createNodesAndLinks(orphan, orphan, startX, startY, filter);
-     }
-     )
-  */
-  createNodesAndLinks(process.process.childs, process.process, startX, startY, filter);
-
-  return(
-    <div >
-      <Graph nodes={nodes} lanes={links}
-             height={maxHeight+10} width={width} />
-        Beteiligung: <b onClick={toggleParticipation}>{filter.processParticipation}</b> |
-        | Nur mit Ergebnissen: <b onClick={toggleProcessOnlyWithResults}>{filter.processOnlyWithResults} </b>
-    </div>
-  );
-}
-
-function Graph({ nodes, lanes, width, height }) {
+  let d = new dagre_adapter(renderOptions);
+  d.createGraphLayoutFromOproc(process.process);
+  nodes = d.nodes;
+  edges = d.nodes;
+  height = d.height;
+  //width = d.width; //let it on window size
+  
   return (
     <div>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 15].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
@@ -150,10 +132,6 @@ function Graph({ nodes, lanes, width, height }) {
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
         <g>
           <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR} />
-          {lanes.map(link =>
-            <Path id={link.path} path={link}
-                  size={LANE_SIZE} color={link.color}
-                  />)}
 
           {nodes.map( node =>
               <Node id={node.id}
