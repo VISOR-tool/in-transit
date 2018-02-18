@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
-import { toDagre } from '../../lib/adapters';
+import { dagesEdgeToSvgPath } from '../../lib/adapters';
 import Node from './node';
 import Path from './path';
 import Legend from './legend';
@@ -39,23 +39,12 @@ const PARTICIPATION_STROKE = "green";
 const SELECTED_STROKE = "blue";
 
 
-const dagesEdgeToSvgPath = function( edge ){
-  //ausgabe werte = [{ x:21, y:12}, {x:231,y:213},{x:123,y:231}]
-  //benötigt für svg: <path d='M x y L x y ...'
-  const firstP = edge.points[0].x +" "+ edge.points[0].y;
-  let followingP = "";
-  edge.points.slice(1).map( 
-    p => followingP = `${followingP} L ${p.x} ${p.y}` 
-  );
-  return `M ${firstP} ${followingP}`;  
-}
-
-
 class dagre_adapter{
   heigth = 0;
   width = 0;
   nodes = [];
   edges = [];
+  connections = [];
   g = 'dagre graph';
 
   constructor( renderOptions ){
@@ -66,9 +55,18 @@ class dagre_adapter{
   }
 
   setConnections( node ){
-    node.connection.from.forEach( link => this.g.setEdge( node.id, link ) );
-    node.connection.to.forEach( link => this.g.setEdge( node.id, link ) );
+    let cons = node.connection.from.concat( node.connection.to );    
+    let newCon = false;
+    cons.forEach( connection => {
+      if(connection.length > 0){
+        //sort both end points to make search for it a lot easier
+        connection > node.id ? newCon = [connection, node.id] : newCon = [node.id, connection];
+        if( this.connections.indexOf( element => element == newCon) === -1 )
+            this.g.setEdge( newCon[0], newCon[1] );
+      }
+    });
   }
+
 
   createGraphLayoutFromOproc( oprocProcess ){
     let g = this.g;
@@ -84,13 +82,10 @@ class dagre_adapter{
           shape: CHILD_SHAPE, 
           stroke: CHILD_STROKE
         } );
-        //g.setEdge(child.id, child.connection.to[0]);
-        //this.setConnections( child );
-          }
+      }
     );
     
-    g.setEdge(oprocProcess.childs[1].connection.from[0],  oprocProcess.childs[1].id);    
-    this.setConnections(oprocProcess.childs[1]);
+    oprocProcess.childs.forEach( child => this.setConnections(child));
 
     dagre.layout(g);
     let nodes = [];
@@ -129,6 +124,7 @@ function RelationsGraph({
     rankdir: "RL",
     nodesep: 10, 
     edgesep: 15,
+    ranksep: 20,
     marginx: 10,
     marginy: 10,
   }
@@ -137,9 +133,8 @@ function RelationsGraph({
   d.createGraphLayoutFromOproc(process.process);
   nodes = d.nodes;
   edges = d.edges;
-  console.log('edges: ', edges);
   height = d.height;
-  //width = d.width; //let it on window size
+  //width = d.width; //let width on window size
   
   return (
     <div>
