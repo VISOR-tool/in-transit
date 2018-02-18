@@ -55,9 +55,8 @@ class dagre_adapter{
   }
 
   setConnections( node ){
-    let cons = node.connection.from.concat( node.connection.to );    
     let newCon = false;
-    cons.forEach( connection => {
+    node.connection.to.forEach( connection => {
       if(connection.length > 0){
         //sort both end points to make search for it a lot easier
         connection > node.id ? newCon = [connection, node.id] : newCon = [node.id, connection];
