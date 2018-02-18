@@ -22,14 +22,14 @@ const PARENT_SHAPE = "square";
 const PARENT_SIZE = 12;
 const PARENT_FILL = "yellow";
 const PARENT_STROKE = "white";
-const PARENT_LINK_COLOR = "yellow";
+const PARENT_LINK_COLOR = "yellow"; 
 // const PARENT_LINK_WIDTH = 1;
 const CHILD_SHAPE = "circle";
 const CHILD_SIZE = 2;
 const CHILD_FILL= "white";
 const CHILD_STROKE = "black";
 const CHILD_LINK_COLOR = "gray";
-// const CHILD_LINK_WIDTH = 1;
+const CHILD_LINK_WIDTH = 1;
 // const PARTICIPATION_SHAPE = "circle";
 // const PARTICIPATION_SIZE = 2;
 const PARTICIPATION_FILL = "green";
@@ -37,6 +37,18 @@ const PARTICIPATION_STROKE = "green";
 // const PARTICIPATION_LINK_COLOR = "red";
 // const PARTICIPATION_LINK_WIDTH = 1;
 const SELECTED_STROKE = "blue";
+
+
+const dagesEdgeToSvgPath = function( edge ){
+  //ausgabe werte = [{ x:21, y:12}, {x:231,y:213},{x:123,y:231}]
+  //benötigt für svg: <path d='M x y L x y ...'
+  const firstP = edge.points[0].x +" "+ edge.points[0].y;
+  let followingP = "";
+  edge.points.slice(1).map( 
+    p => followingP = `${followingP} L ${p.x} ${p.y}` 
+  );
+  return `M ${firstP} ${followingP}`;  
+}
 
 
 class dagre_adapter{
@@ -51,11 +63,6 @@ class dagre_adapter{
     this.g.setGraph( renderOptions );
     this.g.setDefaultEdgeLabel(function() { return {}; });
     return this;
-  }
-  
-  convertDagesEdgesZoSvgPaths(){
-    //ausgabe werte = [{ x:21, y:12}, {x:231,y:213},{x:123,y:231}]
-    //benötigt für svg: <path d='M x y L x y ...'
   }
 
   setConnections( node ){
@@ -79,22 +86,31 @@ class dagre_adapter{
         } );
         //g.setEdge(child.id, child.connection.to[0]);
         //this.setConnections( child );
-      }
+          }
     );
     
-    g.setEdge(oprocProcess.childs[1].connection.from[0],  oprocProcess.childs[1].id);
-    mit setConnections() versuchen alle edges herzustellen
+    g.setEdge(oprocProcess.childs[1].connection.from[0],  oprocProcess.childs[1].id);    
+    this.setConnections(oprocProcess.childs[1]);
 
     dagre.layout(g);
     let nodes = [];
     g.nodes().forEach( function(v){ 
       if( g.node(v) != undefined ) nodes.push( g.node(v) )
     } );
-
-    this.convertDagesEdgesZoSvgPaths();
+    
+    let edges = [];
+    g.edges().forEach( function(e){
+      if( g.edge(e) != undefined ) {
+        edges.push({
+          d: dagesEdgeToSvgPath( g.edge(e) ),
+          stroke: CHILD_LINK_COLOR,
+          width: CHILD_LINK_WIDTH
+        });
+      }
+    });
     
     this.nodes = nodes;
-    this.edges = g.edges;
+    this.edges = edges;    
     this.height = g.graph().height;
     this.width = g.graph().width;
     
@@ -120,7 +136,8 @@ function RelationsGraph({
   let d = new dagre_adapter(renderOptions);
   d.createGraphLayoutFromOproc(process.process);
   nodes = d.nodes;
-  edges = d.nodes;
+  edges = d.edges;
+  console.log('edges: ', edges);
   height = d.height;
   //width = d.width; //let it on window size
   
@@ -132,14 +149,20 @@ function RelationsGraph({
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
         <g>
           <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR} />
+          {edges.map( edge => 
+            <path d={edge.d}
+                  fill='none'
+                  stroke={edge.stroke}
+                  stroke-width={edge.width} />  
+          )}
 
           {nodes.map( node =>
-              <Node id={node.id}
-              x={node.x} y={node.y} size={node.size}
-              shape={node.shape}
-              fill={node.fill}
-              stroke={node.stroke}
-              label={node.label}/>
+            <Node id={node.id}
+                  x={node.x} y={node.y} size={node.size}
+                  shape={node.shape}
+                  fill={node.fill}
+                  stroke={node.stroke}
+label={node.label}/>
           )}
         </g>
       </svg>
