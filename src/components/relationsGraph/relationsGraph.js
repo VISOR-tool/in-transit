@@ -67,13 +67,13 @@ class dagre_adapter{
   }
 
 
-  createGraphLayoutFromOproc( oprocProcess ){
+  createGraphLayoutFromOproc( oprocProcess, maxWidth, maxHeight, ){
     let g = this.g;
 
     oprocProcess.childs.map( 
       child => {
         g.setNode(child.id, { 
-          label: child.name, 
+          label: moment(child.start).format('DD.MM.YYYY')+" "+child .name,
           id: child.id,
           width: CHILD_SIZE, 
           height: CHILD_SIZE, 
@@ -87,6 +87,20 @@ class dagre_adapter{
     oprocProcess.childs.forEach( child => this.setConnections(child));
 
     dagre.layout(g);
+    /* begin of an adaptiv size function on layout
+    if( g.graph().height > maxHeight || g.graph().width > maxWidth){
+      this.g.setGraph( {      
+        rankdir: "RL",
+        align: "DR",
+        nodesep: 10, 
+        edgesep: 15,
+        ranksep: 20,
+        marginx: 10,
+        marginy: 10,} );
+      dagre.layout(g);
+    } */
+
+
     let nodes = [];
     g.nodes().forEach( function(v){ 
       if( g.node(v) != undefined ) nodes.push( g.node(v) )
@@ -120,16 +134,17 @@ function RelationsGraph({
   let edges = [];
 
   const renderOptions ={ 
+    ranker: "longest-path",
     rankdir: "RL",
-    nodesep: 10, 
-    edgesep: 15,
-    ranksep: 20,
+    nodesep: 20, 
+    edgesep: 20,
+    ranksep: 30,
     marginx: 10,
     marginy: 10,
   }
 
   let d = new dagre_adapter(renderOptions);
-  d.createGraphLayoutFromOproc(process.process);
+  d.createGraphLayoutFromOproc(process.process, width, height);
   nodes = d.nodes;
   edges = d.edges;
   height = d.height;
