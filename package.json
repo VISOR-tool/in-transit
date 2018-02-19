@@ -9,6 +9,7 @@
     "build": "preact build",
     "serve": "preact build && preact serve --dir src",
     "dev": "preact watch",
+    "format": "cd src && semistandard --fix",
     "flow": "flow"
   },
   "keywords": [],
@@ -22,7 +23,7 @@
     "eslint-config-synacor": "^2",
     "flow-bin": "^0.60.1",
     "if-env": "^1.0.0",
-    "semistandard": "^11.0.0"
+    "semistandard": "^12.0.0"
   },
   "dependencies": {
     "babel-plugin-transform-regenerator": "^6.26.0",
