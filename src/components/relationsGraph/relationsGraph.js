@@ -67,27 +67,24 @@ class dagre_adapter{
   }
 
 
-  createGraphLayoutFromOproc( oprocProcess, maxWidth, maxHeight, ){
+  createGraphLayoutFromOproc( oprocProcess, coloring, maxWidth, maxHeight, ){
     let g = this.g;
-
     oprocProcess.childs.map( 
-      child => {
-        g.setNode(child.id, { 
-          label: moment(child.start).format('DD.MM.YYYY')+" "+child .name,
-          id: child.id,
-          width: CHILD_SIZE, 
-          height: CHILD_SIZE, 
-          size: CHILD_SIZE,
-          shape: CHILD_SHAPE, 
-          stroke: CHILD_STROKE
-        } );
+      child => {        
+        g.setNode(child.id, Object.assign(
+          { 
+            label: moment(child.start).format('DD.MM.YYYY')+" "+child .name,
+            id: child.id,
+            width: CHILD_SIZE, 
+            height: CHILD_SIZE,
+          },
+          coloring(child) )
+        );
       }
     );
-    
     oprocProcess.childs.forEach( child => this.setConnections(child));
-
     dagre.layout(g);
-    /* begin of an adaptiv size function on layout
+    /* beginning of an adaptiv size function on layout
     if( g.graph().height > maxHeight || g.graph().width > maxWidth){
       this.g.setGraph( {      
         rankdir: "RL",
@@ -99,7 +96,6 @@ class dagre_adapter{
         marginy: 10,} );
       dagre.layout(g);
     } */
-
 
     let nodes = [];
     g.nodes().forEach( function(v){ 
@@ -116,12 +112,10 @@ class dagre_adapter{
         });
       }
     });
-    
     this.nodes = nodes;
     this.edges = edges;    
     this.height = g.graph().height;
     this.width = g.graph().width;
-    
     console.log('dagre nodes: ', this.nodes.length, 'dagre edges: ', this.edges.length);
   }
 }
@@ -143,8 +137,42 @@ function RelationsGraph({
     marginy: 10,
   }
 
+
+  const coloring = function(node) {
+    let shape = CHILD_SHAPE;
+    let size = CHILD_SIZE;
+    let fill = CHILD_FILL;
+    let stroke = CHILD_STROKE;
+    let edgeColor = CHILD_LINK_COLOR;
+
+    if(node.participation.includes('open')){
+      fill = PARTICIPATION_FILL;
+      stroke = PARTICIPATION_STROKE;
+    }
+    if (node.id == selected) {
+      stroke = SELECTED_STROKE;
+    }
+    if(node.childs.length > 0) {
+      shape = PARENT_SHAPE;
+      size = PARENT_SIZE;
+      fill = PARENT_FILL;
+      stroke = PARENT_STROKE;
+    }
+
+    if(node.childs.length > 0 ) edgeColor = PARENT_LINK_COLOR;
+    if(node.connection.to.length > 0) edgeColor = CHILD_LINK_COLOR;
+     
+    return { 
+      size: size,
+      shape: shape,
+      stroke: stroke,
+      fill: fill,
+      edgeColor: edgeColor,
+      };
+  }
+
   let d = new dagre_adapter(renderOptions);
-  d.createGraphLayoutFromOproc(process.process, width, height);
+  d.createGraphLayoutFromOproc(process.process, coloring, width, height);
   nodes = d.nodes;
   edges = d.edges;
   height = d.height;
