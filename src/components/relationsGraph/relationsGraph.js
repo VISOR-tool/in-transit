@@ -39,7 +39,7 @@ const PARTICIPATION_STROKE = "green";
 const SELECTED_STROKE = "blue";
 
 
-class dagre_adapter{
+class DagreAdapter{
   heigth = 0;
   width = 0;
   nodes = [];
@@ -51,7 +51,6 @@ class dagre_adapter{
     this.g = new dagre.graphlib.Graph();
     this.g.setGraph( renderOptions );
     this.g.setDefaultEdgeLabel(function() { return {}; });
-    return this;
   }
 
   setConnections( node ){
@@ -65,7 +64,6 @@ class dagre_adapter{
       }
     });
   }
-
 
   createGraphLayoutFromOproc( oprocProcess, coloring, maxWidth, maxHeight, ){
     let g = this.g;
@@ -171,7 +169,7 @@ function RelationsGraph({
       };
   }
 
-  let d = new dagre_adapter(renderOptions);
+  let d = new DagreAdapter(renderOptions);
   d.createGraphLayoutFromOproc(process.process, coloring, width, height);
   nodes = d.nodes;
   edges = d.edges;
