@@ -56,7 +56,7 @@ class dagre_adapter{
 
   setConnections( node ){
     let newCon = false;
-    node.connection.to.forEach( connection => {
+    node.connection.to.concat(node.connection.from).forEach( connection => {
       if(connection.length > 0){
         //sort both end points to make search for it a lot easier
         connection > node.id ? newCon = [connection, node.id] : newCon = [node.id, connection];
@@ -133,12 +133,12 @@ function RelationsGraph({
   let nodes = [];
   let edges = [];
 
-  const renderOptions ={ 
-    ranker: "longest-path",
+  const renderOptions = { 
+    ranker: "network-simplex", //network-simplex, tight-tree or longest-path
     rankdir: "RL",
-    nodesep: 20, 
-    edgesep: 20,
-    ranksep: 30,
+    nodesep: 5, 
+    edgesep: 5,
+    ranksep: 20,
     marginx: 10,
     marginy: 10,
   }
@@ -171,7 +171,7 @@ function RelationsGraph({
                   shape={node.shape}
                   fill={node.fill}
                   stroke={node.stroke}
-label={node.label}/>
+                  label={node.label}/>
           )}
         </g>
       </svg>
