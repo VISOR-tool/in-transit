@@ -81,7 +81,7 @@ const Process = ({ process, processPosition, stakeholder,
     }
 
     const spacer = 5;
-    const label = process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name;
+    let label = process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name;
     const sh = stakeholder.find(sh => sh.id == process.initiator);
     const processInitiator = sh.name;
     return (
@@ -119,6 +119,7 @@ const Process = ({ process, processPosition, stakeholder,
               {...iniAttrs}
               >[{process.start}]
         </text> */}
+        
       </g>
     );
   }
