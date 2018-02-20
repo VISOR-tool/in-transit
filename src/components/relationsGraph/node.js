@@ -20,7 +20,7 @@ const Node = props => {
 
   var shapeComponent;
   switch (shape) {
-  case 'circle':
+  case 'circle':size
     shapeComponent = <circle cx={x} cy={y} r={size} stroke-width={size/3} {...attrs} />;
     break;
   case 'square':
@@ -37,10 +37,10 @@ const Node = props => {
       {labelVisible
       ? <g transform={'translate(' + x + ',' + y + ')'}>
        ? <g>
-        <rect  x={1.5 * size} y={size / 3 -6} height="8" width={(label.length+4) * 2.55} fill="green" />
-        <text  x={1.5 * size +5} y={size / 3}
+        <rect  x={3 * size -7} y={size - 14} height="18" width={(label.length * 5)+4} fill="green" />
+        <text  x={(3 * size -4)} y={size / 3}
               text-anchor='start'
-              font-size="0.5em"
+              font-size="0.9em"
               fill="white"
               >
         {label}
