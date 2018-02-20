@@ -98,6 +98,7 @@ class DagreAdapter{
       if( g.node(v) != undefined ) nodes.push( g.node(v) )
     } );
     
+
     let edges = [];
     g.edges().forEach( function(e){
       if( g.edge(e) != undefined ) {
@@ -108,6 +109,8 @@ class DagreAdapter{
         });
       }
     });
+
+    
     this.nodes = nodes;
     this.edges = edges;    
     this.height = g.graph().height;
@@ -126,11 +129,11 @@ function RelationsGraph({
   const renderOptions = { 
     ranker: "network-simplex", //network-simplex, tight-tree or longest-path
     rankdir: "RL",
-    nodesep: 10, 
+    nodesep: 15, 
     edgesep: 10,
     ranksep: 20,
     marginx: 10,
-    marginy: 10,
+    marginy: 20,
   }
 
 
