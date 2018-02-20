@@ -68,8 +68,6 @@ const Process = ({ process, processPosition, stakeholder,
       bodyAttrs['stroke'] = selectedObjectStrokeColor;
     }
 
-    let label = process.name.length > 16 ? process.name.slice(0,13)+'...' : process.name;
-
     const textAttrs = {
       "font-family": "Monospace",
       "font-weight" : "100",
@@ -81,7 +79,6 @@ const Process = ({ process, processPosition, stakeholder,
     }
 
     const spacer = 5;
-    let label = process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name;
     const sh = stakeholder.find(sh => sh.id == process.initiator);
     const processInitiator = sh.name;
     return (
@@ -102,7 +99,7 @@ const Process = ({ process, processPosition, stakeholder,
         <text x={processPosition.x + spacer}
               y={processPosition.y + 14 }
               {...textAttrs}
-              >{label}
+              >{process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name}
         </text>
         {/* <text x={processPosition.x + spacer}
               y={processPosition.y + 20}
