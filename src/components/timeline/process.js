@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
 
+const PROCESS_MIN_WIDTH = 100;
 const defaultObjectColor = '#CCCCCC';
 const defaultObjectStrokeColor = '#3784F8';
 const participateObjectColor = '#FFFFAD';
@@ -19,7 +20,7 @@ const Process = ({ process, processPosition, stakeholder,
   const { id, subselected } = process;
   if (process.visible === true) {
     let bodyAttrs = {
-      width: 80,
+      width: PROCESS_MIN_WIDTH,
       stroke: defaultObjectStrokeColor,
       'stroke-width': 1,
       fill: defaultObjectColor,
@@ -36,7 +37,7 @@ const Process = ({ process, processPosition, stakeholder,
       
     if(process.searchHit){
       bodyAttrs = {
-        width: 80,
+        width: PROCESS_MIN_WIDTH,
         stroke: searchHitObjectstrokeColor,
         'stroke-width': 1,
         fill: searchHitObjectColor,
@@ -51,7 +52,7 @@ const Process = ({ process, processPosition, stakeholder,
           process.initiator === selected.val;
           break;
           case 'loc':
-          isSelected =
+          isSelected = 
           process.location &&
           (process.location.indexOf(selected.val) != -1);
           break;
@@ -68,15 +69,17 @@ const Process = ({ process, processPosition, stakeholder,
     }
 
     const textAttrs = {
-      "font-family": "Verdana",
-      "font-weight" : "bold",
-      "font-size": "0.8em"
+      "font-family": "Monospace",
+      "font-weight" : "100",
+      "font-size": "10px"
     }
     const iniAttrs = {
-      "font-family": "Verdana",
+      "font-family": "monospace",
       "font-size": "0.8em"
     }
+
     const spacer = 5;
+    const label = process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name;
     const sh = stakeholder.find(sh => sh.id == process.initiator);
     const processInitiator = sh.name;
     return (
@@ -95,7 +98,7 @@ const Process = ({ process, processPosition, stakeholder,
               {...bodyAttrs}
         />
         <text x={processPosition.x + spacer}
-              y={processPosition.y + 9 }
+              y={processPosition.y + 14 }
               {...textAttrs}
               >{process.name}
         </text>

@@ -4,7 +4,7 @@ import Process from './process';
 import Links from './links';
 import { selectionActions } from '../../lib/reducers/selection';
 
-const PROCESS_MIN_WIDTH = 80;
+const PROCESS_MIN_WIDTH = 100;
 const PROCESS_SPACING = 5;
 const PROCESS_HEIGHT = 40;
 
