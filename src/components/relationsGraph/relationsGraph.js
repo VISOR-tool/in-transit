@@ -110,6 +110,8 @@ class DagreAdapter{
       }
     });
 
+    // draw most right nodes at first, for overlay behaviour
+    nodes.sort( (a,b) => a.x < b.x );
     
     this.nodes = nodes;
     this.edges = edges;    
