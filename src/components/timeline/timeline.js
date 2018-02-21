@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import AxisX from './axis_x';
 import AxisY from './axis_y';
 import Swimlane from './swimlane';
-import Marker from './marker';
+// deactive until finished // import Marker from './marker';
 import { dataLoad } from '../../lib/reducers/data';
 import { zoomActions } from '../../lib/reducers/zoom';
 import { selectionActions } from '../../lib/reducers/selection';
@@ -170,7 +170,7 @@ class Timeline extends Component {
               onWheel={onWheel} showAxisLabels={true}
               processName={process.process.name}
         />
-        <Marker x={yAxisWidth} y="0" height={xAxisHeight}/>
+        { /* deactive until finished <Marker x={yAxisWidth} y="0" height={xAxisHeight}/> */ }
         <g
           onMouseWheel={onWheel}
           onwheel={onWheel}
