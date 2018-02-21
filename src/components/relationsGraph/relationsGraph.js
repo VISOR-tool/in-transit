@@ -13,7 +13,7 @@ import dagre from 'dagre';
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml'
 
-const BACKGROUND_COLOR = {fill: "#1B0D78"};
+const BACKGROUND_COLOR = "white";
 const LANE_SIZE = 2;
 const PARENT_SHAPE = "square";
 const PARENT_SIZE = 12;
@@ -183,12 +183,13 @@ function RelationsGraph({
   
   return (
     <div>
-      <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 15].join(' ')} preserveAspectRatio='xMidYMid ' style="cursor:default">
+      <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 18].join(' ')} preserveAspectRatio='xMidYMid' style="cursor:default">
         <Legend x="0" y="0" width={width}/>
       </svg>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
         <g onmousedown={selectNone}>
-          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} style={BACKGROUND_COLOR} />
+          <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} fill={BACKGROUND_COLOR} />
+          <text x="20" y="12" fill = "#555555" font-weight = "100" font-size = "12px"> Prozessübersicht </text>
           {edges.map( edge => 
             <path d={edge.d}
                   fill='none'
