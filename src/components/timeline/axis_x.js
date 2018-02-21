@@ -11,9 +11,8 @@ class Axis_X extends Component {
 
 
     const attrsText = {
-      stroke: '#9E49DE',
-      'stroke-width': 0.3,
-      fill: 'white'
+      "font-weight" : "100",
+      "font-size": "15px"
     };
     const attrs = {
       stroke: 'red',
@@ -40,9 +39,10 @@ class Axis_X extends Component {
               stroke = '#9E49DE'
               stroke-width = "0.3"
               fill = "Black"
-              font-size = "2em"
+              font-weight = "100"
+              font-size = "17px"
               >
-              {processName}
+              Prozess: {processName}
             </text>
             <text
               x = {x + space}
