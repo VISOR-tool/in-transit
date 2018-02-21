@@ -16,6 +16,7 @@ const Node = props => {
       ev.cancelBubble = true;
       select(id);
     },
+    style:"cursor:pointer",
   };
 
   var shapeComponent;
