@@ -36,14 +36,26 @@ class Axis_X extends Component {
           <text
               x = "200"
               y = {y + height-space}
-              stroke = '#9E49DE'
+              stroke = '#555555'
               stroke-width = "0.3"
-              fill = "Black"
+              fill = "#555555"
               font-weight = "100"
               font-size = "17px"
               >
               Prozess: {processName}
             </text>
+            <text
+              x = "50%"
+              y = {y + height-space}
+              text-anchor='middle'
+              stroke = '#555555'
+              stroke-width = "0.3"
+              fill = "#555555"
+              font-weight = "100"
+              font-size = "17px"
+              >
+              Timeline
+            </text>            
             <text
               x = {x + space}
               y = {y + height-space}
