@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
-import Iconbar, { IconbarElement } from '../../components/timeline/iconbar';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
 

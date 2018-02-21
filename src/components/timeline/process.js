@@ -95,7 +95,8 @@ const Process = ({ process, processPosition, stakeholder,
               width={processPosition.width}
               height={processPosition.height}
               {...bodyAttrs}
-        />
+        />        
+
         <text x={processPosition.x + spacer}
               y={processPosition.y + 14 }
               {...textAttrs}
