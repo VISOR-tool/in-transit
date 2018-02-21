@@ -97,25 +97,26 @@ const Process = ({ process, processPosition, stakeholder,
               {...bodyAttrs}
         />        
         
-        { process.participation.includes("open") ?
+        { process.transformation.decision === 'true' ?
           <image
-          xlinkHref={require('./icons/participation.svg')}
-          x={processPosition.x+65}
-          y={processPosition.y+20}
+          xlinkHref={require('./icons/decision.svg')}
+          x={processPosition.x-10}
+          y={processPosition.y+processPosition.height-18}
           width="100"
           height="100"            
           style='cursor:pointer'
           /> : null}
 
-        { process.transformation.decision === 'true' ?
+        { process.participation.includes("open") ?
           <image
-          xlinkHref={require('./icons/decision.svg')}
-          x={processPosition.x+2}
-          y={processPosition.y+20}
+          xlinkHref={require('./icons/participation.svg')}
+          x={processPosition.x+65}
+          y={processPosition.y+processPosition.height-18}
           width="100"
           height="100"            
           style='cursor:pointer'
           /> : null}
+
                   
           
         <text x={processPosition.x + spacer}
