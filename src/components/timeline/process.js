@@ -97,7 +97,7 @@ const Process = ({ process, processPosition, stakeholder,
               {...bodyAttrs}
         />        
         
-        { process.transformation.decision === 'true' ?
+        { process.transformation.decision === 'true' && processPosition.height > 18 ?
           <image
           xlinkHref={require('./icons/decision.svg')}
           x={processPosition.x-10}
@@ -107,7 +107,7 @@ const Process = ({ process, processPosition, stakeholder,
           style='cursor:pointer'
           /> : null}
 
-        { process.participation.includes("open") ?
+        { process.participation.includes("open")&& processPosition.height > 18 ?
           <image
           xlinkHref={require('./icons/participation.svg')}
           x={processPosition.x+65}
