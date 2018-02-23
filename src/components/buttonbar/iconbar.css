@@ -1,0 +1,36 @@
+.iconbar {
+    position: fixed;
+    left: 0px;
+    z-index: 10;
+    margin-top: 30px;
+    width: 54px;
+}
+
+.iconbarElement {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(77, 59, 59);
+}
+.iconbarElement img {
+    width: 50px;
+    z-index: 3;
+}
+
+.iconbarElement .iconbarElementChildren {
+    position: absolute;
+    overflow: auto;
+    z-index: 2;
+
+    top: 0;
+    left: 54px;
+    width: 35em;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
+.iconbarElement:hover .iconbarElementChildren {
+    transition: opacity 0.3s ease-in;
+    opacity: 1;
+    visibility: visible;
+}
