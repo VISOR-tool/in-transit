@@ -5,7 +5,7 @@ import style from './details.css';
 
 import { selectionActions } from '../../lib/reducers/selection';
 
-const MOMENT_FORMAT = "D.M.Y";
+const MOMENT_FORMAT = "DD.MM.Y";
 
 function LocationDetail({ room, address, zip, city }) {
   return (

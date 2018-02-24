@@ -1,0 +1,17 @@
+.chronology ul {
+    list-style-type: none;
+  }
+
+.chronology div {
+    padding: 0.3rem;
+}
+
+.chronology li:hover {
+    background: #BcBcBc;
+    cursor: pointer;
+}
+
+.chronology .openParticipation {
+    background: rgba(255, 166, 0, 0.3);
+    border: 1px solid  rgba(255, 166, 0, 0.1);
+}

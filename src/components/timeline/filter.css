@@ -18,28 +18,28 @@
 }
 .deselectedTab:hover {
   color: white;  
-  background-color: #00b;
+  background-color: #BcBcBc;
 }
 
 .filter{
   display: block;
   margin: 0;
   padding: 1em 2em;
-  background-color: lightgray;
-  border: solid 1px rgb(77, 59, 59);
+  background-color: white;
+  border: solid 1px #191919;
   height: 30vh;
   overflow-y: auto;
 }
 
 .filter dd:hover {
   cursor: pointer;
-  background-color: rgb(67, 157, 185);  
+  background-color: #BcBcBc;  
 }
 
 .textsearch{
   display: block;
   padding: 1em 2em;
-  background-color: lightgray;
+  background-color: white;
   border: solid 1px rgb(77, 59, 59);
   height: 30vh;
   overflow-y: auto;
@@ -48,14 +48,23 @@
 .toplist{
   display: block;
   padding: 1em 2em;
-  background-color: lightgray;
-  border: solid 1px rgb(77, 59, 59);
+  background-color: white;
+  border: solid 1px #191919;
   height: 30vh;
   overflow-y: auto;
 }
 .toplist div ul span:hover {
   cursor: pointer;
-  background-color: rgb(67, 157, 185);  
+  background-color: #BcBcBc;  
+}
+
+.chronology{
+  display: block;
+  padding: 1em 2em;
+  background-color: white;
+  border: solid 1px #191919;
+  height: 30vh;
+  overflow-y: auto;
 }
 
 .hidden {
