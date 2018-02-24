@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
+import Chronology from '../../components/chronology/chronology';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
 
@@ -10,6 +11,7 @@ const TAB_NAMES = [
   'Ordnen',
   'Suchen',
   'Aktiv',
+  'Chronologie'
 ];
 
 class Filtering extends Component {
@@ -38,7 +40,6 @@ class Filtering extends Component {
     case 0:
       return (
         <dl class={style.filter}>
-          <dd>onClick: markieren/<b>selektieren</b></dd>
           <dt><b>Prozesse</b></dt>
           <dd onClick={toggleParticipation}>nur Prozesse mit <b>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
           <dd onClick={toggleProcessOnlyWithResults}>nur Prozesse mit Ergebnissen anzeigen: <b>{filter.processOnlyWithResults}</b> </dd>
@@ -64,13 +65,20 @@ class Filtering extends Component {
             handleOnClicks={this.objectSelectionManager} />
         </div>
       );
-    case 3:
+      case 3:
       return (
         <div class={style.toplist}>
           <Toplist
             handleOnClicks={this.objectSelectionManager}/>
         </div>
       );
+      case 4:
+      return (
+        <div class={style.chronology}>
+          <Chronology
+            />
+        </div>
+      );      
     default:
       return null;
     }
