@@ -45,6 +45,11 @@
   overflow-y: auto;
 }
 
+.textsearch li:hover {
+  cursor: pointer;
+  background-color: #BcBcBc;
+}
+
 .toplist{
   display: block;
   padding: 1em 2em;
