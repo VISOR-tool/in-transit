@@ -134,12 +134,12 @@
         },
         "results": [
           {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
+            "id": "https://process.stadt.de/results/9",
+            "name": "Beschluss",
+            "description": "Sitzungsprotokoll",
             "copyright": "",
             "text": "",
-            "files": [],
+            "files": ["https://process.stadt.de/file/a9"],
             "created": "2011-11-11T11:11:00+01:00",
             "modified": "2012-11-11T11:11:00+01:00"
           }
@@ -178,11 +178,11 @@
         },
         "results": [
           {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
+            "id": "https://process.stadt.de/results/12",
+            "name": "Auschreibung",
+            "description": "",
             "copyright": "",
-            "text": "",
+            "text": "$Auschreibungstext",
             "files": [],
             "created": "2011-11-11T11:11:00+01:00",
             "modified": "2012-11-11T11:11:00+01:00"
@@ -221,16 +221,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -266,16 +256,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -311,16 +291,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -357,16 +327,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -403,12 +363,16 @@
         },
         "results": [
           {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
+            "id": "https://process.stadt.de/results/13",
+            "name": "Wettbewerbsergebnisse",
+            "description": "Unterlagen aller Wettbewerbsergebnisse",
             "copyright": "",
             "text": "",
-            "files": [],
+            "files": [
+                      "https://process.stadt.de/file/34u23", 
+                      "https://process.stadt.de/results/dajouu8", 
+                      "https://process.stadt.de/results/e32423"
+                    ],
             "created": "2011-11-11T11:11:00+01:00",
             "modified": "2012-11-11T11:11:00+01:00"
           }
@@ -445,16 +409,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -488,16 +442,7 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
+
         ]
       },
       {
@@ -530,16 +475,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -573,16 +508,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -619,16 +544,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -665,16 +580,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -711,16 +616,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -752,16 +647,6 @@
           "decision": "nein"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -797,16 +682,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -841,16 +716,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -886,16 +751,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -927,16 +782,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -971,16 +816,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1012,16 +847,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1053,16 +878,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1097,16 +912,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1138,16 +943,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1179,16 +974,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1223,16 +1008,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1267,16 +1042,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1308,16 +1073,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1351,16 +1106,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1395,16 +1140,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1441,16 +1176,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1487,16 +1212,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1532,16 +1247,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1576,16 +1281,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1622,16 +1317,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1666,16 +1351,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1708,16 +1383,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1753,16 +1418,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1798,16 +1453,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1842,16 +1487,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1887,16 +1522,6 @@
           "decision": "true"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1928,16 +1553,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       },
       {
@@ -1973,16 +1588,6 @@
           "decision": "false"
         },
         "results": [
-          {
-            "id": "https://process.stadt.de/results/11",
-            "name": "Antrag",
-            "description": "Antrag für NSP Mittel",
-            "copyright": "",
-            "text": "",
-            "files": [],
-            "created": "2011-11-11T11:11:00+01:00",
-            "modified": "2012-11-11T11:11:00+01:00"
-          }
         ]
       }
     ],

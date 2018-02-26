@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   procOnlyVisibleWith: '',
   procVisibileWithout: '',
   processParticipation: 'beliebiger',
-  processOnlyWithResults: 'on',
+  processOnlyWithResults: 'off',
   selectionBehaviour: 'off',
   swimlanesMode: 'off',
   visibleByProp: { loc: [], proc: [], sh: []},
@@ -157,7 +157,9 @@ export function applyFilter(data, filter) {
     proc.visible =
       !(filter.processParticipation == 'offener' && proc.participation == 'closed') 
       && (!filter.procVisibileWithout || proc.participants.indexOf( filter.procVisibileWithout ) == -1) 
-      && (!filter.procOnlyVisibleWith || proc.participants.indexOf( filter.procOnlyVisibleWith ) != -1);
+      && (!filter.procOnlyVisibleWith || proc.participants.indexOf( filter.procOnlyVisibleWith ) != -1)
+      && ! (filter.processOnlyWithResults == 'on' && proc.results.length == 0);
+      
 
     if(filter.selectionBehaviour === 'on'){
       proc.visible = filter.visibleByProp.proc.includes(proc.id);
@@ -165,7 +167,10 @@ export function applyFilter(data, filter) {
         proc.location.map( loc => { if(filter.visibleByProp.loc.includes(loc)) proc.visible = true; });
       if( ! proc.visible )
         proc.participants.map( sh => { if(filter.visibleByProp.sh.includes(sh)) proc.visible = true; });
-    }
+    }    
+
+
+
     return proc;
   });
   
