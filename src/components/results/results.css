@@ -1,0 +1,21 @@
+.results ul {
+    list-style-type: none;
+  }
+
+.results div {
+    padding: 0.3rem;
+}
+
+.results li {
+    padding: 0.3rem;
+}
+
+.results li:hover {
+    background: #BcBcBc;
+    cursor: pointer;
+}
+
+.results .openParticipation {
+    background: rgba(255, 166, 0, 0.3);
+    border: 1px solid  rgba(255, 166, 0, 0.1);
+}

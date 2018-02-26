@@ -4,6 +4,7 @@ import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
 import Chronology from '../../components/chronology/chronology';
 import ShList from '../../components/shList/shList';
+import Results from '../../components/results/results';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
 
@@ -14,6 +15,7 @@ const TAB_NAMES = [
   'Aktiv',
   'Chronologie',
   'Akteure',
+  'Resultate',
 ];
 
 class Filtering extends Component {
@@ -85,6 +87,13 @@ class Filtering extends Component {
       return (
         <div class={style.shList}>
           <ShList
+            />
+        </div>
+      );            
+      case 6:
+      return (
+        <div class={style.results}>
+          <Results
             />
         </div>
       );            
