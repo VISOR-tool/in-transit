@@ -3,6 +3,7 @@ import { connect } from 'preact-redux';
 import Textsearch from '../../components/timeline/textsearch';
 import Toplist from '../../components/timeline/toplist';
 import Chronology from '../../components/chronology/chronology';
+import ShList from '../../components/shList/shList';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './filter';
 
@@ -11,7 +12,8 @@ const TAB_NAMES = [
   'Ordnen',
   'Suchen',
   'Aktiv',
-  'Chronologie'
+  'Chronologie',
+  'Akteure',
 ];
 
 class Filtering extends Component {
@@ -78,7 +80,14 @@ class Filtering extends Component {
           <Chronology
             />
         </div>
-      );      
+      );  
+      case 5:
+      return (
+        <div class={style.shList}>
+          <ShList
+            />
+        </div>
+      );            
     default:
       return null;
     }

@@ -9,7 +9,6 @@ import Legend from './legend';
 import moment from 'moment';
 import dagre from 'dagre';
 
-
 const NS_SVG = 'http://www.w3.org/2000/svg';
 const NS_XHTML = 'http://www.w3.org/1999/xhtml'
 

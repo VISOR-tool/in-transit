@@ -72,6 +72,15 @@
   overflow-y: auto;
 }
 
+.shList{
+  display: block;
+  padding: 1em 2em;
+  background-color: white;
+  border: solid 1px #191919;
+  height: 30vh;
+  overflow-y: auto;
+}
+
 .hidden {
   display:none;
 }

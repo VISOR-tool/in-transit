@@ -1,0 +1,11 @@
+.shList ul {
+    list-style-type: none;
+  }
+
+.shList div {
+    padding: 0.3rem;
+}
+
+.shList li:hover {
+    background: #BcBcBc;
+}
