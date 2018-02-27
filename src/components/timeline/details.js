@@ -123,8 +123,10 @@ function DetailsOverlay ({ data, selected, hover, unhover, select }) {
       }
       <ProcessList title='Vorläufer'
         list={process.connection.from} />
+        <b>
       <ProcessList title='Nachfolgend'
         list={process.connection.to} />
+        </b>
       <h3>Orte</h3>
       <ul>
         { process.location.map(

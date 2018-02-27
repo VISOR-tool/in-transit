@@ -12,8 +12,7 @@ export default class Path extends Component {
     return (
       <g>
         <path d={line} fill='none'
-          stroke={color} stroke-width={size} />
-
+              stroke={color} stroke-width={size} />
       </g>
     );
   }

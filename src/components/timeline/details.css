@@ -37,13 +37,16 @@
 .overlay li {
     margin: 0.3rem 0;
 }
-.overlay a {
+
+a {
+    color: #888888;
     text-decoration: none;
+    background-color: none;
 }
 
 .titlebar {
     color: white;
-    background-color: #7f3f7f;
+    background-color: #ff6927;
     padding: 4rem 1.3rem 0.5rem;
 }
 .titlebar h2 {

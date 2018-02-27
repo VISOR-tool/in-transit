@@ -23,17 +23,17 @@ const PARENT_LINK_COLOR = "yellow";
 const CHILD_SHAPE = "circle";
 const CHILD_SIZE = 4;
 const CHILD_OUTLINE_WIDTH = 3;
-const CHILD_FILL= "white";
-const CHILD_STROKE = "black";
+const CHILD_FILL= "#989899";
+const CHILD_STROKE = "#989899";
 const CHILD_LINK_COLOR = "gray";
 const CHILD_LINK_WIDTH = 1;
 // const PARTICIPATION_SHAPE = "circle";
 // const PARTICIPATION_SIZE = 2;
-const PARTICIPATION_FILL = "green";
-const PARTICIPATION_STROKE = "green";
+const PARTICIPATION_FILL = "#FFB124";
+const PARTICIPATION_STROKE = "#FFB124";
 // const PARTICIPATION_LINK_COLOR = "red";
 // const PARTICIPATION_LINK_WIDTH = 1;
-const SELECTED_STROKE = "blue";
+const SELECTED_STROKE = "#ff6927";
 
 
 class DagreAdapter{
@@ -176,8 +176,8 @@ function RelationsGraph({
   //width = d.width; //let width on window size
 
   return (
-    <div>
-      <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 18].join(' ')} preserveAspectRatio='xMidYMid' style="cursor:default">
+    <div >
+      <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 36].join(' ')} preserveAspectRatio='xMidYMid' style="cursor:default">
         <Legend x="0" y="0" width={width}/>
       </svg>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
@@ -187,7 +187,7 @@ function RelationsGraph({
           {edges.map( edge =>
             <path d={edge.d}
                   fill='none'
-                  stroke={edge.stroke}
+                  stroke="#000"
                   stroke-width={edge.width} />
           )}
 

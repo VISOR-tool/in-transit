@@ -2,8 +2,8 @@
     list-style-type: none;
   }
 
-.chronology div {
-    padding: 0.3rem;
+.chronology li {
+    padding: 0.3em;
 }
 
 .chronology li:hover {
@@ -12,6 +12,5 @@
 }
 
 .chronology .openParticipation {
-    background: rgba(255, 166, 0, 0.3);
-    border: 1px solid  rgba(255, 166, 0, 0.1);
+    background: rgba(255, 166, 0, 0.86);
 }

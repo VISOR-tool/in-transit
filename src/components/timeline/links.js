@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 const dimmedLinks = '#DAC9CA';
-const highlightedLinks = '#635C91';
+const highlightedLinks = '#888888';
 
 const Links = ({ processes, processPositions }) => {
   if (processes.length < 2) return false;

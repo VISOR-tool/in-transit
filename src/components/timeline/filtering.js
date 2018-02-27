@@ -106,7 +106,7 @@ class Filtering extends Component {
     const selectTab = tab => () => this.setState({ tab });
 
     return (
-      <div>
+      <div class={style.component}>
         <ul class={style.tabs}>
           {TAB_NAMES.map((tab, i) => (
             <li onClick={selectTab(i)}

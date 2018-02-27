@@ -2,13 +2,16 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
 
-const defaultObjectColor = '#CCCCCC';
-const defaultObjectStrokeColor = '#3784F8';
-const participateObjectColor = '#FFFFAD';
-const participateObjectStrokeColor = '#000000';
-const onHoverObjectColor = '#71E2F8';
-const selectedObjectColor = '#B5B0FF';
-const selectedObjectStrokeColor = '#FF0000';
+const defaultObjectColor = '#989899';
+const defaultObjectStrokeColor = '#989899';
+const participateObjectColor = '#FFB124';
+const participateObjectStrokeColor = '#FFB124';
+const onHoverClosedObjectColor = '#BABABA';
+const onHoverClosedObjectStroke = '#BABABA';
+const onHoverOpenObjectColor = '#F9C985';
+const onHoverOpenObjectStroke = '#F9C985';
+const selectedObjectColor = '#ff6927';
+const selectedObjectStrokeColor = '#ff6927';
 const searchHitObjectColor = '#FFA487';
 const searchHitObjectstrokeColor = '#3784F8';
 
@@ -28,9 +31,15 @@ const Process = ({ process, processPosition, stakeholder,
       bodyAttrs['stroke'] = participateObjectStrokeColor;
     }
 
-    if (hovered === id) {
-      bodyAttrs['fill'] = onHoverObjectColor;
-    }
+    if (hovered === id ){
+      if(process.participation.includes('open')) {
+        bodyAttrs['fill'] = onHoverOpenObjectStroke;
+        bodyAttrs['stroke'] = onHoverOpenObjectStroke;
+      } else {
+        bodyAttrs['fill'] = onHoverClosedObjectColor;
+        bodyAttrs['stroke'] = onHoverClosedObjectStroke;
+      }
+    } 
 
     if (process.searchHit) {
       bodyAttrs = {
@@ -65,6 +74,7 @@ const Process = ({ process, processPosition, stakeholder,
     }
 
     const textAttrs = {
+      'fill': 'white',
       'font-family': 'Monospace',
       'font-weight': '100',
       'font-size': '10px'
@@ -100,6 +110,7 @@ const Process = ({ process, processPosition, stakeholder,
             y={processPosition.y + processPosition.height - 18}
             width='100'
             height={processPosition.height + 65}
+            fill='white'
             style='cursor:pointer'
           /> : null }
 
@@ -111,8 +122,19 @@ const Process = ({ process, processPosition, stakeholder,
             width='100'
             height={processPosition.height + 65}
             style='cursor:pointer'
-            stroke='red'
+            fill='white'
           /> : null }
+
+        { process.results.length > 0
+          ? <image
+            xlinkHref={require('./icons/participation.svg')}
+            x={processPosition.x + 30}
+            y={processPosition.y + processPosition.height - 18}
+            width='100'
+            height={processPosition.height + 65}
+            style='cursor:pointer'
+            fill='white'
+          /> : null }          
 
         <text x={processPosition.x + spacer}
           y={processPosition.y + 14}

@@ -38,7 +38,7 @@ const Node = props => {
       {labelVisible
         ? <g transform={'translate(' + x + ',' + y + ')'}>
        ? <g>
-         <rect x={3 * size - 7} y={size - 14} height='18' width={(label.length * 5) + 4} fill='green' />
+         <rect x={3 * size - 7} y={size - 14} height='18' width={(label.length * 5) + 4} fill={fill} />
          <text x={(3 * size - 4)} y={size / 3}
               text-anchor='start'
               font-size='0.9em'
