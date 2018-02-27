@@ -32,7 +32,7 @@ export default class App extends Component {
         <div id='app'>
           <Header />
           <Router onChange={this.handleRoute}>
-            <Home path='/' />
+            <Timeline path='/' />
           </Router>
           <Router onChange={this.handleRoute}>
             <Oproc path='/oproc' />
