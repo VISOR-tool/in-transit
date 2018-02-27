@@ -1,6 +1,9 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
+import DecisionIcon from './icons/decision.svg';
+import ParticipationIcon from './icons/participation.svg';
+import ResultsIcon from './icons/results.svg';
 
 const defaultObjectColor = '#989899';
 const defaultObjectStrokeColor = '#989899';
@@ -83,6 +86,13 @@ const Process = ({ process, processPosition, stakeholder,
       'font-family': 'monospace',
       'font-size': '0.8em'
     };
+    const iconAttrs = {
+      y: processPosition.y + processPosition.height - 22,
+      width: 20,
+      height: 20,
+      cursor: 'pointer',
+    };
+    const iconX = i => processPosition.x + spacer + i * (2 * spacer + iconAttrs.width);
 
     const spacer = 5;
     const sh = stakeholder.find(sh => sh.id == process.initiator);
@@ -105,36 +115,30 @@ const Process = ({ process, processPosition, stakeholder,
 
         { process.transformation.decision === 'true'
           ? <image
-            xlinkHref={require('./icons/decision.svg')}
-            x={processPosition.x - 10}
-            y={processPosition.y + processPosition.height - 18}
-            width='100'
-            height={processPosition.height + 65}
-            fill='white'
-            style='cursor:pointer'
-          /> : null }
+              xlinkHref={DecisionIcon}
+              x={iconX(0)}
+              {...iconAttrs}
+            >
+              <title>Dieser Prozess wurde entschieden</title>
+            </image> : null }
 
         { process.participation.includes('open')
           ? <image
-            xlinkHref={require('./icons/participation.svg')}
-            x={processPosition.x + 65}
-            y={processPosition.y + processPosition.height - 18}
-            width='100'
-            height={processPosition.height + 65}
-            style='cursor:pointer'
-            fill='white'
-          /> : null }
+              xlinkHref={ParticipationIcon}
+              x={iconX(1)}
+              {...iconAttrs}
+            >
+              <title>Offene Beteiligung</title>
+            </image> : null }
 
         { process.results.length > 0
           ? <image
-            xlinkHref={require('./icons/participation.svg')}
-            x={processPosition.x + 30}
-            y={processPosition.y + processPosition.height - 18}
-            width='100'
-            height={processPosition.height + 65}
-            style='cursor:pointer'
-            fill='white'
-          /> : null }          
+              xlinkHref={ResultsIcon}
+              x={iconX(2)}
+              {...iconAttrs}
+            >
+              <title>Dieser Prozess hat Ergebnisse</title>
+            </image> : null }
 
         <text x={processPosition.x + spacer}
           y={processPosition.y + 14}
