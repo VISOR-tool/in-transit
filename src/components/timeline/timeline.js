@@ -129,7 +129,7 @@ class Timeline extends Component {
   render () {
     const { beginning, end, steps, process, filter } = this.props;
     const yAxisWidth = 0;
-    const xAxisHeight = 20;
+    const xAxisHeight = 26;
     let swimlanes = [];
 
     if(filter.swimlanesMode == 'off'){
@@ -181,7 +181,7 @@ class Timeline extends Component {
             <Swimlane id = {lane.id}
                       title = {lane.name}
                       x = {yAxisWidth}
-                      y = {20 + (swimlaneHeight * parseInt(index))}
+                      y = {xAxisHeight + 8 + (swimlaneHeight * parseInt(index))}
                       width = {tlWidth-yAxisWidth}
                       height = {swimlaneHeight}
                       processes = {lane.processes}

@@ -10,18 +10,26 @@ class Axis_X extends Component {
 
     const attrsText = {
       'font-weight': '100',
-      'font-size': '15px'
+      'font-size': '15px',
+      'fill': 'white',
     };
     const attrs = {
-      stroke: 'red',
-      'stroke-width': 1,
-      fill: 'white'
+      fill: '#888888',
+      'filter': 'url(#x-axis-shadow)'
     };
 
     return (
       <g
         onWheel={this.props.onWheel}
       >
+        <filter id="x-axis-shadow">
+          <feFlood flood-color="rgba(0,0,0,0.3)" result="shade"/>
+          <feGaussianBlur in="shade" result="shadow" stdDeviation="15"/>
+          <feMerge>
+            <feMergeNode in="shadow"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
         <rect
           id='xAXis'
           x={x}
@@ -34,9 +42,7 @@ class Axis_X extends Component {
           <text
             x='200'
             y={y + height - space}
-            stroke='#555555'
-            stroke-width='0.3'
-            fill='#555555'
+            fill='white'
             font-weight='100'
             font-size='17px'
           >
@@ -46,9 +52,7 @@ class Axis_X extends Component {
             x='50%'
             y={y + height - space}
             text-anchor='middle'
-            stroke='#555555'
-            stroke-width='0.3'
-            fill='#555555'
+            fill='white'
             font-weight='100'
             font-size='17px'
           >

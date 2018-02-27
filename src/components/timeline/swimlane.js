@@ -43,8 +43,6 @@ class Swimlane extends Component {
     processes = this.assignSubselectionToAffectedObjects(processes);
 
     let timelineAttrs = {
-      stroke: '#16CEEA',
-      'stroke-width': 1,
       fill: 'white'
     };
 
