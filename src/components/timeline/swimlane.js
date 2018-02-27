@@ -9,31 +9,29 @@ const PROCESS_SPACING = 5;
 const PROCESS_HEIGHT = 40;
 
 class Swimlane extends Component {
-  markNodes( startNode, processes ){
-    processes.map( process => {
-      if(process.id === startNode) {
+  markNodes (startNode, processes) {
+    processes.map(process => {
+      if (process.id === startNode) {
         process.subselected = true;
-        if(process.connection.to.length > 0)
-        process.connection.to.map( nextNode => this.markNodes(nextNode, processes) )
+        if (process.connection.to.length > 0) { process.connection.to.map(nextNode => this.markNodes(nextNode, processes)); }
       }
     });
   }
 
-  
-  resetSubselection( processes ){
-    processes.map( process => {
-        process.subselected = false;
+  resetSubselection (processes) {
+    processes.map(process => {
+      process.subselected = false;
     });
   }
 
-  assignSubselectionToAffectedObjects( processes ){
-    this.resetSubselection( processes );    
-    if(this.props.selected === null) return processes;
+  assignSubselectionToAffectedObjects (processes) {
+    this.resetSubselection(processes);
+    if (this.props.selected === null) return processes;
 
     this.markNodes(
       this.props.selected,
-      processes,
-    )
+      processes
+    );
     return processes;
   }
 
@@ -41,8 +39,8 @@ class Swimlane extends Component {
     const { id, title, x, y, width, height, stakeholder, zoomStart, zoomEnd } = this.props;
     // Clone
     let processes = this.props.processes.concat();
-    
-    processes = this.assignSubselectionToAffectedObjects( processes );
+
+    processes = this.assignSubselectionToAffectedObjects(processes);
 
     let timelineAttrs = {
       stroke: '#16CEEA',
@@ -55,14 +53,14 @@ class Swimlane extends Component {
       'font-size': '0.8em'
     };
 
-    function timeToX(time) {
-      if (typeof time == 'string') {
+    function timeToX (time) {
+      if (typeof time === 'string') {
         time = Date.parse(time);
       }
       if (time.getTime) {
         time = time.getTime();
       }
-      if (typeof time != 'number') {
+      if (typeof time !== 'number') {
         throw new Error('Cannot calculate with time');
       }
       return width / (zoomEnd - zoomStart) * (time - zoomStart);
@@ -124,7 +122,6 @@ class Swimlane extends Component {
         // overlaps horizontally?
         if (other.x <= pos.x + pos.width &&
             pos.x <= other.x + other.width) {
-
           // min() so that we retain previous downsizing
           other.y = Math.min(other.y, y + yScale * (other.origY - y));
           other.height = Math.min(other.height, yScale * other.origHeight);
@@ -135,40 +132,40 @@ class Swimlane extends Component {
     return (
       <g>
         <rect id={id}
-            x = {x}
-            y = {y}
-            width = {width}
-            height = {height}
-            {...timelineAttrs} />
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          {...timelineAttrs} />
         <text
-            x = {x}
-            y = {y + height - PROCESS_SPACING}
-            {...textAttrs}
-          >{title}</text>
+          x={x}
+          y={y + height - PROCESS_SPACING}
+          {...textAttrs}
+        >{title}</text>
 
         <Links processes={processes} processPositions={processPositions} />
-        {processes.map( (process, index) =>
-            <Process
-              process = {process}
-              processPosition = {processPositions[index]}
-              stakeholder = {stakeholder}
-            />
+        {processes.map((process, index) =>
+          <Process
+            process={process}
+            processPosition={processPositions[index]}
+            stakeholder={stakeholder}
+          />
         )}
       </g>
     );
   }
 }
 
-const mapStateToProps = ({ zoom,marker, selection }) => ({
+const mapStateToProps = ({ zoom, marker, selection }) => ({
   zoomStart: zoom.sectionStart.getTime(),
   zoomEnd: zoom.sectionEnd.getTime(),
   marker: marker,
-  selected: selection.selected,
+  selected: selection.selected
 });
 
 export default connect(mapStateToProps)(Swimlane);
 
-function overlaps(pos1, pos2) {
+function overlaps (pos1, pos2) {
   return pos1.x + pos1.width >= pos2.x && pos1.x < pos2.x + pos2.width &&
     pos1.y + pos1.height >= pos2.y && pos1.y < pos2.y + pos2.height;
 }

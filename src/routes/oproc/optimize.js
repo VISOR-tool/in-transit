@@ -33,12 +33,12 @@ export function score (nodes, lanes) {
         const dx = Math.abs(x2 - x1);
         const dy = Math.abs(y2 - y1);
         // console.log({dx,dy});
-        
+
         // if (x1 < x2) {
         //   // Try to have right increase to right
         //   sum += 10 * (x2 - x1);
         // }
-        
+
         if (dy < 0.01) {
           // Straight horizontal lines
           const dist = dx + dy;
@@ -101,7 +101,7 @@ export function score (nodes, lanes) {
       }
     }
   }
-  
+
   return 100000 / (1 + sum);
 }
 

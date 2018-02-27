@@ -1,65 +1,67 @@
 import Oproc from '../oproc';
 
 const INITIAL_STATE = {
-  data: {},
+  data: {}
 };
 
 const LOAD_DATA = 'visor/data/LOAD_DATA';
 const LOAD_DONE = 'visor/data/LOAD_DONE';
 const LOAD_FAIL = 'visor/data/LOAD_FAIL';
 
-export function dataReducer(dataState = INITIAL_STATE, action) {
-  switch(action['type']) {
-  case LOAD_DATA:
+export function dataReducer (dataState = INITIAL_STATE, action) {
+  switch (action['type']) {
+    case LOAD_DATA:
     // TODO: erase `data` already?
-    return {
-      ...dataState,
-      wantedUrl: action.url,
-    };
-  case LOAD_DONE:
-    if (action.url === dataState.wantedUrl) {
       return {
-        wantedUrl: action.url,
-        url: action.url,
-        data: action.data
+        ...dataState,
+        wantedUrl: action.url
       };
-    } else {
+    case LOAD_DONE:
+      if (action.url === dataState.wantedUrl) {
+        return {
+          wantedUrl: action.url,
+          url: action.url,
+          data: action.data
+        };
+      } else {
       // Ignore this result if `wantedUrl` has already been updated
-      return dataState;
-    }
-  case LOAD_FAIL:
-    if (action.url === dataState.wantedUrl) {
-      return {
-        wantedUrl: action.url,
-        error: action.error.message || action.error.toString(),
-        // dummy
-        data: {},
-      };
-    } else {
+        return dataState;
+      }
+    case LOAD_FAIL:
+      if (action.url === dataState.wantedUrl) {
+        return {
+          wantedUrl: action.url,
+          error: action.error.message || action.error.toString(),
+          // dummy
+          data: {}
+        };
+      } else {
       // Ignore this result if `wantedUrl` has already been updated
+        return dataState;
+      }
+    default:
       return dataState;
-    }
-  default:
-    return dataState;
   }
 }
 
 const dataActions = {
   loadData: (url) => ({
     type: LOAD_DATA,
-    url,
+    url
   }),
 
   loadDone: (url, data) => ({
     type: LOAD_DONE,
     wantedUrl: url,
-    url, data,
+    url,
+    data
   }),
 
   loadFail: (url, error) => ({
     type: LOAD_FAIL,
-    url, error,
-  }),
+    url,
+    error
+  })
 };
 
 export const dataLoad = dispatch => url => {
@@ -72,5 +74,5 @@ export const dataLoad = dispatch => url => {
     )
     .catch(
       error => dispatch(dataActions.loadFail(url, error))
-    )
-}
+    );
+};

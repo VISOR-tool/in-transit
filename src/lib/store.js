@@ -8,7 +8,7 @@ import { markerReducer } from './reducers/marker';
 
 const INITIAL = {};
 
-function makeFilterUpdater(inner) {
+function makeFilterUpdater (inner) {
   return (oldState = INITIAL, action) => {
     // Avoid warning
     delete oldState.filteredData;
@@ -31,9 +31,9 @@ export default () => createStore(
       filter: filterReducer,
       selection: selectionReducer,
       search: searchReducer,
-      marker: markerReducer,
+      marker: markerReducer
     })
   ),
   INITIAL,
-  typeof devToolsExtension==='function' ? devToolsExtension() : undefined
+  typeof devToolsExtension === 'function' ? devToolsExtension() : undefined
 );

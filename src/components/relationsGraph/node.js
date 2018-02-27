@@ -16,19 +16,19 @@ const Node = props => {
       ev.cancelBubble = true;
       select(id);
     },
-    style:"cursor:pointer",
+    style: 'cursor:pointer'
   };
 
   var shapeComponent;
   switch (shape) {
-  case 'circle':size
-    shapeComponent = <circle cx={x} cy={y} r={size} stroke-width={size/3} {...attrs} />;
-    break;
-  case 'square':
-    shapeComponent = <rect x={x} y={y} width={size/2} height={size/2} stroke-width={size/5} {...attrs} />;
-    break;
-  default:
-    throw new Error('No Node shape!');
+    case 'circle':size;
+      shapeComponent = <circle cx={x} cy={y} r={size} stroke-width={size / 3} {...attrs} />;
+      break;
+    case 'square':
+      shapeComponent = <rect x={x} y={y} width={size / 2} height={size / 2} stroke-width={size / 5} {...attrs} />;
+      break;
+    default:
+      throw new Error('No Node shape!');
   }
 
   const labelVisible = props.hovered == id;
@@ -36,32 +36,32 @@ const Node = props => {
     <g>
       {shapeComponent}
       {labelVisible
-      ? <g transform={'translate(' + x + ',' + y + ')'}>
+        ? <g transform={'translate(' + x + ',' + y + ')'}>
        ? <g>
-        <rect  x={3 * size -7} y={size - 14} height="18" width={(label.length * 5)+4} fill="green" />
-        <text  x={(3 * size -4)} y={size / 3}
+         <rect x={3 * size - 7} y={size - 14} height='18' width={(label.length * 5) + 4} fill='green' />
+         <text x={(3 * size - 4)} y={size / 3}
               text-anchor='start'
-              font-size="0.9em"
-              fill="white"
-              >
-        {label}
-        </text>
+              font-size='0.9em'
+              fill='white'
+            >
+              {label}
+            </text>
        </g>
        }
 
-      </g> : null}
+        </g> : null}
     </g>
   );
-}
+};
 
 const mapStateToProps = ({ selection, filter }) => ({
   hovered: selection.hovered,
-  selected: selection.selected,
+  selected: selection.selected
 });
 const mapDispatchToProps = dispatch => ({
   hover: value => dispatch(selectionActions.hover(value)),
   unhover: value => dispatch(selectionActions.unhover(value)),
-  select: value => dispatch(selectionActions.select(value)),
+  select: value => dispatch(selectionActions.select(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Node);

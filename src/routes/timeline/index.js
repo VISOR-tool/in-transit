@@ -11,12 +11,10 @@ import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './style';
 
-
 class TimelineRoute extends Component {
-  
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias.json'; //'oproc-elias-145-kapselt-ein.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
+    const wantedUrl = 'oproc-elias.json'; // 'oproc-elias-145-kapselt-ein.json'; //'oproc-elias-2018.json'; //'oproc-tiny-tree.json'
 
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
@@ -25,9 +23,9 @@ class TimelineRoute extends Component {
         }
       }, 1000);
     }
-    
-    if(data.process == undefined) return "Daten werden noch geladen";
-    let stakeholderOptions = [{ id: "", name: "…" }].concat(data.process.stakeholder).map(sh => <option value={sh.id}>{sh.name}</option>);
+
+    if (data.process == undefined) return 'Daten werden noch geladen';
+    let stakeholderOptions = [{ id: '', name: '…' }].concat(data.process.stakeholder).map(sh => <option value={sh.id}>{sh.name}</option>);
 
     const {
       filter,
@@ -38,13 +36,13 @@ class TimelineRoute extends Component {
       toggleProcessMapping,
       toggleLaneOrder,
       toggleLaneWrap,
-      toggleProcessOnlyWithResults,
+      toggleProcessOnlyWithResults
     } = this.props;
-    
+
     return (
       <div class={style.container}>
         <div class={style.tile1}>
-          <RelationsGraph  width={640} height={100} />        
+          <RelationsGraph width={640} height={100} />
         </div>
         <div class={style.tile2}>
           <Filtering />
@@ -55,9 +53,9 @@ class TimelineRoute extends Component {
             height={window.outerHeight - 300}
             process={data}
             filter={filter}
-            />
+          />
         </div>
-        <DetailsOverlay/>
+        <DetailsOverlay />
       </div>
     );
   }
@@ -66,7 +64,7 @@ class TimelineRoute extends Component {
 const mapStateToProps = ({ data, filteredData, filter }) => ({
   dataUrl: data.wantedUrl,
   data: filteredData,
-  filter,
+  filter
 });
 const mapDispatchToProps = dispatch => ({
   loadData: dataLoad(dispatch),
@@ -77,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
   setProcOnlyVisibleWith: value => dispatch(filterActions.setProcOnlyVisibleWith(value)),
   toggleProcessMapping: () => dispatch(filterActions.toggleProcessMapping()),
   toggleLaneOrder: () => dispatch(filterActions.toggleLaneOrder()),
-  toggleLaneWrap: () => dispatch(filterActions.toggleLaneWrap()),
+  toggleLaneWrap: () => dispatch(filterActions.toggleLaneWrap())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineRoute);

@@ -15,57 +15,49 @@
 
 export default class Oproc {
   // TESTS //
-  test_loading_ok() {
-    if( this.oproc.system.id  != '' && this.oproc.system.id != undefined) {
+  test_loading_ok () {
+    if (this.oproc.system.id != '' && this.oproc.system.id != undefined) {
       return 'success';
-    }
-    else {
+    } else {
       return 'failed';
     }
   }
   // /TESTS //
 
-
-  async download(oproc){
+  async download (oproc) {
     const response = await fetch(oproc);
     const parsedResponse = await response.json();
     return parsedResponse;
   }
 
-  async reload(process) {
+  async reload (process) {
     let oproc = await this.download(process);
     oproc = this.addVisibleProperty(oproc);
     return oproc;
   }
 
-  addVisibleProperty(oproc){
+  addVisibleProperty (oproc) {
     const children = oproc.process.childs;
-    children.map( proc => {
-        proc.visible = true;
-        return proc
-      });
+    children.map(proc => {
+      proc.visible = true;
+      return proc;
+    });
     return oproc;
   }
 
-
-  subprocessNames(){
+  subprocessNames () {
     let names = this.oproc.process.childs.map(child => child.name);
     return names;
   }
 
-
-  processHead(outputFlag) {
+  processHead (outputFlag) {
     var head = {
-      "comment" : this.oproc.process._comment,
-      "id": this.oproc.process.id,
-      "initiator": this.oproc.process.initiator,
-    }
-    if( this.oproc.process.reference != '' && this.oproc.process.reference != undefined)
-      head.reference = this.oproc.process.reference;
+      'comment': this.oproc.process._comment,
+      'id': this.oproc.process.id,
+      'initiator': this.oproc.process.initiator
+    };
+    if (this.oproc.process.reference != '' && this.oproc.process.reference != undefined) { head.reference = this.oproc.process.reference; }
 
-    if(outputFlag == 'str')
-      return "comment: "+head.comment+"\nid: "+head.id+"\ninitiator: "+head.initiator;
-    else
-      return head;
+    if (outputFlag == 'str') { return 'comment: ' + head.comment + '\nid: ' + head.id + '\ninitiator: ' + head.initiator; } else { return head; }
   }
 }

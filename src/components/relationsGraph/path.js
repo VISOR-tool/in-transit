@@ -10,10 +10,10 @@ export default class Path extends Component {
     const line = `M${path.x1},${path.y1} L${path.x2},${path.y2}`;
 
     return (
-      <g>        
-          <path d={line} fill='none'
-            stroke={color} stroke-width={size} />
-        
+      <g>
+        <path d={line} fill='none'
+          stroke={color} stroke-width={size} />
+
       </g>
     );
   }

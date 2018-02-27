@@ -7,7 +7,7 @@ import { dataLoad } from '../../lib/reducers/data';
 class Home extends Component {
   render () {
     const { dataUrl, loadData, data } = this.props;
-    const wantedUrl = 'oproc-elias.json';  //hier syncronisieren mit der route timeline
+    const wantedUrl = 'oproc-elias.json'; // hier syncronisieren mit der route timeline
     if (dataUrl !== wantedUrl) {
       setTimeout(() => {
         if (dataUrl !== wantedUrl) {
@@ -22,7 +22,7 @@ class Home extends Component {
 
     return (
       <div class={style.home}>
-        <Filtering/>
+        <Filtering />
       </div>
     );
   }
@@ -30,10 +30,10 @@ class Home extends Component {
 
 const mapStateToProps = ({ data, filteredData }) => ({
   dataUrl: data.wantedUrl,
-  data: filteredData,
+  data: filteredData
 });
 const mapDispatchToProps = dispatch => ({
-  loadData: dataLoad(dispatch),
+  loadData: dataLoad(dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

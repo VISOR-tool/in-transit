@@ -37,16 +37,16 @@ export default class Node extends Component {
         {shapeComponent}
 
         {labelVisible
-        ? <g transform={'translate(' + mapX(x) + ',' + mapY(y) + ')'}>
-          {(labelRotation <= 180)
-         ? <text x={zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(zoom * size / 2)}>
-           {label}
-         </text>
-         : <text x={-zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 270) + ')'} text-anchor='end' font-size={Math.round(zoom * size)}>
-           {label}
-         </text>}
+          ? <g transform={'translate(' + mapX(x) + ',' + mapY(y) + ')'}>
+            {(labelRotation <= 180)
+              ? <text x={zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 90) + ')'} text-anchor='start' font-size={Math.round(zoom * size / 2)}>
+                {label}
+              </text>
+              : <text x={-zoom * 1.5 * size / 2} y={zoom * size / 6} transform={'rotate(' + (labelRotation - 270) + ')'} text-anchor='end' font-size={Math.round(zoom * size)}>
+                {label}
+              </text>}
 
-        </g> : null}
+          </g> : null}
       </g>
     );
   }

@@ -15,94 +15,94 @@ const TAB_NAMES = [
   'Aktiv',
   'Chronologie',
   'Akteure',
-  'Resultate',
+  'Resultate'
 ];
 
 class Filtering extends Component {
-  constructor() {
-    super()
+  constructor () {
+    super();
     this.state = {
-      tab: 0,
+      tab: 0
     };
   }
 
-  renderContent() {
+  renderContent () {
     const {
       data, filter,
       toggleProcessOnlyWithResults, toggleParticipation,
       setProcVisibleWithout, setProcOnlyVisibleWith,
       toggleProcessMapping, toggleLaneOrder,
-      toggleLaneWrap, toggleSwimlanesMode,
+      toggleLaneWrap, toggleSwimlanesMode
     } = this.props;
-    const stakeholderOptions = [{ id: "", name: "…" }]
-          .concat(data.process && data.process.stakeholder || [])
-          .map(
-            sh => <option value={sh.id}>{sh.name}</option>
-          );
+    const stakeholderOptions = [{ id: '', name: '…' }]
+      .concat(data.process && data.process.stakeholder || [])
+      .map(
+        sh => <option value={sh.id}>{sh.name}</option>
+      );
 
-    switch(this.state.tab) {
-    case 0:
-      return (
-        <dl class={style.filter}>
-          <dt><b>Prozesse</b></dt>
-          <dd onClick={toggleParticipation}>nur Prozesse mit <b>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
-          <dd onClick={toggleProcessOnlyWithResults}>nur Prozesse mit Ergebnissen anzeigen: <b>{filter.processOnlyWithResults}</b> </dd>
-          <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-          <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
-        </dl>
-      );
-    case 1:
-      return (
-        <dl class={style.filter}>
-          <b>Swimmbahnen</b>
-          <dd onClick={toggleSwimlanesMode}>Swimlanes: <b>{filter.swimlanesMode}</b> </dd>
-          <dd onClick={toggleProcessMapping}>Schwimmbahnen sind: <b>{filter.processMapping}</b></dd>
-          <dd onClick={toggleLaneWrap}>leere Schwimmbahnen ausblenden: <b>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
-          <dd onClick={toggleLaneOrder}>Aphabetisch <b>{filter.laneOrder == 'asc' ? "aufsteigend" : "absteigend"}</b> sortieren</dd>
-        </dl>
-      );
-    case 2:
-      return (
-        <div class={style.textsearch}>
-          <Textsearch
-            process={data}
-            handleOnClicks={this.objectSelectionManager} />
-        </div>
-      );
+    switch (this.state.tab) {
+      case 0:
+        return (
+          <dl class={style.filter}>
+            <dt><b>Prozesse</b></dt>
+            <dd onClick={toggleParticipation}>nur Prozesse mit <b>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
+            <dd onClick={toggleProcessOnlyWithResults}>nur Prozesse mit Ergebnissen anzeigen: <b>{filter.processOnlyWithResults}</b> </dd>
+            <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+            <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
+          </dl>
+        );
+      case 1:
+        return (
+          <dl class={style.filter}>
+            <b>Swimmbahnen</b>
+            <dd onClick={toggleSwimlanesMode}>Swimlanes: <b>{filter.swimlanesMode}</b> </dd>
+            <dd onClick={toggleProcessMapping}>Schwimmbahnen sind: <b>{filter.processMapping}</b></dd>
+            <dd onClick={toggleLaneWrap}>leere Schwimmbahnen ausblenden: <b>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+            <dd onClick={toggleLaneOrder}>Aphabetisch <b>{filter.laneOrder == 'asc' ? 'aufsteigend' : 'absteigend'}</b> sortieren</dd>
+          </dl>
+        );
+      case 2:
+        return (
+          <div class={style.textsearch}>
+            <Textsearch
+              process={data}
+              handleOnClicks={this.objectSelectionManager} />
+          </div>
+        );
       case 3:
-      return (
-        <div class={style.toplist}>
-          <Toplist
-            handleOnClicks={this.objectSelectionManager}/>
-        </div>
-      );
+        return (
+          <div class={style.toplist}>
+            <Toplist
+              handleOnClicks={this.objectSelectionManager} />
+          </div>
+        );
       case 4:
-      return (
-        <div class={style.chronology}>
-          <Chronology
+        return (
+          <div class={style.chronology}>
+            <Chronology
             />
-        </div>
-      );  
+          </div>
+        );
       case 5:
-      return (
-        <div class={style.shList}>
-          <ShList
+        return (
+          <div class={style.shList}>
+            <ShList
             />
-        </div>
-      );            
+          </div>
+        );
       case 6:
-      return (
-        <div class={style.results}>
-          <Results
+        return (
+          <div class={style.results}>
+            <Results
             />
-        </div>
-      );            
-    default:
-      return null;
+          </div>
+        );
+      default:
+        return null;
     }
   }
-  
-  render() {
+
+  render () {
     const selectTab = tab => () => this.setState({ tab });
 
     return (
@@ -110,8 +110,8 @@ class Filtering extends Component {
         <ul class={style.tabs}>
           {TAB_NAMES.map((tab, i) => (
             <li onClick={selectTab(i)}
-                class={i == this.state.tab ? style.selectedTab : style.deselectedTab}
-              >{tab}</li>
+              class={i == this.state.tab ? style.selectedTab : style.deselectedTab}
+            >{tab}</li>
           ))}
         </ul>
 
@@ -123,7 +123,7 @@ class Filtering extends Component {
 
 const mapStateToProps = ({ data, filter }) => ({
   data: data && data.data,
-  filter,
+  filter
 });
 const mapDispatchToProps = dispatch => ({
   toggleProcessOnlyWithResults: () => dispatch(filterActions.toggleProcessOnlyWithResults()),
@@ -133,7 +133,7 @@ const mapDispatchToProps = dispatch => ({
   toggleProcessMapping: () => dispatch(filterActions.toggleProcessMapping()),
   toggleLaneOrder: () => dispatch(filterActions.toggleLaneOrder()),
   toggleLaneWrap: () => dispatch(filterActions.toggleLaneWrap()),
-  toggleSwimlanesMode: () => dispatch(filterActions.toggleSwimlanesMode()),
+  toggleSwimlanesMode: () => dispatch(filterActions.toggleSwimlanesMode())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filtering);
