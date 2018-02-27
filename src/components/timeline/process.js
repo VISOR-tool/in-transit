@@ -118,9 +118,9 @@ const Process = ({ process, processPosition, stakeholder,
                   
           
         <text x={processPosition.x + spacer}
-              y={processPosition.y + 14 }
-              {...textAttrs}
-              >{process.name.length > 15 ? process.name.slice(0,12)+'...' : process.name}
+          y={processPosition.y + 14}
+          {...textAttrs}
+        >{process.name.length > 17 ? process.name.slice(0, 14) + '…' : process.name}
         </text>
         {/* <text x={processPosition.x + spacer}
               y={processPosition.y + 20}
