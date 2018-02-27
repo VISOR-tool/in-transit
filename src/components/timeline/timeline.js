@@ -129,7 +129,6 @@ class Timeline extends Component {
   render () {
     const { beginning, end, steps, process, filter } = this.props;
     const yAxisWidth = 0;
-    const xAxisHeight = 26;
     let swimlanes = [];
 
     if(filter.swimlanesMode == 'off'){
@@ -148,7 +147,7 @@ class Timeline extends Component {
       }
     }   
 
-    let swimlaneHeight = (this.props.height-xAxisHeight) / swimlanes.length;
+    let swimlaneHeight = this.props.height / swimlanes.length;
     let tlHeight = this.props.height;
     let tlWidth = this.props.width;
     let viewBox = "0 0 "+window.innerWidth+" "+tlHeight;
@@ -162,11 +161,11 @@ class Timeline extends Component {
 
     return (
       <div class={style.timeline}>
-      <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
-        <AxisX x={yAxisWidth} y="0" width={tlWidth} height={xAxisHeight}
+        <AxisX
               onWheel={onWheel} showAxisLabels={true}
               processName={process.process.name}
         />
+        <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
         { /* deactive until finished <Marker x={yAxisWidth} y="0" height={xAxisHeight}/> */ }
         <g
           onMouseWheel={onWheel}
@@ -181,7 +180,7 @@ class Timeline extends Component {
             <Swimlane id = {lane.id}
                       title = {lane.name}
                       x = {yAxisWidth}
-                      y = {xAxisHeight + 8 + (swimlaneHeight * parseInt(index))}
+                      y = {swimlaneHeight * parseInt(index)}
                       width = {tlWidth-yAxisWidth}
                       height = {swimlaneHeight}
                       processes = {lane.processes}

@@ -1,0 +1,29 @@
+.axis {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0 0 6px;
+  background: #888888;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-size: 17px;
+  font-family: monospace;
+}
+.axis > li {
+  flex: auto 0 0;
+  height: 25px;
+  line-height: 26px;
+  padding: 0 15px;
+  min-width: 120px;
+  text-align: center;
+  background: rgba(255,255,255,0);
+  text-decoration: none;
+  color: #FFF;
+  will-change: background-color;
+  display: inline-block;
+  margin: 0;
+}
+
+.title {
+  font-weight: bold;
+}
