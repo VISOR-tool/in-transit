@@ -24,10 +24,9 @@ class Timeline extends Component {
   }
 
   componentDidMount() {
-    let timeSorted = this.props.data.process.childs.sort(
-      (a,b) => { return new Date(a.start) - new Date(b.start) }
-    );
-    this.props.setZoomBase(timeSorted[0].start, timeSorted[timeSorted.length-1].start);
+    let times = this.props.data.process.childs.map(child => child.start);
+    times.sort((a,b) => Date.parse(a) - Date.parse(b));
+    this.props.setZoomBase(times[0], times[times.length-1]);
 
     if (!this.resize) {
       this.resize = () => {
