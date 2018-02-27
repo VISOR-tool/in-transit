@@ -17,6 +17,27 @@ function LocationDetail ({ room, address, zip, city }) {
   );
 }
 
+function ResultDetail ({ name, description, text, files }) {
+  function FileList ({ list }) {
+    if (list.length == 0) {
+      return null;
+    }
+    return <div>
+      Dateien: <br/>
+      {list.map( el => el )}
+    </div>
+  }
+
+  return (
+    <li>
+      Name: <b>{ name } </b><br/>
+      Beschreibung: <i>{ description } </i><br/>
+      { text } 
+      <FileList list={files} />
+    </li>
+  );
+}
+
 function DetailsOverlay ({ data, selected, hover, unhover, select }) {
   if (!selected) {
     return <div id='overlay' class={style.overlayHidden} />;
@@ -109,6 +130,10 @@ function DetailsOverlay ({ data, selected, hover, unhover, select }) {
         { process.location.map(
           loc => <LocationDetail {...getLocationById(loc)} />
         )}
+      </ul>
+      <h3>Resultate</h3>
+      <ul>
+        { process.results.map( r => <ResultDetail {...r} /> )}
       </ul>
     </div>
   );
