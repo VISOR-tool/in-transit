@@ -114,8 +114,8 @@
         },
         "parent": "https://process.stadt.de/process/1",
         "childs": [],
-        "name": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
-        "description": "Beschluss zgrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
+        "name": "Beschluss zugrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
+        "description": "Beschluss zugrundhafter Ausbau der Erschliessungsstraße, und Vergabe der Planungsleistungen",
         "location": [
           "https://process.stadt.de/location/1"
         ],
