@@ -25,9 +25,13 @@ class Results extends Component {
               >
                 <b> Prozess: {child.name}</b>
                 <ul>
-                  {child.results.map(result => <li>{result.name} <br />
-                    <i>{result.description}</i> <br />
-                        (Dateien: {result.files.length} )</li>)}
+                  {child.results.map(result => 
+                    <li>
+                      Name: {result.name} <br />
+                      Beschreibung: <i>{result.description}</i> <br />
+                      Dateien: {result.files.length}
+                    </li>
+                  )}
                 </ul>
 
               </li>;
