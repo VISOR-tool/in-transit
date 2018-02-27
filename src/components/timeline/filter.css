@@ -4,25 +4,30 @@
 .tabs {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  background: #888888;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .tabs > li {
+  height: 25px;
+  line-height: 26px;
+  padding: 0 15px;
+  min-width: 50px;
+  text-align: center;
+  background: rgba(255,255,255,0);
+  text-decoration: none;
+  color: #FFF;
+  will-change: background-color;
   display: inline-block;
-  height: 27px;
-  padding: 0.3rem 0.3rem;
-  margin: 0 0.5rem;
+  margin: 0;
 }
 .selectedTab {
-  color: white;
-  background-color: rgb(77, 59, 59);
+  background: rgba(0,0,0,0.4) !important;
 }
 .deselectedTab {
   cursor: pointer;
-  color: #333;
 }
 .deselectedTab:hover {
-  color: white;  
-  background-color: #BcBcBc;
+  background: rgba(0,0,0,0.2) !important;
 }
 
 .filter{
