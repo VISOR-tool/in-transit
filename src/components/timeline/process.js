@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { selectionActions } from '../../lib/reducers/selection';
 
-const PROCESS_MIN_WIDTH = 100;
 const defaultObjectColor = '#CCCCCC';
 const defaultObjectStrokeColor = '#3784F8';
 const participateObjectColor = '#FFFFAD';
@@ -20,7 +19,6 @@ const Process = ({ process, processPosition, stakeholder,
   const { id, subselected } = process;
   if (process.visible === true) {
     let bodyAttrs = {
-      width: PROCESS_MIN_WIDTH,
       stroke: defaultObjectStrokeColor,
       'stroke-width': 1,
       fill: defaultObjectColor,
@@ -37,7 +35,6 @@ const Process = ({ process, processPosition, stakeholder,
       
     if(process.searchHit){
       bodyAttrs = {
-        width: PROCESS_MIN_WIDTH,
         stroke: searchHitObjectstrokeColor,
         'stroke-width': 1,
         fill: searchHitObjectColor,
