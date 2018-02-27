@@ -128,7 +128,7 @@ class Timeline extends Component {
 
   render () {
     const { beginning, end, steps, process, filter } = this.props;
-    const yAxisWidth = 33;
+    const yAxisWidth = 0;
     const xAxisHeight = 20;
     let swimlanes = [];
 
@@ -163,8 +163,7 @@ class Timeline extends Component {
     return (
       <div class={style.timeline}>
       <svg  xmlns={NS_SVG} version='1.1' viewBox={viewBox}  preserveAspectRatio='xMidYMid slice' >
-        <rect id="timeline_bg" x="0" y="0" width={tlWidth} height={tlHeight} style="fill:#95DAE7" />
-        <AxisX x={yAxisWidth} y="0" width={tlWidth-yAxisWidth} height={xAxisHeight}
+        <AxisX x={yAxisWidth} y="0" width={tlWidth} height={xAxisHeight}
               onWheel={onWheel} showAxisLabels={true}
               processName={process.process.name}
         />
@@ -191,7 +190,6 @@ class Timeline extends Component {
           ))
         }
         </g>
-        <AxisY x="0" y="0" height={tlHeight} width={yAxisWidth} />
       </svg>
       </div>
     );

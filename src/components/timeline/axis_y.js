@@ -10,15 +10,23 @@ export default class Axis_Y extends Component {
     const axisWidth = typeof width === 'number' ? width : 20;
 
     var attrs = {
-      stroke: 'red',
-      'stroke-width': 1,
-      fill: 'white'
+      fill: '#888888',
+      'filter': 'url(#y-axis-shadow)'
     };
 
-    let axis = <rect id='yAXis' x={x} y={y} width={axisWidth} height={height} {...attrs} />;
     const { labelVisible } = true;
     return (
-      axis
+      <g>
+        <filter id="y-axis-shadow">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+          <feFlood flood-color="rgba(0,0,0,0.5)"/>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <rect id='yAXis' x={x} y={y} width={axisWidth} height={height} {...attrs} />;
+      </g>
     );
   }
 }
