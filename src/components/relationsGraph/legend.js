@@ -1,24 +1,19 @@
 import { h, Component } from 'preact';
 
-export default class Legend extends Component {
-  // constructor () {
-  //   super();
-  // }
+function Item({x, y, stroke, fill, label}) {
+  return <g>
+    <circle cx={x} cy={y + 8} r={4} stroke={stroke} stroke-width={4 / 3} fill={fill}/>
+    <text x={x + 8} y={y + 12}>{label}</text>
+  </g>;
+}
 
-  render () {
-    const {x, y, width} = this.props;
-    const attrsText = '';
-    return (
-      <g>
-        <text x={x + 20} y={y + 12} font-weight="bold">Legende </text>
-        <text x={x + 80} y={y + 12} {...attrsText}>Beteiligung geschlossen:</text>
-        <text x={x + 240} y={y + 12} {...attrsText}>offen:</text>
-        <text x={x + 420} y={y + 12} {...attrsText}>selektiert:</text>
-
-        <circle cx={x + 223} cy='8' r='3' stroke='#989899' stroke-width='2' fill='#989899' />
-        <circle cx={x + 280} cy='8' r='3' stroke='#FFB124' stroke-width='2' fill='#FFB124' />
-        <circle cx={x + 480} cy='8' r='3' stroke='#ff6927' stroke-width='2' fill='white' />
-      </g>
-    );
-  }
+export default function Legend({x, y, width}) {
+  return (
+    <g>
+      <text x={x + 20} y={y + 12} font-weight="bold">Legende</text>
+      <Item x={x + 100} y={y} stroke='#989899' fill='#989899' label='Beteiligung geschlossen'/>
+      <Item x={x + 250} y={y} stroke='#FFB124' fill='#FFB124' label='Beteiligung offen'/>
+      <Item x={x + 400} y={y} stroke='#ff6927' fill='white' label='Selektierter Prozess'/>
+    </g>
+  );
 }

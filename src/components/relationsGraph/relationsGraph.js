@@ -178,7 +178,7 @@ function RelationsGraph({
   return (
     <div >
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 36].join(' ')} preserveAspectRatio='xMidYMid' style="cursor:default">
-        <Legend x="0" y="0" width={width}/>
+        <Legend x={0} y={0} width={width}/>
       </svg>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, height].join(' ')} preserveAspectRatio='xMidYMid slice' style="cursor:default">
         <g onmousedown={selectNone}>
