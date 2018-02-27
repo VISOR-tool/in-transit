@@ -18,7 +18,7 @@ const PARENT_SHAPE = "square";
 const PARENT_SIZE = 12;
 const PARENT_FILL = "yellow";
 const PARENT_STROKE = "white";
-const PARENT_LINK_COLOR = "yellow"; 
+const PARENT_LINK_COLOR = "yellow";
 // const PARENT_LINK_WIDTH = 1;
 const CHILD_SHAPE = "circle";
 const CHILD_SIZE = 4;
@@ -64,27 +64,23 @@ class DagreAdapter{
 
   createGraphLayoutFromOproc( oprocProcess, coloring, maxWidth, maxHeight, ){
     let g = this.g;
-    oprocProcess.childs.map( 
-      child => {        
-        g.setNode(child.id, Object.assign(
-          { 
-            label: moment(child.start).format('DD.MM.YYYY')+" "+child .name,
-            id: child.id,
-            width: CHILD_SIZE, 
-            height: CHILD_SIZE,
-          },
-          coloring(child) )
-        );
-      }
-    );
+    oprocProcess.childs.forEach(child => {
+      g.setNode(child.id, {
+        label: moment(child.start).format('DD.MM.YYYY')+" "+child .name,
+        id: child.id,
+        width: CHILD_SIZE,
+        height: CHILD_SIZE,
+        ...coloring(child),
+      });
+    });
     oprocProcess.childs.forEach( child => this.setConnections(child));
     dagre.layout(g);
     /* beginning of an adaptiv size function on layout
     if( g.graph().height > maxHeight || g.graph().width > maxWidth){
-      this.g.setGraph( {      
+      this.g.setGraph( {
         rankdir: "RL",
         align: "DR",
-        nodesep: 10, 
+        nodesep: 10,
         edgesep: 15,
         ranksep: 20,
         marginx: 10,
@@ -93,10 +89,10 @@ class DagreAdapter{
     } */
 
     let nodes = [];
-    g.nodes().forEach( function(v){ 
+    g.nodes().forEach( function(v){
       if( g.node(v) != undefined ) nodes.push( g.node(v) )
     } );
-    
+
 
     let edges = [];
     g.edges().forEach( function(e){
@@ -111,26 +107,25 @@ class DagreAdapter{
 
     // draw most right nodes at first, for overlay behaviour
     nodes.sort( (a,b) => a.x < b.x );
-    
+
     this.nodes = nodes;
-    this.edges = edges;    
+    this.edges = edges;
     this.height = g.graph().height;
     this.width = g.graph().width;
-    console.log('dagre nodes: ', this.nodes.length, 'dagre edges: ', this.edges.length);
   }
 }
 
-function RelationsGraph({ 
-  data: process, filter, selected, width, height,                    
-  toggleParticipation, toggleProcessOnlyWithResults, selectNone, 
+function RelationsGraph({
+  data: process, filter, selected, width, height,
+  toggleParticipation, toggleProcessOnlyWithResults, selectNone,
   }) {
   let nodes = [];
   let edges = [];
 
-  const renderOptions = { 
+  const renderOptions = {
     ranker: "network-simplex", //network-simplex, tight-tree or longest-path
     rankdir: "RL",
-    nodesep: 15, 
+    nodesep: 15,
     edgesep: 10,
     ranksep: 20,
     marginx: 10,
@@ -162,8 +157,8 @@ function RelationsGraph({
 
     if(node.childs.length > 0 ) edgeColor = PARENT_LINK_COLOR;
     if(node.connection.to.length > 0) edgeColor = CHILD_LINK_COLOR;
-     
-    return { 
+
+    return {
       size: size,
       width: width,
       shape: shape,
@@ -179,7 +174,7 @@ function RelationsGraph({
   edges = d.edges;
   height = d.height;
   //width = d.width; //let width on window size
-  
+
   return (
     <div>
       <svg xmlns={NS_SVG} version='1.1' viewBox={[0, 0, width, 18].join(' ')} preserveAspectRatio='xMidYMid' style="cursor:default">
@@ -189,11 +184,11 @@ function RelationsGraph({
         <g onmousedown={selectNone}>
           <rect id="graph_bg" x="0" y="0" width={width+"px"} height={height+"px"} fill={BACKGROUND_COLOR} />
           <text x="20" y="12" fill = "#555555" font-weight = "100" font-size = "12px"> Prozessübersicht </text>
-          {edges.map( edge => 
+          {edges.map( edge =>
             <path d={edge.d}
                   fill='none'
                   stroke={edge.stroke}
-                  stroke-width={edge.width} />  
+                  stroke-width={edge.width} />
           )}
 
           {nodes.map( node =>
