@@ -11,6 +11,8 @@ import { dataLoad } from '../../lib/reducers/data';
 import { filterActions } from '../../lib/reducers/filter';
 import style from './style';
 
+const TIMELINE_MIN_HEIGHT = 240;
+
 class TimelineRoute extends Component {
   render () {
     const { dataUrl, loadData, data } = this.props;
@@ -50,7 +52,7 @@ class TimelineRoute extends Component {
         <div class={style.tile3}>
           <Timeline
             width={window.outerWidth - 5}
-            height={window.outerHeight - 300}
+            height={Math.max(TIMELINE_MIN_HEIGHT, window.innerHeight - 300)}
             process={data}
             filter={filter}
           />
