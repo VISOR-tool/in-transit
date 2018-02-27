@@ -86,10 +86,11 @@ const Process = ({ process, processPosition, stakeholder,
       'font-family': 'monospace',
       'font-size': '0.8em'
     };
+    const iconSize = Math.min(20, processPosition.height / 2);
     const iconAttrs = {
-      y: processPosition.y + processPosition.height - 22,
-      width: 20,
-      height: 20,
+      y: processPosition.y + processPosition.height - iconSize - 1,
+      width: iconSize,
+      height: iconSize,
       cursor: 'pointer',
     };
     const iconX = i => processPosition.x + spacer + i * (2 * spacer + iconAttrs.width);
