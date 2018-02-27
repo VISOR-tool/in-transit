@@ -5,7 +5,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0 0 8px;
-  background: #888888;
+  background: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .tabs > li {
@@ -16,7 +16,7 @@
   text-align: center;
   background: rgba(255,255,255,0);
   text-decoration: none;
-  color: #FFF;
+  color: #00000098;
   will-change: background-color;
   display: inline-block;
   margin: 0;
