@@ -33,14 +33,20 @@
 .filter{
   display: block;
   margin: 0;
-  padding: 1em 2em;
+  padding: 0 2em;
   height: 30vh;
   overflow-y: auto;
 }
+.filter > dt {
+  margin: 0 0 8px;
+  font-size: 120%;
+}
+.filter > dd {
+  margin: 0.5rem 0 0;
+}
 
-.filter dd:hover {
+.filter dd label {
   cursor: pointer;
-  background-color: #BcBcBc;  
 }
 
 .textsearch{

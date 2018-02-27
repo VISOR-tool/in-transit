@@ -5,7 +5,7 @@ import Toplist from '../../components/timeline/toplist';
 import Chronology from '../../components/chronology/chronology';
 import ShList from '../../components/shList/shList';
 import Results from '../../components/results/results';
-import { filterActions } from '../../lib/reducers/filter';
+import { filterActions, PROCESS_MAPPINGS } from '../../lib/reducers/filter';
 import style from './filter';
 
 const TAB_NAMES = [
@@ -31,33 +31,41 @@ class Filtering extends Component {
       data, filter,
       toggleProcessOnlyWithResults, toggleParticipation,
       setProcVisibleWithout, setProcOnlyVisibleWith,
-      toggleProcessMapping, toggleLaneOrder,
+      setProcessMapping, toggleLaneOrder,
       toggleLaneWrap, toggleSwimlanesMode
     } = this.props;
-    const stakeholderOptions = [{ id: '', name: '…' }]
-      .concat(data.process && data.process.stakeholder || [])
-      .map(
-        sh => <option value={sh.id}>{sh.name}</option>
-      );
-
     switch (this.state.tab) {
       case 0:
+        const stakeholderOptions = [{ id: '', name: '…' }]
+          .concat(data.process && data.process.stakeholder || [])
+          .map(
+            sh => <option value={sh.id}>{sh.name}</option>
+          );
+
         return (
           <dl class={style.filter}>
             <dt><b>Prozesse</b></dt>
-            <dd onClick={toggleParticipation}>nur Prozesse mit <b>{filter.processParticipation}</b> Beteiligung anzeigen</dd>
-            <dd onClick={toggleProcessOnlyWithResults}>nur Prozesse mit Ergebnissen anzeigen: <b>{filter.processOnlyWithResults}</b> </dd>
+            <dd><label><input type='checkbox' checked={filter.processParticipation == 'offener'} onchange={toggleParticipation}/> nur Prozesse mit <b>offener</b> Beteiligung anzeigen</label></dd>
+            <dd><label><input type='checkbox' checked={filter.processOnlyWithResults == 'on'} onchange={toggleProcessOnlyWithResults}/>nur Prozesse mit Ergebnissen anzeigen</label></dd>
             <dd>nur Prozesse mit Beteiligung von: <select onChange={event => setProcOnlyVisibleWith(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
             <dd>nur Prozesse ohne Beteiligung von: <select onChange={event => setProcVisibleWithout(event.target.selectedOptions[0].value)}>{stakeholderOptions}</select></dd>
           </dl>
         );
-      case 1:
+    case 1:
+        const enabled = filter.swimlanesMode == 'on';
+
         return (
           <dl class={style.filter}>
             <b>Swimmbahnen</b>
-            <dd onClick={toggleSwimlanesMode}>Swimlanes: <b>{filter.swimlanesMode}</b> </dd>
-            <dd onClick={toggleProcessMapping}>Schwimmbahnen sind: <b>{filter.processMapping}</b></dd>
-            <dd onClick={toggleLaneWrap}>leere Schwimmbahnen ausblenden: <b>{filter.laneWrap ? 'an' : 'aus'}</b></dd>
+            <dd>
+              <label><input type='checkbox' checked={enabled} onchange={toggleSwimlanesMode}/> Swimlanes: </label>
+              <select onchange={event => setProcessMapping(event.target.selectedOptions[0].value)} disabled={! enabled}>
+                {PROCESS_MAPPINGS
+                   .map(name => <option value={name} selected={filter.processMapping == name}>{name}</option>)
+                }
+              </select>
+            </dd>
+            <dd><label><input type='checkbox' checked={filter.laneWrap} onchange={toggleLaneWrap} disabled={! enabled}/> leere Schwimmbahnen ausblenden</label></dd>
             <dd onClick={toggleLaneOrder}>Aphabetisch <b>{filter.laneOrder == 'asc' ? 'aufsteigend' : 'absteigend'}</b> sortieren</dd>
           </dl>
         );
@@ -130,7 +138,7 @@ const mapDispatchToProps = dispatch => ({
   toggleParticipation: () => dispatch(filterActions.toggleParticipation()),
   setProcVisibleWithout: value => dispatch(filterActions.setProcVisibleWithout(value)),
   setProcOnlyVisibleWith: value => dispatch(filterActions.setProcOnlyVisibleWith(value)),
-  toggleProcessMapping: () => dispatch(filterActions.toggleProcessMapping()),
+  setProcessMapping: value => dispatch(filterActions.setProcessMapping(value)),
   toggleLaneOrder: () => dispatch(filterActions.toggleLaneOrder()),
   toggleLaneWrap: () => dispatch(filterActions.toggleLaneWrap()),
   toggleSwimlanesMode: () => dispatch(filterActions.toggleSwimlanesMode())

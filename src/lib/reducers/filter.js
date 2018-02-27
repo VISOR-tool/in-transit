@@ -1,5 +1,7 @@
+export const PROCESS_MAPPINGS = ['Initiator', 'Resultateanzahl', 'Beteiligtenanzahl', 'Beteiligte'];
+
 const INITIAL_STATE = {
-  processMapping: 'Beteiligtenanzahl', // 'Beteiligte',
+  processMapping: PROCESS_MAPPINGS[2],
   laneWrap: true,
   laneOrder: 'asc',
   procOnlyVisibleWith: '',
@@ -17,6 +19,7 @@ const TOGGLE_PARTICIPATION = 'visor/filter/TOGGLE_PARTICIPATION';
 const SET_PROC_VISIBLE_WITHOUT = 'visor/filter/SET_PROC_VISIBLE_WITHOUT';
 const SET_PROC_ONLY_VISIBLE_WITH = 'visor/filter/SET_PROC_ONLY_VISIBLE_WITH';
 const TOGGLE_PROCESS_MAPPING = 'visor/filter/TOGGLE_PROCESS_MAPPING';
+const SET_PROCESS_MAPPING = 'visor/filter/SET_PROCESS_MAPPING';
 const TOGGLE_LANE_ORDER = 'visor/filter/TOGGLE_LANE_ORDER';
 const TOGGLE_LANE_WRAP = 'visor/filter/TOGGLE_LANE_WRAP';
 const TOGGLE_SWIMMLANES_MODE = 'visor/filter/TOGGLE_SWIMMLANES_MODE';
@@ -70,15 +73,17 @@ export function filterReducer (filterState = INITIAL_STATE, action) {
         procOnlyVisibleWith: action.value
       };
     case TOGGLE_PROCESS_MAPPING:
-      let processMappingState = '';
-      if (filterState.processMapping == 'Initiator') processMappingState = 'Resultateanzahl';
-      if (filterState.processMapping == 'Resultateanzahl') processMappingState = 'Beteiligtenanzahl';
-      if (filterState.processMapping == 'Beteiligtenanzahl') processMappingState = 'Beteiligte';
-      if (filterState.processMapping == 'Beteiligte') processMappingState = 'Initiator';
+      let processMapping = filterState.processMapping;
+      processMapping = PROCESS_MAPPINGS[(PROCESS_MAPPINGS.indexOf(processMapping) + 1) % PROCESS_MAPPINGS.length];
 
       return {
         ...filterState,
-        processMapping: processMappingState
+        processMapping,
+      };
+    case SET_PROCESS_MAPPING:
+      return {
+        ...filterState,
+        processMapping: action.value
       };
     case TOGGLE_LANE_ORDER:
       return {
@@ -126,6 +131,11 @@ export const filterActions = {
 
   toggleProcessMapping: () => ({
     type: TOGGLE_PROCESS_MAPPING
+  }),
+
+  setProcessMapping: value => ({
+    type: SET_PROCESS_MAPPING,
+    value,
   }),
 
   toggleSwimlanesMode: () => ({
