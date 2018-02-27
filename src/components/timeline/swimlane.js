@@ -127,6 +127,7 @@ class Swimlane extends Component {
       }
     }
 
+    const borderY = y + height;
     return (
       <g>
         <rect id={id}
@@ -140,6 +141,7 @@ class Swimlane extends Component {
           y={y + height - PROCESS_SPACING}
           {...textAttrs}
         >{title}</text>
+        <line x1={x} y1={borderY} x2={x + width} y2={borderY} stroke='black' stroke-width='1px'/>
 
         <Links processes={processes} processPositions={processPositions} />
         {processes.map((process, index) =>
