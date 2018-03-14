@@ -1,5 +1,14 @@
 # in-transit
-timeline based und Transit based diagrams prototype for oproc data
+Timeline and graph based diagrams for oproc data.
+
+VISOR can visualize data of urban city development. Its a cooperation with 
+
+This is an PrototypeFund funded software. More on: https://prototypefund.de/project/visor/
+
+# screenshots
+![screenshot1](https://github.com/VISOR-tool/images/blob/master/Screenshot%20from%202018-03-05%2020-48-02.png?raw=true)
+![screenshot1](https://github.com/VISOR-tool/images/blob/master/Screenshot%20from%202018-03-05%2020-48-28.png?raw=true)
+
 
 # requirements
 
